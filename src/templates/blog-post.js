@@ -58,14 +58,14 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
       <MDXRenderer>{post.body}</MDXRenderer>
 
-      <SocialShare title={post.frontmatter.title} path={post.fields.slug} />
+      <SocialShare title={post.frontmatter.title} path={`blog/${post.frontmatter.slug}`} />
 
       <hr className="mt-6 mb-4" />
 
       <StyledUl>
         <li>
           {previous && (
-            <StyledLink to={previous.fields.slug} rel="prev" direction="left">
+            <StyledLink to={`blog/${previous.frontmatter.slug}`} rel="prev" direction="left">
               <Icon>
                 <FiChevronLeft size={14} {...iconProps} />
               </Icon>
@@ -75,7 +75,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </li>
         <li>
           {next && (
-            <StyledLink to={next.fields.slug} rel="next">
+            <StyledLink to={`blog/${next.frontmatter.slug}`} rel="next">
               {next.frontmatter.title}
               <Icon>
                 <FiChevronRight size={14} {...iconProps} />
@@ -88,7 +88,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <Disqus.DiscussionEmbed
         shortname={shortname}
         config={{
-          url: `${siteUrl}${post.fields.slug}`,
+          url: `${siteUrl}/blog/${post.frontmatter.slug}`,
           identifier: post.frontmatter.title,
           title: post.frontmatter.title,
         }}
@@ -106,15 +106,13 @@ export const pageQuery = graphql`
         siteUrl
       }
     }
-    mdx(fields: { slug: { eq: $slug } }) {
+    mdx(frontmatter: { slug: { eq: $slug } }) {
       id
       timeToRead
       excerpt(pruneLength: 160)
-      fields {
-        slug
-      }
       frontmatter {
         title
+        slug
         date(formatString: "YYYY-MM-DD")
         fullDate: date(formatString: "MMMM DD, YYYY")
       }

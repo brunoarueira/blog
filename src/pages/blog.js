@@ -42,12 +42,14 @@ const Index = ({ location, data }) => {
       <SEO title="Blog" />
 
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.frontmatter.title || node.frontmatter.slug
+
+        const postSlug = `blog/${node.frontmatter.slug}`
 
         return (
-          <div key={node.fields.slug} className="mb-12">
+          <div key={postSlug} className="mb-12">
             <h2 className="mb-3">
-              <PostLink to={node.fields.slug}>{title}</PostLink>
+              <PostLink to={postSlug}>{title}</PostLink>
             </h2>
 
             <Date>{node.frontmatter.date}</Date>
@@ -58,7 +60,7 @@ const Index = ({ location, data }) => {
             />
 
             <div className="flex flex-col md:flex-row items-left md:items-center justify-between mt-5">
-              <StyledLink to={node.fields.slug}>
+              <StyledLink to={postSlug}>
                 Read more
                 <Icon>
                   <FiChevronRight size={14} {...iconProps} />
@@ -80,11 +82,9 @@ export const pageQuery = graphql`
       edges {
         node {
           excerpt(pruneLength: 300)
-          fields {
-            slug
-          }
           frontmatter {
             date(formatString: "MMMM DD, YYYY")
+            slug
             title
           }
         }

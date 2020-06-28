@@ -29,11 +29,12 @@ const Writings = ({ posts = [] }) => (
       <div className="w-2/6 border-b border-gold-900 my-3" />
 
       {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+        const title = node.frontmatter.title || node.frontmatter.slug
+        const postSlug = `blog/${node.frontmatter.slug}`
 
         return (
-          <p className="py-2" key={node.fields.slug}>
-            <Link to={node.fields.slug} className="no-underline hover:underline">
+          <p className="py-2" key={postSlug}>
+            <Link to={postSlug} className="no-underline hover:underline">
               {title}
             </Link>
           </p>
