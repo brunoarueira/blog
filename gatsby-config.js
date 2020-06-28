@@ -156,6 +156,7 @@ module.exports = {
         icon: `content/assets/logo.png`,
       },
     },
+    `gatsby-plugin-no-javascript`,
     `gatsby-plugin-offline`,
   ],
 }
