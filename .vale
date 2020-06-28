@@ -1,0 +1,35 @@
+# Core settings
+StylesPath = vale/styles
+
+# The minimum alert level to display (suggestion, warning, or error).
+#
+# CI builds will only fail on error-level alerts.
+MinAlertLevel = warning
+
+# HTML tags to be ignored by Vale. `code` and `tt` are the default, but Linode
+# seems to use `strong` in a similar ways -- e.g., `**docker build -t ubuntu**`,
+# which could trigger two style issues ("docker" and "ubuntu") but is actually
+# a command.
+IgnoredScopes = code, strong, tt
+
+# Specifies what Vale considers to be a boundary between words.
+WordTemplate = \s(?:%s)\s
+
+# The "formats" section allows you to associate an "unknown" format
+# with one of Vale's supported formats.
+[formats]
+mdx = md
+
+# Global settings (applied to every syntax)
+[*{.md,mdx}]
+# List of styles to load
+BasedOnStyles = vale,write-good
+
+vale.Editorializing = YES
+vale.Redundancy = YES
+vale.Repetition = YES
+vale.GenderBias = YES
+vale.Uncomparables = YES
+vale.Hedging = NO
+
+WTD.SentenceLength = YES
