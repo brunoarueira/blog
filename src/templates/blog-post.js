@@ -4,6 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import tw from 'tailwind.macro'
+import Disqus from 'disqus-react'
 
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
@@ -33,62 +34,78 @@ const StyledLink = styled(Link)`
   ${MoveChevronStyle}
 `
 
-class BlogPostTemplate extends React.Component {
-  render() {
-    const post = this.props.data.mdx
-    const { previous, next } = this.props.pageContext
+const BlogPostTemplate = ({ data, pageContext, location }) => {
+  const {
+    mdx: post,
+    site: {
+      siteMetadata: { siteUrl },
+    },
+  } = data
+  const { previous, next } = pageContext
+  const shortname = siteUrl.replace('https://', '').replace('.', '-')
 
-    return (
-      <Layout location={this.props.location}>
-        <SEO title={post.frontmatter.title} description={post.excerpt} />
+  return (
+    <Layout location={location}>
+      <SEO title={post.frontmatter.title} description={post.excerpt} />
 
-        <h1 className="mb-1 mt-4">{post.frontmatter.title}</h1>
+      <h1 className="mb-1 mt-4">{post.frontmatter.title}</h1>
 
-        <Info>
-          <time dateTime={post.frontmatter.date}>
-            {post.frontmatter.fullDate}
-          </time>
-          {` `}|{` `}
-          <ReadTime time={post.timeToRead} />
-        </Info>
+      <Info>
+        <time dateTime={post.frontmatter.date}>{post.frontmatter.fullDate}</time>
+        {` `}|{` `}
+        <ReadTime time={post.timeToRead} />
+      </Info>
 
-        <MDXRenderer>{post.body}</MDXRenderer>
+      <MDXRenderer>{post.body}</MDXRenderer>
 
-        <SocialShare title={post.frontmatter.title} path={post.fields.slug} />
+      <SocialShare title={post.frontmatter.title} path={post.fields.slug} />
 
-        <hr className="mt-6 mb-4" />
+      <hr className="mt-6 mb-4" />
 
-        <StyledUl>
-          <li>
-            {previous && (
-              <StyledLink to={previous.fields.slug} rel="prev" direction="left">
-                <Icon>
-                  <FiChevronLeft size={14} {...iconProps} />
-                </Icon>
-                {previous.frontmatter.title}
-              </StyledLink>
-            )}
-          </li>
-          <li>
-            {next && (
-              <StyledLink to={next.fields.slug} rel="next">
-                {next.frontmatter.title}
-                <Icon>
-                  <FiChevronRight size={14} {...iconProps} />
-                </Icon>
-              </StyledLink>
-            )}
-          </li>
-        </StyledUl>
-      </Layout>
-    )
-  }
+      <StyledUl>
+        <li>
+          {previous && (
+            <StyledLink to={previous.fields.slug} rel="prev" direction="left">
+              <Icon>
+                <FiChevronLeft size={14} {...iconProps} />
+              </Icon>
+              {previous.frontmatter.title}
+            </StyledLink>
+          )}
+        </li>
+        <li>
+          {next && (
+            <StyledLink to={next.fields.slug} rel="next">
+              {next.frontmatter.title}
+              <Icon>
+                <FiChevronRight size={14} {...iconProps} />
+              </Icon>
+            </StyledLink>
+          )}
+        </li>
+      </StyledUl>
+
+      <Disqus.DiscussionEmbed
+        shortname={shortname}
+        config={{
+          url: `${siteUrl}${post.fields.slug}`,
+          identifier: post.frontmatter.title,
+          title: post.frontmatter.title,
+        }}
+      />
+    </Layout>
+  )
 }
 
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query($slug: String!) {
+    site {
+      siteMetadata {
+        siteUrl
+      }
+    }
     mdx(fields: { slug: { eq: $slug } }) {
       id
       timeToRead
