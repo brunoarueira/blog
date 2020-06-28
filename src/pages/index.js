@@ -1,57 +1,53 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
+import styled from 'styled-components'
+import tw from 'tailwind.macro'
 
-import Bio from '../components/Bio'
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
-import { rhythm } from '../utils/typography'
+import Writings from '../components/writings'
 
-class BlogIndex extends React.Component {
-  render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMdx.edges
+const Qualification = styled.span`
+  ${tw`underline`}
 
-    return (
-      <Layout location={this.props.location} title={siteTitle}>
-        <SEO
-          title="All posts"
-          keywords={[`blog`, `gatsby`, `javascript`, `react`]}
-        />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p dangerouslySetInnerHTML={{ __html: node.excerpt }} />
-            </div>
-          )
-        })}
-      </Layout>
-    )
-  }
-}
+  font-weight: 600;
+`
 
-export default BlogIndex
+const Index = ({ location, data }) => (
+  <Layout location={location}>
+    <SEO title="Home" />
+
+    <h1 className="leading-tight mb-6">
+      Hi, I'm{' '}
+      <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
+    </h1>
+
+    <p className="text-lg leading-loose">
+      I'm a <Qualification>full-stack software developer</Qualification>.
+      <br />
+      <br />I help churches and non-governments organizations reach their
+      success at
+      {` `}
+      <a
+        href="https://www.atos6.com"
+        rel="noopener noreferrer"
+        className="underline"
+        target="_blank"
+      >
+        atos6
+      </a>
+      .
+    </p>
+
+    <Writings posts={data.allMdx.edges} />
+  </Layout>
+)
+
+export default Index
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: 5) {
       edges {
         node {
           excerpt

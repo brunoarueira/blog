@@ -1,56 +1,69 @@
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog MDX`,
-    author: `Matt Hagner`,
-    description: `An extension of the gatsby starter blog, with support for MDX`,
-    siteUrl: `https://gatsby-starter-blog-mdx-demo.netlify.com/`,
-    social: {
-      twitter: `mattinthecouch`,
-    },
+    title: `Bruno Arueira`,
+    description: `Bruno Arueira is a software developer. He works actually on a full stack environment with ruby and nodejs as backend, and primarly with react on the frontend, but also knows html, css and vanilla js aswell. Besides that, he also knows a bit about DevOps.`,
+    author: `Bruno Arueira`,
+    siteUrl: `https://brunoarueira.com/`,
   },
   plugins: [
+    `gatsby-plugin-postcss`,
+    `gatsby-plugin-styled-components`,
+    `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/blog`,
-        name: `blog`,
+        name: `assets`,
+        path: `${__dirname}/content/assets`,
       },
     },
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/content/assets`,
-        name: `assets`,
+        name: `blog`,
+        path: `${__dirname}/content/blog`,
       },
     },
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
+
+        defaultLayouts: {
+          default: require.resolve('./src/components/Layout.js'),
+        },
+
         // a workaround to solve mdx-remark plugin compat issue
         // https://github.com/gatsbyjs/gatsby/issues/15486
-        plugins: [
-          `gatsby-remark-images`,
-        ],
+        plugins: [`gatsby-remark-images`, `gatsby-remark-prismjs`],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
             options: {
-              maxWidth: 590,
+              maxWidth: 1200,
             },
           },
+
           {
             resolve: `gatsby-remark-responsive-iframe`,
             options: {
               wrapperStyle: `margin-bottom: 1.0725rem`,
             },
           },
+
           {
             resolve: `gatsby-remark-copy-linked-files`,
           },
 
           {
             resolve: `gatsby-remark-smartypants`,
+          },
+
+          {
+            resolve: `gatsby-remark-external-links`,
+            options: {
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            },
           },
         ],
       },
@@ -116,8 +129,8 @@ module.exports = {
               }
             }
             `,
-            output: '/rss.xml',
-            title: 'Gatsby RSS feed',
+            output: '/feed.xml',
+            title: 'Bruno Arueira RSS feed',
           },
         ],
       },
@@ -125,22 +138,15 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `Bruno Arueira`,
+        short_name: `Bruno Arueira`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
+        background_color: `#FFD700`,
+        theme_color: `#FFD700`,
         display: `minimal-ui`,
         icon: `content/assets/gatsby-icon.png`,
       },
     },
     `gatsby-plugin-offline`,
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-plugin-typography`,
-      options: {
-        pathToConfigModule: `src/utils/typography`,
-      },
-    },
   ],
 }

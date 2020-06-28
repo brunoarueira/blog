@@ -1,76 +1,41 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import styled from 'styled-components'
+import tw from 'tailwind.macro'
 
-import { rhythm, scale } from '../utils/typography'
+import Header from './header'
+import SEO from './seo'
+import Footer from './footer'
 
-class Layout extends React.Component {
-  render() {
-    const { location, title, children } = this.props
-    const rootPath = `${__PATH_PREFIX__}/`
-    let header
+const Main = styled.div`
+  ${tw`mx-3 my-8 w-11/12 md:m-auto md:w-2/4`}
+`
 
-    if (location.pathname === rootPath) {
-      header = (
-        <h1
-          style={{
-            ...scale(1.5),
-            marginBottom: rhythm(1.5),
-            marginTop: 0,
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h1>
-      )
-    } else {
-      header = (
-        <h3
-          style={{
-            fontFamily: `Montserrat, sans-serif`,
-            marginTop: 0,
-            marginBottom: rhythm(-1),
-          }}
-        >
-          <Link
-            style={{
-              boxShadow: `none`,
-              textDecoration: `none`,
-              color: `inherit`,
-            }}
-            to={`/`}
-          >
-            {title}
-          </Link>
-        </h3>
-      )
+const Layout = ({ children, pageContext }) => {
+  const rootPath = `${__PATH_PREFIX__}/`
+
+  const isMdxPage = () => typeof pageContext !== 'undefined'
+
+  const applySEO = () => {
+    if (isMdxPage()) {
+      return <SEO title={pageContext.frontmatter.title} />
     }
-    return (
-      <div
-        style={{
-          marginLeft: `auto`,
-          marginRight: `auto`,
-          maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-        }}
-      >
-        {header}
-        {children}
-        <footer>
-          © {new Date().getFullYear()}, Built with
-          {` `}
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </footer>
-      </div>
-    )
+
+    return null
   }
+
+  return (
+    <>
+      <div className="w-full h-1 bg-gold-900" />
+
+      {applySEO()}
+
+      <Header />
+
+      <Main className={isMdxPage() ? 'custom-page' : ''}>{children}</Main>
+
+      <Footer />
+    </>
+  )
 }
 
 export default Layout

@@ -1,0 +1,53 @@
+@tailwind base;
+
+* {
+  font-family: 'Source Sans Pro';
+}
+
+code,
+pre,
+code *,
+pre * {
+  font-family: 'Source Code Pro';
+}
+
+h1 {
+  @apply text-5xl;
+}
+h2 {
+  @apply text-4xl;
+  @apply mb-8;
+}
+h3 {
+  @apply text-3xl;
+  @apply mb-8;
+}
+h4 {
+  @apply text-2xl;
+  @apply mb-8;
+}
+h5 {
+  @apply text-xl;
+  @apply mb-8;
+}
+h6 {
+  @apply mb-8;
+}
+
+a:hover {
+  @apply underline;
+}
+
+.custom-page p {
+  @apply leading-loose;
+  @apply mb-6;
+}
+
+a[aria-current].active-link {
+  @apply underline;
+  text-decoration-color: theme('colors.gold.900');
+}
+
+@tailwind components;
+
+@tailwind utilities;

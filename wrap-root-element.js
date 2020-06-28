@@ -16,6 +16,19 @@ const components = {
       return <pre {...preProps} />
     }
   },
+  p: props => <p className="mb-8 text-xl" {...props} />,
+  blockquote: props => (
+    <blockquote className="p-4 bg-neutral-100 text-neutral-600 border-l-4 border-neutral-500 italic quote relative text-lg mb-4">
+      {props.children}
+    </blockquote>
+  ),
+  a: props => {
+    if (props.rel.match(/noopener/)) {
+      return <a className="underline" {...props} />
+    }
+
+    return <a {...props} />
+  },
 }
 export const wrapRootElement = ({ element }) => (
   <MDXProvider components={components}>{element}</MDXProvider>
