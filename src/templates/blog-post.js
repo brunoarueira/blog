@@ -43,10 +43,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   } = data
   const { previous, next } = pageContext
   const shortname = siteUrl.replace('https://', '').replace('.', '-')
+  const postSlug = `blog/${post.frontmatter.slug}`
 
   return (
     <Layout location={location}>
-      <SEO title={post.frontmatter.title} description={post.excerpt} />
+      <SEO
+        title={post.frontmatter.title}
+        description={post.excerpt}
+        image={post.fields.socialImage.childImageSharp.original.src}
+        slug={postSlug}
+      />
 
       <h1 className="mb-1 mt-4">{post.frontmatter.title}</h1>
 
@@ -58,7 +64,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
       <MDXRenderer>{post.body}</MDXRenderer>
 
-      <SocialShare title={post.frontmatter.title} path={`blog/${post.frontmatter.slug}`} />
+      <SocialShare title={post.frontmatter.title} path={postSlug} />
 
       <hr className="mt-6 mb-4" />
 
@@ -110,6 +116,17 @@ export const pageQuery = graphql`
       id
       timeToRead
       excerpt(pruneLength: 160)
+      fields {
+        socialImage {
+          childImageSharp {
+            original {
+              width
+              height
+              src
+            }
+          }
+        }
+      }
       frontmatter {
         title
         slug

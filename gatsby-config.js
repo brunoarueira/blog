@@ -1,8 +1,10 @@
+const renderCard = ({ title }) => `<p>${title}</p>`
+
 module.exports = {
   siteMetadata: {
     title: `Bruno Arueira`,
     description: `Bruno Arueira is a software developer. He works actually on a full stack environment with ruby and nodejs as backend, and primarly with react on the frontend, but also knows html, css and vanilla js aswell. Besides that, he also knows a bit about DevOps.`,
-    author: `Bruno Arueira`,
+    author: `@bruno_arueira`,
     siteUrl: `https://brunoarueira.com/`,
   },
   plugins: [
@@ -68,6 +70,10 @@ module.exports = {
         ],
       },
     },
+    {
+      resolve: 'gatsby-remark-social-image',
+      options: { design: renderCard },
+    },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
@@ -96,7 +102,8 @@ module.exports = {
               return allMdx.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
-                  data: edge.node.frontmatter.date,
+                  date: edge.node.frontmatter.date,
+                  excerpt: edge.node.excerpt,
                   url: `${site.siteMetadata.siteUrl}/blog/${edge.node.frontmatter.slug}`,
                   guid: `${site.siteMetadata.siteUrl}/blog/${edge.node.frontmatter.slug}`,
                   custom_elements: [{ 'content:encoded': edge.node.html }],
@@ -119,8 +126,10 @@ module.exports = {
                 edges {
                   node {
                     fields { slug }
+                    excerpt
                     frontmatter {
                       title
+                      slug
                       date
                     }
                     html

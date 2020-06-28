@@ -17,7 +17,13 @@ const Layout = ({ children, pageContext }) => {
 
   const applySEO = () => {
     if (isMdxPage()) {
-      return <SEO title={pageContext.frontmatter.title} />
+      return (
+        <SEO
+          title={pageContext.frontmatter.title}
+          description={pageContext.frontmatter.description}
+          slug={pageContext.frontmatter.slug}
+        />
+      )
     }
 
     return null

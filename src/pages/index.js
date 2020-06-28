@@ -18,15 +18,13 @@ const Index = ({ location, data }) => (
     <SEO title="Home" />
 
     <h1 className="leading-tight mb-6">
-      Hi, I'm{' '}
-      <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
+      Hi, I'm <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
     </h1>
 
     <p className="text-lg leading-loose">
       I'm a <Qualification>full-stack software developer</Qualification>.
       <br />
-      <br />I help churches and non-governments organizations reach their
-      success at
+      <br />I help churches and non-governments organizations reach their success at
       {` `}
       <a
         href="https://www.atos6.com"
