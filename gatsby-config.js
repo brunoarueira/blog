@@ -1,4 +1,5 @@
-const renderCard = ({ title }) => `<p>${title}</p>`
+const renderCard = ({ title }) =>
+  `<head><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /></head><body style="margin:0"><div style="background-color: #FFD700;width:1080px;height:510px;padding:60px;display: flex;flex-direction: row;justify-content: center;"><div style="display: flex;flex-direction: column;justify-content: center; align-content: center;"><p style="font-family:'Source Sans Pro';font-size: 72px;font-weight: 700;">${title}</p></div></div></body>`
 
 module.exports = {
   siteMetadata: {
