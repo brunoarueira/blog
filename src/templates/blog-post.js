@@ -52,6 +52,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         description={post.excerpt}
         image={post.fields.socialImage.childImageSharp.original.src}
         slug={postSlug}
+        keywords={post.frontmatter.keywords || []}
       />
 
       <h1 className="mb-1 mt-4">{post.frontmatter.title}</h1>
@@ -130,6 +131,7 @@ export const pageQuery = graphql`
       frontmatter {
         title
         slug
+        keywords
         date(formatString: "YYYY-MM-DD")
         fullDate: date(formatString: "MMMM DD, YYYY")
       }
