@@ -17,8 +17,15 @@ const StyledLink = styled(Link)`
   ${tw`no-underline hover:underline`}
 
   text-decoration-color: ${theme.colors.gold['900']} !important;
+  font-weight: 400;
 
   ${MoveChevronStyle}
+`
+
+const PostLink = styled(Link)`
+  ${tw`no-underline hover:underline text-xl`}
+
+  font-weight: 500;
 `
 
 const Writings = ({ posts = [] }) => (
@@ -33,22 +40,20 @@ const Writings = ({ posts = [] }) => (
         const postSlug = `blog/${node.frontmatter.slug}`
 
         return (
-          <p className="py-2" key={postSlug}>
-            <Link to={postSlug} className="no-underline hover:underline">
-              {title}
-            </Link>
+          <p className="py-3" key={postSlug}>
+            <PostLink to={postSlug}>{title}</PostLink>
           </p>
         )
       })}
 
-      <p className="pt-2">
+      <div className="pt-2">
         <StyledLink to="/blog">
           See More
           <Icon>
             <FiChevronRight size={14} {...iconProps} />
           </Icon>
         </StyledLink>
-      </p>
+      </div>
     </div>
   </div>
 )
