@@ -35,7 +35,7 @@ const Date = styled.small`
 `
 
 const Index = ({ location, data }) => {
-  const posts = data.allMdx.edges
+  const posts = data ? data.allMdx.edges : []
 
   return (
     <Layout location={location}>

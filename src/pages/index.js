@@ -37,7 +37,7 @@ const Index = ({ location, data }) => (
       .
     </p>
 
-    <Writings posts={data.allMdx.edges} />
+    <Writings posts={data ? data.allMdx.edges : []} />
   </Layout>
 )
 
