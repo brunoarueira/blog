@@ -184,7 +184,6 @@ module.exports = {
         shortname: `brunoarueira-com`,
       },
     },
-    `gatsby-plugin-no-javascript`,
     `gatsby-plugin-offline`,
   ],
 }
