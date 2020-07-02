@@ -4,7 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import tw from 'tailwind.macro'
-import Disqus from 'disqus-react'
+import { Disqus } from 'gatsby-plugin-disqus'
 
 import Layout from '../components/Layout'
 import SEO from '../components/seo'
@@ -42,8 +42,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     },
   } = data
   const { previous, next } = pageContext
-  const shortname = siteUrl.replace('https://', '').replace('.', '-')
   const postSlug = `blog/${post.frontmatter.slug}`
+  const disqusConfig = {
+    url: `${siteUrl}/${postSlug}`,
+    identifier: post.frontmatter.title,
+    title: post.frontmatter.title,
+  }
 
   return (
     <Layout location={location}>
@@ -92,14 +96,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </li>
       </StyledUl>
 
-      <Disqus.DiscussionEmbed
-        shortname={shortname}
-        config={{
-          url: `${siteUrl}/blog/${post.frontmatter.slug}`,
-          identifier: post.frontmatter.title,
-          title: post.frontmatter.title,
-        }}
-      />
+      <Disqus config={disqusConfig} />
     </Layout>
   )
 }

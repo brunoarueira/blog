@@ -178,6 +178,12 @@ module.exports = {
         icon: `content/assets/logo.png`,
       },
     },
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `brunoarueira-com`,
+      },
+    },
     `gatsby-plugin-no-javascript`,
     `gatsby-plugin-offline`,
   ],
