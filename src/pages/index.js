@@ -13,13 +13,19 @@ const Qualification = styled.span`
   font-weight: 600;
 `
 
+const Highlight = styled.h1`
+  ${tw`leading-tight mb-6`}
+
+  transition: all 1s ease;
+`
+
 const Index = ({ location, data }) => (
   <Layout location={location}>
     <SEO title="Home" />
 
-    <h1 className="leading-tight mb-6">
+    <Highlight>
       Hi, I'm <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
-    </h1>
+    </Highlight>
 
     <p className="text-lg leading-loose">
       I'm a <Qualification>full-stack software developer</Qualification>.
