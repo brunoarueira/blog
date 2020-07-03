@@ -177,6 +177,7 @@ module.exports = {
         shortname: `brunoarueira-com`,
       },
     },
+    `gatsby-plugin-sitemap`,
     `gatsby-plugin-offline`,
   ],
 }
