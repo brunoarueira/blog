@@ -8,16 +8,20 @@ const LogoLink = styled(Link)`
   ${tw`text-xl no-underline hover:no-underline hover:text-gray-700`}
 
   font-weight: 600;
+  transition: all 2s linear;
+
+  &.slide-logo {
+    transform: translateX(calc(50% - 2.6em));
+  }
 `
 
 const Input = styled.input`
   ${tw`hidden`}
 
-  &:checked ~ label {
-    color: '#F00';
-  }
   &:checked + #menu {
-    display: block;
+    ${tw`visible h-12`}
+
+    opacity: 1;
   }
 `
 
@@ -26,19 +30,25 @@ const Label = styled.label`
 
   margin-top: .2rem;
   display: initial;
+`
 
+const Close = styled(FiX)`
   transition: all 2s ease;
-
-  &:click {
-    transform: rotate(-0.5turn);
-  }
+  transform: rotate(-0.5turn);
 `
 
 const Menu = styled.ul`
-  ${tw`hidden w-full md:w-auto md:inline-flex md:items-center justify-center`}
+  ${tw`invisible h-0 w-full justify-center md:visible md:h-auto md:opacity-100 md:w-auto md:inline-flex md:items-center`}
+
+  opacity: 0;
+  transition: visibility 0s, opacity 0.5s linear;
 
   li:first-child {
-    margin-right: 1rem;
+    ${tw`mr-0 md:mr-4`}
+  }
+
+  li {
+    ${tw`my-2 py-2 border-b border-gold-900 text-center md:my-0 md:py-0 md:border-0`}
   }
 `
 
@@ -60,9 +70,11 @@ const Header = () => {
 
   return (
     <nav className="m-auto w-11/12 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
-      <LogoLink to="/">{title}</LogoLink>
+      <LogoLink className={`logo ${menuOpen ? 'slide-logo' : null}`} to="/">
+        {title}
+      </LogoLink>
 
-      <Label htmlFor="menu-toggle">{!menuOpen ? <FiMenu /> : <FiX />}</Label>
+      <Label htmlFor="menu-toggle">{!menuOpen ? <FiMenu /> : <Close />}</Label>
       <Input type="checkbox" id="menu-toggle" onChange={() => setMenuOpen(!menuOpen)} />
 
       <Menu id="menu">
