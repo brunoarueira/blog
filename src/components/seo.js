@@ -98,7 +98,14 @@ const SEO = ({ description, lang, meta, keywords, title, slug, image }) => (
                 : []
             )
             .concat(meta)}
-        />
+        >
+          <link href="https://fonts.gstatic.com" rel="preconnect" cross-origin="anonymous" />
+          <link
+            href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200|Source+Sans+Pro:300,400,500,600,700&amp;display=swap"
+            rel="stylesheet"
+            cross-origin="anonymous"
+          />
+        </Helmet>
       )
     }}
   />

@@ -7332,18 +7332,13 @@ gatsby-plugin-feed@^2.0.8:
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
-gatsby-plugin-google-analytics@^2.0.5:
-  version "2.3.2"
-  resolved "https://registry.npmjs.org/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.2.tgz#65535f204ecd48357ffe67b4937a2cd00e90bf1b"
-  integrity sha512-61vrzskJd/b2yTmOpn+FnZF6yJDCo2GoxP6EnGPCK4oY6YHLh8K0S9LKRUEeMeFRcOu2Nk4FiUxQLoCjxQ7rvQ==
+gatsby-plugin-google-analytics@2.3.9:
+  version "2.3.9"
+  resolved "https://registry.npmjs.org/gatsby-plugin-google-analytics/-/gatsby-plugin-google-analytics-2.3.9.tgz#a2c613166e33aac577185146fff648dc67e7c246"
+  integrity sha512-xg5zggvtnZpsqftSstX9gGTZiHD0azdLnn26e47SYVRuE/m88/dw4h0pVoHVH0knoCeOFMS+LPaxnj5ggLdwJg==
   dependencies:
-    "@babel/runtime" "^7.9.6"
+    "@babel/runtime" "^7.10.3"
     minimatch "3.0.4"
-
-gatsby-plugin-google-fonts@1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/gatsby-plugin-google-fonts/-/gatsby-plugin-google-fonts-1.0.1.tgz#d71054f7bf207b9a8da227380369e18e6f4e0201"
-  integrity sha512-p1NVkn27GUnDA5qHM+Z4cCcLCJIardzZXMon3640sT4xuL/AZJbsx3HEt2KY/5oZu0UXIkytkxzV2Da4rQeUIg==
 
 gatsby-plugin-manifest@^2.0.5:
   version "2.4.9"
