@@ -1,5 +1,4 @@
 import React from 'react'
-import { render } from 'react-dom'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 
@@ -28,9 +27,9 @@ export const Code = ({ codeString, language, ...props }) => {
     )
   } else {
     return (
-      <Highlight {...defaultProps} theme={nord} code={codeString} language={language}>
+      <Highlight {...defaultProps} theme={nord} code={codeString.trim()} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={`${className} mb-4 p-2 rounded-lg`} style={{ ...style }}>
+          <pre className={`${className} mb-4 p-2 rounded-lg`} style={style}>
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (

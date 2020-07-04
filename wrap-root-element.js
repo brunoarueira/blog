@@ -2,12 +2,38 @@ import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Code } from './src/components/code'
 import { preToCodeBlock } from 'mdx-utils'
+import styled from 'styled-components'
+import tw from 'tailwind.macro'
+
+const Paragraph = styled.p`
+  ${tw`mb-8 text-xl`}
+`
+
+const Blockquote = styled.blockquote`
+  ${tw`p-4 bg-neutral-100 text-neutral-600 border-l-4 border-neutral-500 italic relative text-lg mb-4`}
+`
+
+const ExternalLink = styled.a`
+  ${tw`underline`}
+`
+
+const StyledUl = styled.ul`
+  ${tw`text-xl mb-8`}
+
+  list-style: inside;
+
+  li {
+    ${tw`mb-2`}
+  }
+`
 
 // components is its own object outside of render so that the references to
 // components are stable
 const components = {
   pre: preProps => {
     const props = preToCodeBlock(preProps)
+    console.log(preProps)
+    console.log(props)
     // if there's a codeString and some props, we passed the test
     if (props) {
       return <Code {...props} />
@@ -16,19 +42,16 @@ const components = {
       return <pre {...preProps} />
     }
   },
-  p: props => <p className="mb-8 text-xl" {...props} />,
-  blockquote: props => (
-    <blockquote className="p-4 bg-neutral-100 text-neutral-600 border-l-4 border-neutral-500 italic quote relative text-lg mb-4">
-      {props.children}
-    </blockquote>
-  ),
+  p: props => <Paragraph {...props} />,
+  blockquote: props => <Blockquote>{props.children}</Blockquote>,
   a: props => {
     if (props.rel.match(/noopener/)) {
-      return <a className="underline" {...props} />
+      return <ExternalLink {...props} />
     }
 
     return <a {...props} />
   },
+  ul: props => <StyledUl {...props} />,
 }
 export const wrapRootElement = ({ element }) => (
   <MDXProvider components={components}>{element}</MDXProvider>

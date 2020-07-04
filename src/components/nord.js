@@ -1,73 +1,67 @@
 export default {
   plain: {
-    color: '#d4d4d4',
-    backgroundColor: '#1e1e1e',
+    color: '#d8dee9',
+    backgroundColor: '#2e3440',
   },
   styles: [
     {
-      types: ['prolog'],
+      types: ['comment'],
       style: {
-        color: 'rgb(0, 0, 128)',
+        color: 'rgb(97, 110, 136)',
       },
     },
     {
-      types: ['comment', 'punctuation'],
+      types: ['char', 'constant', 'changed'],
+      style: {
+        color: 'rgb(235, 203, 139)',
+      },
+    },
+    {
+      types: ['builtin', 'class-name', 'attr-name'],
+      style: {
+        color: 'rgb(143, 188, 187)',
+      },
+    },
+    {
+      types: ['number'],
+      style: {
+        color: 'rgb(180, 142, 173)',
+      },
+    },
+    {
+      types: ['function'],
+      style: {
+        color: 'rgb(136, 192, 208)',
+      },
+    },
+    {
+      types: ['tag', 'operator', 'keyword'],
       style: {
         color: 'rgb(129, 161, 193)',
       },
     },
     {
-      types: ['builtin'],
+      types: ['deleted'],
       style: {
-        color: 'rgb(81, 182, 196)',
+        color: 'rgb(191, 97, 106)',
       },
     },
     {
-      types: ['number', 'variable', 'inserted'],
+      types: ['inserted', 'string'],
       style: {
-        color: 'rgb(181, 206, 168)',
+        color: 'rgb(163, 190, 140)',
       },
     },
     {
-      types: ['operator'],
+      types: ['punctuation'],
       style: {
-        color: 'rgb(212, 212, 212)',
+        color: 'rgb(236, 239, 244)',
       },
     },
     {
-      types: ['constant'],
+      types: ['variable', 'symbol'],
       style: {
-        color: 'rgb(100, 102, 149)',
-      },
-    },
-    {
-      types: ['tag', 'changed', 'function', 'keyword'],
-      style: {
-        color: 'rgb(86, 156, 214)',
-      },
-    },
-    {
-      types: ['attr-name'],
-      style: {
-        color: 'rgb(156, 220, 254)',
-      },
-    },
-    {
-      types: ['deleted', 'string'],
-      style: {
-        color: 'rgb(206, 145, 120)',
-      },
-    },
-    {
-      types: ['class-name'],
-      style: {
-        color: 'rgb(78, 201, 176)',
-      },
-    },
-    {
-      types: ['char'],
-      style: {
-        color: 'rgb(209, 105, 105)',
+        color: 'rgb(216, 222, 233)',
       },
     },
   ],
