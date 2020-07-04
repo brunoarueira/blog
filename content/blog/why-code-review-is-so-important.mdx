@@ -1,0 +1,51 @@
+---
+title: Why code review is so important?
+date: '2020-07-04'
+slug: why-code-review-is-so-important
+keywords: ['code review', 'software development', 'limitations']
+---
+
+Code review is a better practice to share knowledge between colleagues, leveling up skills and know
+the limitations of each other, including you.
+
+## Why?
+
+When you're practice code review about a code from a co-worker or to an open source project, you're
+probably on, at least, three positions:
+
+- Already know most of the code and can collaborate to a better arrangement or the impacts of the
+  new code;
+- You don't know anything about the project, but know the syntax and can contribute to a better code
+  style (yeah, I know the lint tools can do this automatically);
+- Or you're an apprentice learning new things and others can guide through the code.
+
+But as we're learning something new everyday, we can change the above positions depends on the area
+the code review will be. For example, I'm a full stack software developer and can contribute for
+each layer of an application. However, a more specialist colleague can deliver more usefull stuff
+about, let's say, frontend code.
+
+An example, another day a frontend co-worker requested me to do a code review on a pull request with
+a code piece that looks something to:
+
+```diff
+this.setState({
+- id,
++ id: +id,
+})
+```
+
+Since, I don't recognize the reason he made this change, I questioned him and he said this change is
+to convert a variable id which is a string into an integer.
+
+I've always learn something through code reviews, because it's force you to understand the reasons
+behind changes proposed and sometimes I don't know or can't thought about it.
+
+Another example occurred with me about 7 years ago, when I've got my second remote position as
+software developer working with Ruby on Rails. I've motivated because I got this position and I
+wanted to deliver the first pull request ever, have made the proposed fix on the code with a good
+test coverage, submit the pull request and I've received the first reject from my team leader,
+questioning about the tests I've applied. The unit tests, I've write with some metaprogramminng
+(common use on Ruby) and the rejection is: "The tests should be the more explicity as you can and
+avoid such things, because adds complexity and increase readability".
+
+After that, I know I need to be better at code reviewing others and want to do the same with me.
