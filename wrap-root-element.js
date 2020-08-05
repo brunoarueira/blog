@@ -27,6 +27,10 @@ const StyledUl = styled.ul`
   }
 `
 
+const Caption = styled.figcaption`
+  ${tw`flex flex-row items-center justify-center text-gray-700 text-sm`}
+`
+
 // components is its own object outside of render so that the references to
 // components are stable
 const components = {
@@ -43,12 +47,17 @@ const components = {
   p: props => <Paragraph {...props} />,
   blockquote: props => <Blockquote>{props.children}</Blockquote>,
   a: props => {
-    if (props.rel.match(/noopener/)) {
+    if (props.rel && props.rel.match(/noopener/)) {
       return <ExternalLink {...props} />
     }
 
     return <a {...props} />
   },
+  figcaption: ({ children }) => (
+    <Caption>
+      <div dangerouslySetInnerHTML={{ __html: children }} />
+    </Caption>
+  ),
   ul: props => <StyledUl {...props} />,
 }
 export const wrapRootElement = ({ element }) => (

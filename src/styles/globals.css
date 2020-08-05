@@ -1,14 +1,14 @@
 @tailwind base;
 
 * {
-  font-family: 'Source Sans Pro',sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 code,
 pre,
 code *,
 pre * {
-  font-family: 'Source Code Pro',sans-serif;
+  font-family: 'Source Code Pro', sans-serif;
 }
 
 h1 {
@@ -46,6 +46,15 @@ a:hover {
 a[aria-current].active-link {
   @apply underline;
   text-decoration-color: theme('colors.gold.900');
+}
+
+.footnotes ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+.footnotes hr {
+  border-color: theme('colors.gray.200');
 }
 
 @tailwind components;
