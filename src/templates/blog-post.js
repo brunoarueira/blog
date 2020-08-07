@@ -48,7 +48,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     identifier: post.frontmatter.title,
     title: post.frontmatter.title,
   }
-  const production = process.env.GATSBY_ENV === 'production'
 
   return (
     <Layout location={location}>
@@ -97,7 +96,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </li>
       </StyledUl>
 
-      {production ? <Disqus config={disqusConfig} /> : null}
+      <Disqus config={disqusConfig} />
     </Layout>
   )
 }
