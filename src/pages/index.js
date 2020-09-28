@@ -29,18 +29,6 @@ const Index = ({ location, data }) => (
 
     <p className="text-lg leading-loose">
       I'm a <Qualification>full-stack software developer</Qualification>.
-      <br />
-      <br />I help churches and non-governments organizations reach their success at
-      {` `}
-      <a
-        href="https://www.atos6.com"
-        rel="noopener noreferrer"
-        className="underline"
-        target="_blank"
-      >
-        atos6
-      </a>
-      .
     </p>
 
     <Writings posts={data ? data.allMdx.edges : []} />
