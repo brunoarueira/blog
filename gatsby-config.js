@@ -90,14 +90,16 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-gdpr-cookies`,
       options: {
-        trackingId: `UA-15724292-2`,
-        head: false,
-        anonymize: true,
-        respectDNT: true,
-        defer: true,
-      },
+        googleAnalytics: {
+          trackingId: `UA-15724292-2`,
+          cookieName: `brunoarueira-blog-ga`,
+          head: false,
+          anonymize: true,
+          defer: true,
+        },
+      }
     },
     {
       resolve: `gatsby-plugin-feed`,
