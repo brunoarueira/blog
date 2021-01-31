@@ -1,6 +1,9 @@
 import React from 'react'
+import CookieConsent from 'react-cookie-consent'
 import styled from 'styled-components'
 import tw from 'tailwind.macro'
+import { useLocation } from '@reach/router'
+import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
 
 import Header from './header'
 import SEO from './seo'
@@ -14,6 +17,8 @@ const Layout = ({ children, pageContext }) => {
   const rootPath = `${__PATH_PREFIX__}/`
 
   const isMdxPage = () => typeof pageContext !== 'undefined'
+
+  const location = useLocation()
 
   const applySEO = () => {
     if (isMdxPage()) {
@@ -40,6 +45,25 @@ const Layout = ({ children, pageContext }) => {
       <Main className={isMdxPage() ? 'custom-page' : ''}>{children}</Main>
 
       <Footer />
+
+      <CookieConsent
+        location="bottom"
+        buttonText="Accept"
+        declineButtonText="Decline"
+        cookieName="brunoarueira-blog-ga"
+        expires={150}
+        style={{ background: '#FFF', color: '#000' }}
+        enableDeclineButton
+        flipButtons
+        overlay
+        onAccept={() => {
+          initializeAndTrack(location)
+        }}
+      >
+        <p>
+          This site use cookies to personalise content and to analyse traffic.{" "}
+        </p>
+      </CookieConsent>
     </>
   )
 }
