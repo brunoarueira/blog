@@ -3,7 +3,7 @@ title: Using more from database instead of sidekiq workers
 date: '2020-08-07'
 slug: using-more-from-database-instead-of-sidekiq-workers
 keywords:
-  ['sidekiq', 'sidekiq workers', 'ruby', 'rails', 'ruby on rails', 'database', 'sql trigger']
+  ['sidekiq', 'sidekiq workers', 'ruby', 'rails', 'ruby on rails', 'database', 'SQL trigger']
 ---
 
 At this post I'll talk about an approach to simplify things a little bit when using sidekiq[^1]
@@ -35,9 +35,8 @@ not slowing down our service anymore, I've collected logs from at least 2 months
 analyze a snapshot about how many times that worker was called and not surprisingly they was at our
 top 5 (called 39522 times).
 
-With my hands full of data, I've started to analyze the feature that at the end fire the
-aforementioned workers. The service object which handles all the logic to update those counters was
-causing a lot of N+1 query, because they receives one id from the worker and simple call:
+With my hands full of data, I've started to analyze the feature that at the end fire the workers.
+The service object which handles all the logic to update those counters was causing a lot of N+1 query, because they receives one id from the worker and simple call:
 
 ```ruby
 class CountersUpdateBusiness
@@ -57,7 +56,7 @@ And along the code, calling something like `customer.reports_count = customer.re
 `customer.active_reports_count = customer.reports.active.count`. For the first example, a simple
 `belongs_to :customer, counter_cache: :reports_count` (since we're using rails and activerecord)
 should be suffice, but the last one can't be accomplished with the same approach and I've thought
-about to make a sql trigger[^3] to update the counter after a create or update the records scoped by
+about to make a SQL trigger[^3] to update the counter after a create or update the records scoped by
 the active flag.
 
 On the process, I've refactored and simplified a lot of code, to take a peek see the screenshot
@@ -69,7 +68,7 @@ below:
 
 That was such a good job, because I've simplified the update of the counters, leaves the sidekiq
 queues to handle heavy workers asynchronously (email deliveries, change data in bulk and etc) and
-avoid to complete which each other, collaborating to another outage.
+avoid to compete which each other, collaborating to another outage.
 
 [^1]: https://github.com/mperham/sidekiq
 [^2]: http://scoutapm.com/

@@ -23,13 +23,16 @@ mdx = md
 # Global settings (applied to every syntax)
 [*{.md,mdx}]
 # List of styles to load
-BasedOnStyles = vale,write-good
+BasedOnStyles = vale,proselint,write-good
 
 vale.Editorializing = YES
+vale.Litotes = YES
 vale.Redundancy = YES
 vale.Repetition = YES
 vale.GenderBias = YES
 vale.Uncomparables = YES
 vale.Hedging = NO
+vale.Spelling = YES
+vale.Techies = YES
 
 WTD.SentenceLength = YES
