@@ -1,0 +1,15 @@
+extends: substitution
+message: Consider using '%s' instead of '%s'
+ignorecase: true
+level: error
+swap:
+  blogger: Blogger
+  css: CSS
+  heroku: Heroku
+  html: HTML
+  javascript: JavaScript
+  jquery: jQuery
+  nodejs: NodeJS
+  react: React
+  sql: SQL
+  wordpress: WordPress
