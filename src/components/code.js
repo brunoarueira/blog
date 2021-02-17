@@ -2,12 +2,22 @@ import React from 'react'
 import Highlight, { defaultProps } from 'prism-react-renderer'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
 import Prism from 'prism-react-renderer/prism'
+import styled from 'styled-components'
 
 (typeof global !== "undefined" ? global : window).Prism = Prism
 
 require("prismjs/components/prism-ruby");
 
 import nord from './nord'
+
+const LineNumber = styled.span`
+  display: inline-block;
+  width: 1.6em;
+  user-select: none;
+  opacity: 0.5;
+  text-align: right;
+  margin-right: 1em;
+`
 
 export const Code = ({ codeString, language, ...props }) => {
   if (props['react-live']) {
@@ -37,6 +47,7 @@ export const Code = ({ codeString, language, ...props }) => {
           <pre className={`${className} mb-4 p-2 rounded-lg`} style={style}>
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
+                <LineNumber>{i + 1}</LineNumber>
                 {line.map((token, key) => (
                   <span {...getTokenProps({ token, key })} />
                 ))}
