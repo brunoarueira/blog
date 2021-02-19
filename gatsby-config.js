@@ -159,7 +159,7 @@ module.exports = {
             `,
             output: '/feed.xml',
             title: 'Bruno Arueira RSS feed',
-            link: 'https://www.brunoarueira.com/feed.xml',
+            site_url: 'https://www.brunoarueira.com',
             generator: 'Bruno Arueira'
           },
         ],
