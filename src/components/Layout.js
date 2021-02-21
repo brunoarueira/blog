@@ -55,7 +55,6 @@ const Layout = ({ children, pageContext }) => {
         style={{ background: '#FFF', color: '#000' }}
         enableDeclineButton
         flipButtons
-        overlay
         onAccept={() => {
           initializeAndTrack(location)
         }}
