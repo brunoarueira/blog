@@ -28,7 +28,7 @@ const Index = ({ location, data }) => (
     </Highlight>
 
     <p className="text-lg leading-loose">
-      I'm a <Qualification>full-stack software developer</Qualification>.
+      I'm a <Qualification>full-stack software developer</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
     </p>
 
     <Writings posts={data ? data.allMdx.edges : []} />
