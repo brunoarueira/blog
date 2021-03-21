@@ -41,10 +41,12 @@ const Index = ({ location, data }) => {
     <Layout location={location}>
       <SEO title="Blog" />
 
+      <h1 className="mb-8 mt-6">Posts</h1>
+
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.frontmatter.slug
 
-        const postSlug = `blog/${node.frontmatter.slug}`
+        const postSlug = `/blog/${node.frontmatter.slug}`
 
         return (
           <div key={postSlug} className="mb-12">
