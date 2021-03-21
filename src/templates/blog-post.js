@@ -42,9 +42,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     },
   } = data
   const { previous, next } = pageContext
-  const postSlug = `blog/${post.frontmatter.slug}`
+  const postSlug = `/blog/${post.frontmatter.slug}`
   const disqusConfig = {
-    url: `${siteUrl}/${postSlug}`,
+    url: `${siteUrl}${postSlug}`,
     identifier: post.frontmatter.title,
     title: post.frontmatter.title,
   }
