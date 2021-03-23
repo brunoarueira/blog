@@ -4,23 +4,11 @@ import { FiChevronRight } from 'react-icons/fi'
 import styled from 'styled-components'
 import tw from 'tailwind.macro'
 
-import tailwindConfig from '../utils/tailwindConfig'
-
-import { MoveChevronStyle } from '../components/shared_styles'
+import StyledLink from './styled_link'
+import { MoveChevronStyle } from './shared_styles'
 
 import Icon from '../components/icon'
 import iconProps from '../components/icon_props'
-
-const { theme } = tailwindConfig
-
-const StyledLink = styled(Link)`
-  ${tw`no-underline hover:underline`}
-
-  text-decoration-color: ${theme.colors.gold['900']} !important;
-  font-weight: 400;
-
-  ${MoveChevronStyle}
-`
 
 const PostLink = styled(Link)`
   ${tw`no-underline hover:underline text-xl`}

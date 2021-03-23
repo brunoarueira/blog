@@ -12,16 +12,9 @@ import Icon from '../components/icon'
 import iconProps from '../components/icon_props'
 import { MoveChevronStyle } from '../components/shared_styles'
 
+import StyledLink from '../components/styled_link'
+
 const { theme } = tailwindConfig
-
-const StyledLink = styled(Link)`
-  ${tw`uppercase`}
-
-  font-weight: 500;
-  text-decoration-color: ${theme.colors.gold['900']} !important;
-
-  ${MoveChevronStyle}
-`
 
 const PostLink = styled(Link)`
   font-weight: 700;
