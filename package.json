@@ -69,6 +69,7 @@
   "license": "MIT",
   "main": "n/a",
   "scripts": {
+    "clean": "gatsby clean",
     "dev": "gatsby develop -p 8001",
     "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
     "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",

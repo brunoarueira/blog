@@ -10,27 +10,65 @@ require("prismjs/components/prism-ruby");
 
 import nord from './nord'
 
+const RE = /{([\d,-]+)}/
+
+function calculateLinesToHighlight(meta) {
+  if (RE.test(meta)) {
+    const lineNumbers = RE.exec(meta)[1]
+      .split(',')
+      .map(v => v.split('-').map(y => parseInt(y, 10)))
+
+    return index => {
+      const lineNumber = index + 1
+      const inRange = lineNumbers.some(([start, end]) =>
+        end
+          ? lineNumber >= start && lineNumber <= end
+          : lineNumber === start
+      )
+
+      return inRange
+    }
+  } else {
+    return () => false
+  }
+}
+
+const Line = styled.div`
+  display: table-row;
+`
+
 const LineNumber = styled.span`
-  display: inline-block;
-  width: 1.6em;
+  display: table-cell;
+  text-align: right;
+  padding-right: 1em;
   user-select: none;
   opacity: 0.5;
-  text-align: right;
-  margin-right: 1em;
+
+  .highlight-line > & {
+    background-color: #2E3440;
+    color: #d8dee9;
+    opacity: 1;
+  }
+`
+
+const LineContent = styled.span`
+  display: table-cell;
+  width: 100%;
+
+  .highlight-line > & {
+    margin-right: 0.5rem;
+  }
 `
 
 export const Code = ({ codeString, language, ...props }) => {
+  const shouldHighlightLine = calculateLinesToHighlight(props.metastring)
+
   if (props['react-live']) {
     return (
       <LiveProvider theme={nord} code={codeString} noInline={true}>
         <div className="relative">
           <div className="rounded-t-lg border-t border-r border-l border-gray-400">
-            <LiveEditor
-              className="rounded-t-lg"
-              style={{
-                fontFamily: 'Source Code Pro',
-              }}
-            />
+            <LiveEditor className="rounded-t-lg" style={{ fontFamily: 'Source Code Pro' }} />
             <LiveError />
           </div>
 
@@ -45,14 +83,24 @@ export const Code = ({ codeString, language, ...props }) => {
       <Highlight {...defaultProps} theme={nord} code={codeString.trim()} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${className} mb-4 p-2 rounded-lg`} style={style}>
-            {tokens.map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                <LineNumber>{i + 1}</LineNumber>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
+            {tokens.map((line, i) => {
+              const lineProps = getLineProps({ line, key: i })
+
+              if (shouldHighlightLine(i)) {
+                lineProps.className = `${lineProps.className} highlight-line`
+              }
+
+              return (
+                <Line {...lineProps}>
+                  <LineNumber>{i + 1}</LineNumber>
+                  <LineContent>
+                    {line.map((token, key) => (
+                      <span {...getTokenProps({ token, key })} />
+                    ))}
+                  </LineContent>
+                </Line>
+              )
+            })}
           </pre>
         )}
       </Highlight>

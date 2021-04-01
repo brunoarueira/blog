@@ -11,6 +11,14 @@ pre * {
   font-family: 'Source Code Pro', sans-serif;
 }
 
+pre.prism-code,
+pre.prism-code * {
+  font-weight: 600;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 h1 {
   @apply text-5xl;
 }
@@ -55,6 +63,10 @@ a[aria-current].active-link {
 
 .footnotes hr {
   border-color: theme('colors.gray.200');
+}
+
+.highlight-line {
+  background-color: #3b4252;
 }
 
 @tailwind components;
