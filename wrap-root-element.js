@@ -59,6 +59,7 @@ const components = {
     </Caption>
   ),
   ul: props => <StyledUl {...props} />,
+  h1: props => <h1 className="mb-8 mt-6" {...props} />
 }
 export const wrapRootElement = ({ element }) => (
   <MDXProvider components={components}>{element}</MDXProvider>

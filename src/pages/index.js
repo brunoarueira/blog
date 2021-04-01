@@ -14,7 +14,7 @@ const Qualification = styled.span`
 `
 
 const Highlight = styled.h1`
-  ${tw`leading-tight mb-6`}
+  ${tw`leading-tight mb-8 mt-6`}
 
   transition: all 1s ease;
 `
