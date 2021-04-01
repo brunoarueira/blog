@@ -12,16 +12,9 @@ import Icon from '../components/icon'
 import iconProps from '../components/icon_props'
 import { MoveChevronStyle } from '../components/shared_styles'
 
+import StyledLink from '../components/styled_link'
+
 const { theme } = tailwindConfig
-
-const StyledLink = styled(Link)`
-  ${tw`uppercase`}
-
-  font-weight: 500;
-  text-decoration-color: ${theme.colors.gold['900']} !important;
-
-  ${MoveChevronStyle}
-`
 
 const PostLink = styled(Link)`
   font-weight: 700;
@@ -39,9 +32,12 @@ const Index = ({ location, data }) => {
 
   return (
     <Layout location={location}>
-      <SEO title="Blog" />
+      <SEO
+        title="Blog"
+        description="My blog posts where you can check out my writings"
+      />
 
-      <h1 className="mb-8 mt-6">Posts</h1>
+      <h1 className="leading-tight mb-8 mt-6">Blog</h1>
 
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.frontmatter.slug

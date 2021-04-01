@@ -42,9 +42,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     },
   } = data
   const { previous, next } = pageContext
-  const postSlug = `blog/${post.frontmatter.slug}`
+  const postSlug = `/blog/${post.frontmatter.slug}`
   const disqusConfig = {
-    url: `${siteUrl}/${postSlug}`,
+    url: `${siteUrl}${postSlug}`,
     identifier: post.frontmatter.title,
     title: post.frontmatter.title,
   }
@@ -59,7 +59,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         keywords={post.frontmatter.keywords || []}
       />
 
-      <h1 className="mb-1 mt-4">{post.frontmatter.title}</h1>
+      <h1 className="mb-8 mt-6">{post.frontmatter.title}</h1>
 
       <Info>
         <time dateTime={post.frontmatter.date}>{post.frontmatter.fullDate}</time>

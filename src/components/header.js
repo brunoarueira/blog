@@ -38,7 +38,19 @@ const Close = styled(FiX)`
 `
 
 const Menu = styled.ul`
-  ${tw`invisible h-0 w-full justify-center md:visible md:h-auto md:opacity-100 md:w-auto md:inline-flex md:items-center`}
+  ${tw`
+    invisible
+    h-0
+    w-full
+    justify-center
+    mt-2
+    md:visible
+    md:h-auto
+    md:opacity-100
+    md:w-auto
+    md:inline-flex
+    md:items-center
+  `}
 
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
@@ -69,7 +81,7 @@ const Header = () => {
   `)
 
   return (
-    <nav className="m-auto w-11/12 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
+    <nav className="m-auto mx-1 md:w-11/12 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
       <LogoLink className={`logo ${menuOpen ? 'slide-logo' : null}`} to="/">
         {title}
       </LogoLink>

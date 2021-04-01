@@ -970,6 +970,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.12.5":
+  version "7.13.10"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.13.10.tgz#47d42a57b6095f4468da440388fdbad8bebf0d7d"
+  integrity sha512-4QPkjJq6Ns3V/RgpEahRk+AGfL0eO6RHHtTWoNNr5mO49G6B5+X6d6THgWEAvTrznU5xYpbAlVKRYcsCgh/Akw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.9.6":
   version "7.10.2"
   resolved "https://registry.npmjs.org/@babel/standalone/-/standalone-7.10.2.tgz#49dbbadcbc4b199df064d7d8b3e21c915b84abdb"
@@ -7346,6 +7353,14 @@ gatsby-page-utils@^0.2.7:
     glob "^7.1.6"
     lodash "^4.17.15"
     micromatch "^3.1.10"
+
+gatsby-plugin-catch-links@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-catch-links/-/gatsby-plugin-catch-links-3.1.0.tgz#9ead896dc4bc2a711f7312e8453a3c906758b0ac"
+  integrity sha512-7h5V7ZZFJOlIlN4qmwgQbmsQrXO/UsIjnfdX93RdeZGBINjeUxaM7r97Od0cAzxf6lnkf4d34t13CmOa0dWbxQ==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
+    escape-string-regexp "^1.0.5"
 
 gatsby-plugin-disqus@1.2.0:
   version "1.2.0"

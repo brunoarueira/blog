@@ -1,11 +1,11 @@
 {
-  "name": "personal-site",
+  "name": "blog",
   "private": true,
   "description": "My personal site and some random thoughts about software development",
   "version": "0.1.0",
   "author": "Bruno Arueira <contato@brunoarueira.com>",
   "bugs": {
-    "url": "https://github.com/brunoarueira/personal-site/issues"
+    "url": "https://github.com/brunoarueira/blog/issues"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.28",
@@ -20,6 +20,7 @@
     "babel-preset-gatsby": "0.4.8",
     "gatsby": "^2.14.4",
     "gatsby-image": "^2.0.22",
+    "gatsby-plugin-catch-links": "^3.1.0",
     "gatsby-plugin-disqus": "1.2.0",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-gdpr-cookies": "^1.0.11",
@@ -75,6 +76,7 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "gatsby build",
+    "clean": "gatsby clean",
     "serve": "yarn build && gatsby serve",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }

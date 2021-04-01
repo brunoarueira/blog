@@ -10,10 +10,16 @@ import SEO from './seo'
 import Footer from './footer'
 
 const Main = styled.div`
-  ${tw`mx-3 my-8 w-11/12 md:m-auto md:w-2/4`}
+  ${({ fluid }) => {
+    if (fluid) {
+      return tw`md:mx-3 md:my-8 w-full md:m-auto mx-1`
+    } else {
+      return tw`mx-3 my-8 w-11/12 md:m-auto md:w-2/4`
+    }
+  }}
 `
 
-const Layout = ({ children, pageContext }) => {
+const Layout = ({ children, pageContext, fluid = false }) => {
   const rootPath = `${__PATH_PREFIX__}/`
 
   const isMdxPage = () => typeof pageContext !== 'undefined'
@@ -42,7 +48,7 @@ const Layout = ({ children, pageContext }) => {
 
       <Header />
 
-      <Main className={isMdxPage() ? 'custom-page' : ''}>{children}</Main>
+      <Main className={isMdxPage() ? 'custom-page' : ''} fluid={fluid}>{children}</Main>
 
       <Footer />
 
