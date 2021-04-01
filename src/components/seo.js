@@ -99,11 +99,12 @@ const SEO = ({ description, lang, meta, keywords, title, slug, image }) => (
             )
             .concat(meta)}
         >
-          <link href="https://fonts.gstatic.com" rel="preconnect" cross-origin="anonymous" />
+          <link href="https://fonts.gstatic.com" rel="preconnect" cross-origin />
           <link
-            href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200|Source+Sans+Pro:300,400,500,600,700&amp;display=swap"
+            href="https://fonts.googleapis.com/css?family=Source+Code+Pro:200,600|Source+Sans+Pro:300,400,500,600,700&display=swap"
             rel="stylesheet"
-            cross-origin="anonymous"
+            media="print"
+            onload="this.media='all'"
           />
         </Helmet>
       )
