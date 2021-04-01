@@ -14,20 +14,20 @@ const Qualification = styled.span`
 `
 
 const Highlight = styled.h1`
-  ${tw`leading-tight mb-8 mt-6`}
+  ${tw`leading-tight m-auto mb-8 mt-6 md:w-2/4 w-full`}
 
   transition: all 1s ease;
 `
 
 const Index = ({ location, data }) => (
-  <Layout location={location}>
+  <Layout location={location} fluid>
     <SEO title="Home" />
 
     <Highlight>
       Hi, I'm <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
     </Highlight>
 
-    <p className="text-lg leading-loose">
+    <p className="text-lg leading-loose m-auto md:w-2/4 w-full">
       I'm a <Qualification>full-stack software developer</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
     </p>
 

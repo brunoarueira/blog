@@ -37,7 +37,7 @@ const Index = ({ location, data }) => {
         description="My blog posts where you can check out my writings"
       />
 
-      <h1 className="mb-8 mt-6">Blog</h1>
+      <h1 className="leading-tight mb-8 mt-6">Blog</h1>
 
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.frontmatter.slug

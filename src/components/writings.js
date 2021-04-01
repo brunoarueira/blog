@@ -17,7 +17,7 @@ const PostLink = styled(Link)`
 `
 
 const Writings = ({ posts = [] }) => (
-  <div className="w-screen -ml-3 md:-ml-89 py-6 bg-gray-100 mt-8 md:py-12">
+  <div className="w-full py-6 bg-gray-100 mt-8 md:py-12">
     <div className="m-auto w-11/12 md:w-2/4">
       <h5 className="mb-0">Some random toughts</h5>
 
