@@ -6,7 +6,7 @@ const development = process.env.GATSBY_ENV === 'development'
 module.exports = {
   siteMetadata: {
     title: `Bruno Arueira`,
-    description: `Bruno Arueira is a software developer. He works actually on a full stack environment with ruby and nodejs as backend, and primarly with react on the frontend, but also knows html, css and vanilla js aswell. Besides that, he also knows a bit about DevOps.`,
+    description: `Bruno Arueira is a full stack software developer, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.`,
     author: `@bruno_arueira`,
     siteUrl: `https://brunoarueira.com/`,
   },
