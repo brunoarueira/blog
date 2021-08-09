@@ -1,0 +1,59 @@
+---
+title: That day when DX started to matter to me
+date: '2021-08-09'
+slug: that-day-when-dx-starts-matter-to-me
+keywords: ['dx', 'software development', 'developer experience', 'devx']
+---
+
+The day when developer experience (DX) starts matter to me was when I'd to make a meeting to support a developer from 
+another company integrate with my employer.
+
+## But, why after that and not before?
+
+Because I never thought DX was thing, probably because I've been always a "hacker" and when in front of issues, I'll dig
+down and persist to resolve.
+
+I know many developers out there, like to have someone guiding and offer support to deliver something, but I didn't know
+the term exists.
+
+## The process
+
+The meeting initially was to help debug issues using our internal tools or understanding if there is a bug with our codebase, 
+which in this case was the last option since the API was exaustly tested, but who knows.
+
+After the meeting started, I'd to ask for the language was used to integrate (they're using python), what is the endpoint and
+open our tools (e.g. logging monitoring and exception tracker).
+
+Catch some data after some steps with other endpoints and only one endpoint was misbehaving, with that I open the codebase and
+tried to dig through the code to find some issue or insights about the problem.
+
+I'd found nothing, look at our unit tests and nothing suggests error from our side, then I'd ask to show a code snippet how the
+developer was calling our API. Since I known a little about python, I'd to start search through the internet, therefore found the
+issue was with the way the developer is creating the JSON payload to send. Example below:
+
+```diff
+import requests
+
+-payload = "{ 'foo': { 'url': 'http://something.lvh.me' } }"
++payload = { 'foo': { 'url': 'http://something.lvh.me' } }
+
+r = requests.post(
+    'http://localhost:9292',
+    verify = False,
+    json = payload
+)
+
+print(r.status_code)
+print(r.headers)
+```
+
+Note the difference? The way the developer was sending the payload is a string and when our API receives it, was ignoring and doesn't
+behaving accordingly. I don't judge the way to write that code, because in the past, I'd write many times something similar, but sometimes
+many of us struggle to find the problem.
+
+After the call I'd thinking about it, commented with my CTO and he said "Welcome to devx".
+
+## Lesson learned
+
+Most of the time we'd to care about the developer on the other end, probably writing some code snippets or some guides, besides the API
+documentation, which in some isn't enough as this case was.
