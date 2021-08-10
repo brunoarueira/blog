@@ -81,7 +81,7 @@ const Header = () => {
   `)
 
   return (
-    <nav className="m-auto mx-1 md:w-11/12 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
+    <nav className="md:m-auto mx-1 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
       <LogoLink className={`logo ${menuOpen ? 'slide-logo' : null}`} to="/">
         {title}
       </LogoLink>
