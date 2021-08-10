@@ -21,14 +21,18 @@ const Highlight = styled.h1`
 
 const Index = ({ location, data }) => (
   <Layout location={location} fluid>
-    <SEO title="Home" />
+    <SEO title="Full-Stack Software Engineer" />
 
     <Highlight>
       Hi, I'm <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
     </Highlight>
 
     <p className="text-lg leading-loose m-auto md:w-2/4 w-full">
-      I'm a <Qualification>full-stack software developer</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
+      I'm a <Qualification>full-stack software engineer</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
+    </p>
+
+    <p className="text-lg leading-loose m-auto md:w-2/4 w-full">
+      Experienced with multiple languages and like about optimize and performance things!
     </p>
 
     <Writings posts={data ? data.allMdx.edges : []} />
