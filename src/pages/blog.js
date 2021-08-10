@@ -33,7 +33,7 @@ const Index = ({ location, data }) => {
   return (
     <Layout location={location}>
       <SEO
-        title="Blog"
+        title="My blog posts where you can check out my writings"
         description="My blog posts where you can check out my writings"
       />
 
