@@ -28,7 +28,7 @@ const Index = ({ location, data }) => (
     </Highlight>
 
     <p className="text-lg leading-loose m-auto md:w-2/4 w-full">
-      I'm a <Qualification>senior software engineer</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
+      I'm a <Qualification>Tech Lead</Qualification> moving the Brazilian credit market forward at <a href="https://www.grafeno.digital" target="_blank" rel="noopener noreferrer">Grafeno Digital</a>.
     </p>
 
     <p className="text-lg leading-loose m-auto md:w-2/4 w-full">
