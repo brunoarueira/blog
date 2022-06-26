@@ -10,6 +10,10 @@ module.exports = {
     author: `@bruno_arueira`,
     siteUrl: `https://brunoarueira.com/`,
   },
+  flags: {
+    PRESERVE_WEBPACK_CACHE: true,
+    PARALLEL_SOURCING: true
+  },
   plugins: [
     `gatsby-plugin-postcss`,
     `gatsby-plugin-styled-components`,
@@ -54,7 +58,7 @@ module.exports = {
             options: {
               maxWidth: 590,
               linkImagesToOriginal: false,
-              showCaptions: ['alt'],
+              showCaptions: true,
             },
           },
 

@@ -11,7 +11,7 @@
     "@fortawesome/fontawesome-svg-core": "1.2.28",
     "@fortawesome/free-brands-svg-icons": "5.13.0",
     "@fortawesome/free-solid-svg-icons": "5.13.0",
-    "@fortawesome/react-fontawesome": "0.1.9",
+    "@fortawesome/react-fontawesome": "^0.1.9",
     "@mdx-js/mdx": "^1.4.0",
     "@mdx-js/react": "^1.4.0",
     "@mdx-js/tag": "^0.20.3",
@@ -21,7 +21,7 @@
     "gatsby": "^2.14.4",
     "gatsby-image": "^2.0.22",
     "gatsby-plugin-catch-links": "^3.1.0",
-    "gatsby-plugin-disqus": "1.2.0",
+    "gatsby-plugin-disqus": "^1.2.0",
     "gatsby-plugin-feed": "^2.0.8",
     "gatsby-plugin-gdpr-cookies": "^1.0.11",
     "gatsby-plugin-manifest": "^2.0.5",
@@ -53,9 +53,9 @@
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
     "react-icons": "3.10.0",
-    "react-live": "^2.2.0",
-    "styled-components": "5.1.1",
-    "stylelint": "13.6.0"
+    "react-live": "2.2.2",
+    "styled-components": "^5.1.1",
+    "stylelint": "^14.9.0"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
@@ -77,7 +77,6 @@
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "gatsby build",
-    "clean": "gatsby clean",
     "serve": "yarn build && gatsby serve",
     "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
