@@ -21,7 +21,7 @@ const Highlight = styled.h1`
 
 const Index = ({ location, data }) => (
   <Layout location={location} fluid>
-    <SEO title="Senior Software Engineer" />
+    <SEO title="Tech Lead" />
 
     <Highlight>
       Hi, I'm <span className="text-gray-600 hover:underline-gold-900">Bruno</span>.
