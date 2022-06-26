@@ -76,7 +76,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
       <StyledUl>
         <li>
           {previous && (
-            <StyledLink to={`blog/${previous.frontmatter.slug}`} rel="prev" direction="left">
+            <StyledLink to={`../../blog/${previous.frontmatter.slug}`} rel="prev" direction="left">
               <Icon>
                 <FiChevronLeft size={14} {...iconProps} />
               </Icon>
@@ -86,7 +86,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </li>
         <li>
           {next && (
-            <StyledLink to={`blog/${next.frontmatter.slug}`} rel="next">
+            <StyledLink to={`../../blog/${next.frontmatter.slug}`} rel="next">
               {next.frontmatter.title}
               <Icon>
                 <FiChevronRight size={14} {...iconProps} />
