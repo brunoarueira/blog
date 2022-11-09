@@ -51,7 +51,7 @@
     "react-cookie-consent": "^6.2.2",
     "react-dom": "^16.5.1",
     "react-helmet": "^5.2.0",
-    "react-icons": "3.10.0",
+    "react-icons": "^4.0.0",
     "react-live": "2.2.2",
     "styled-components": "^5.3.6",
     "stylelint": "^14.15.0"
