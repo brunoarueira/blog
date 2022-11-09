@@ -50,7 +50,7 @@
     "react": "^16.5.1",
     "react-cookie-consent": "^6.2.2",
     "react-dom": "^16.5.1",
-    "react-helmet": "^5.2.0",
+    "react-helmet": "^6.1.0",
     "react-icons": "^4.0.0",
     "react-live": "2.2.2",
     "styled-components": "^5.3.6",
