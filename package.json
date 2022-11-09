@@ -17,7 +17,7 @@
     "@mdx-js/tag": "^0.20.3",
     "babel-plugin-styled-components": "1.10.7",
     "babel-plugin-tailwind-components": "0.5.10",
-    "babel-preset-gatsby": "0.4.8",
+    "babel-preset-gatsby": "^1.0.0",
     "gatsby": "^3.0.0",
     "gatsby-plugin-catch-links": "^3.0.0",
     "gatsby-plugin-disqus": "^1.2.0",
@@ -59,7 +59,7 @@
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
     "babel-plugin-macros": "2.8.0",
-    "eslint": "^6.2.2",
+    "eslint": "^8.27.0",
     "eslint-plugin-react": "^7.31.10",
     "path-browserify": "^1.0.1",
     "prettier": "^2.7.1",
