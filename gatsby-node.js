@@ -62,9 +62,18 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 }
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
-  if (getConfig().mode === 'production') {
-    actions.setWebpackConfig({
-      devtool: false
-    })
+  let config = {
+    resolve: {
+      fallback: {
+        path: require.resolve('path-browserify'),
+        util: require.resolve('util/'),
+      },
+    },
   }
+
+  if (getConfig().mode === 'production') {
+    config.devtool = false
+  }
+
+  actions.setWebpackConfig(config)
 }
