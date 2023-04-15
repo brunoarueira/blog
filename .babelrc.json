@@ -1,7 +1,7 @@
 {
   "plugins": [
-    "macros",
-    ["styled-components", { ssr: true } ]
+    "babel-plugin-macros",
+    "babel-plugin-styled-components"
   ],
   "presets": [
     [

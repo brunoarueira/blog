@@ -1,7 +1,6 @@
 import React from 'react'
 import { graphql, useStaticQuery } from 'gatsby'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 import { FiTwitter, FiLinkedin } from 'react-icons/fi'
 
 import iconProps from '../components/icon_props'

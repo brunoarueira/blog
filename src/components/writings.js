@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { FiChevronRight } from 'react-icons/fi'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 
 import StyledLink from './styled_link'
 import { MoveChevronStyle } from './shared_styles'

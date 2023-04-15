@@ -1,7 +1,6 @@
 import React from 'react'
 import CookieConsent from 'react-cookie-consent'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 import { useLocation } from '@reach/router'
 import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
 
