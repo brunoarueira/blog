@@ -95,18 +95,6 @@ module.exports = {
     `gatsby-plugin-sharp`,
     `gatsby-plugin-catch-links`,
     {
-      resolve: `gatsby-plugin-gdpr-cookies`,
-      options: {
-        googleAnalytics: {
-          trackingId: `UA-15724292-2`,
-          cookieName: `brunoarueira-blog-ga`,
-          head: false,
-          anonymize: true,
-          defer: true,
-        },
-      }
-    },
-    {
       resolve: `gatsby-plugin-feed`,
       options: {
         query: `

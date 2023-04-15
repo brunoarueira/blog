@@ -1,8 +1,6 @@
 import React from 'react'
-import CookieConsent from 'react-cookie-consent'
 import tw, { styled } from 'twin.macro'
 import { useLocation } from '@reach/router'
-import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
 
 import Header from './header'
 import SEO from './seo'
@@ -50,24 +48,6 @@ const Layout = ({ children, pageContext, fluid = false }) => {
       <Main className={isMdxPage() ? 'custom-page' : ''} fluid={fluid}>{children}</Main>
 
       <Footer />
-
-      <CookieConsent
-        location="bottom"
-        buttonText="Accept"
-        declineButtonText="Decline"
-        cookieName="brunoarueira-blog-ga"
-        expires={150}
-        style={{ background: '#FFF', color: '#000' }}
-        enableDeclineButton
-        flipButtons
-        onAccept={() => {
-          initializeAndTrack(location)
-        }}
-      >
-        <p>
-          This site use cookies to personalise content and to analyse traffic.{" "}
-        </p>
-      </CookieConsent>
     </>
   )
 }
