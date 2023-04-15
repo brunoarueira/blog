@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 
 import Layout from '../components/Layout'
 import SEO from '../components/seo'

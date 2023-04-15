@@ -2,8 +2,7 @@ import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Code } from './src/components/code'
 import { preToCodeBlock } from 'mdx-utils'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 
 const Paragraph = styled.p`
   ${tw`mb-8 text-xl`}

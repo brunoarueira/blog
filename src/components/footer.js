@@ -1,8 +1,7 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import { FiRss, FiGithub, FiLinkedin, FiTwitter } from 'react-icons/fi'
-import styled, { css } from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { css, styled } from 'twin.macro'
 
 import iconProps from './icon_props'
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 import { FiMenu, FiX } from 'react-icons/fi'
 
 const LogoLink = styled(Link)`

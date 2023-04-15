@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'gatsby'
-import styled from 'styled-components'
-import tw from 'tailwind.macro'
+import tw, { styled } from 'twin.macro'
 
 import { MoveChevronStyle } from './shared_styles'
 
