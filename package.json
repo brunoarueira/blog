@@ -21,7 +21,7 @@
     "gatsby-plugin-disqus": "^1.2.0",
     "gatsby-plugin-feed": "^3.0.0",
     "gatsby-plugin-manifest": "^3.0.0",
-    "gatsby-plugin-mdx": "^2.0.0",
+    "gatsby-plugin-mdx": "^3.0.0",
     "gatsby-plugin-offline": "^4.0.0",
     "gatsby-plugin-postcss": "^4.0.0",
     "gatsby-plugin-purgecss": "^6.0.0",
