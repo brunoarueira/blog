@@ -1,8 +1,6 @@
 const renderCard = ({ title }) =>
   `<head><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /></head><body style="margin:0"><div style="background-color: #FFD700;width:1080px;height:510px;padding:60px;display: flex;flex-direction: row;justify-content: center;"><div style="display: flex;flex-direction: column;justify-content: center; align-content: center;"><p style="font-family:'Source Sans Pro';font-size: 72px;font-weight: 700;">${title}</p></div></div></body>`
 
-const development = process.env.GATSBY_ENV === 'development'
-
 module.exports = {
   siteMetadata: {
     title: `Bruno Arueira`,
@@ -21,8 +19,11 @@ module.exports = {
       resolve: `gatsby-plugin-purgecss`,
       options: {
         printRejected: true, // Print removed selectors and processed file names
-        develop: development, // Enable while using `gatsby develop`
+        develop: true, // Enable while using `gatsby develop`
         tailwind: true, // Enable tailwindcss support
+        purgeCSSOptions: {
+          safelist: ['ol', 'ul', 'footnotes', 'code', 'prism-code']
+        }
       },
     },
     `gatsby-plugin-react-helmet`,
