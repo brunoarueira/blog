@@ -13,7 +13,7 @@ Another day at [atos6](https://atos6.com) when investigate why our service was s
 running under pressure, I've found that one of our sidekiq workers was causing the outage for two
 reasons: eating up the database connection pool and it run hundred times per day. You'll thought
 that this isn't much to take down, but this was in concurrency with another users and this workers
-was doing one simple thing, update count cache column, updating 3 count cache column, for statistics
+was doing one thing, update count cache column, updating 3 count cache column, for statistics
 purpose and to measure evolving from customers, on a table which has a high access on our system.
 
 When the outage occurs, I've remove small workers from our queue, which I don't care so much, some
@@ -36,7 +36,8 @@ analyze a snapshot about how many times that worker was called and not surprisin
 top 5 (called 39522 times).
 
 With my hands full of data, I've started to analyze the feature that at the end fire the workers.
-The service object which handles all the logic to update those counters was causing a lot of N+1 query, because they receives one id from the worker and simple call:
+The service object which handles all the logic to update those counters was causing a lot of N+1 query,
+because they receives one id from the worker and call:
 
 ```ruby
 class CountersUpdateBusiness
@@ -44,7 +45,7 @@ class CountersUpdateBusiness
     @customer = Customer.find(customer_id)
   end
 
-  ...
+  # ...
 
   private
 
