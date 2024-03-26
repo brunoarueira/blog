@@ -16,7 +16,7 @@
     "@mdx-js/react": "^2.0.0",
     "@mdx-js/tag": "^0.20.3",
     "babel-preset-gatsby": "^3.0.0",
-    "gatsby": "^4.0.0",
+    "gatsby": "^5.0.0",
     "gatsby-plugin-catch-links": "^4.0.0",
     "gatsby-plugin-disqus": "^1.2.0",
     "gatsby-plugin-feed": "^4.0.0",
