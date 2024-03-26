@@ -50,7 +50,7 @@
     "react-icons": "^4.0.0",
     "react-live": "2.4.1",
     "styled-components": "^5.3.6",
-    "stylelint": "^15.10.1",
+    "stylelint": "^16.0.0",
     "twin.macro": "^3.1.0"
   },
   "devDependencies": {
