@@ -1978,11 +1978,6 @@
     "@types/mdx" "^2.0.0"
     "@types/react" ">=16"
 
-"@mdx-js/tag@^0.20.3":
-  version "0.20.3"
-  resolved "https://registry.yarnpkg.com/@mdx-js/tag/-/tag-0.20.3.tgz#9e2306040b6469248c45a5f5baf44d0014db0493"
-  integrity sha512-Co3gUFmNDv9z2LjuvLTpTj2NaOSHFxuoZjohcG0YK/KfECO+Ns9idzThMYjfEDe1vAf4c824rqlBYseedJdFNw==
-
 "@mischnic/json-sourcemap@^0.1.0":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@mischnic/json-sourcemap/-/json-sourcemap-0.1.1.tgz#0ef9b015a8f575dd9a8720d9a6b4dbc988425906"
