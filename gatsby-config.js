@@ -10,7 +10,8 @@ module.exports = {
   },
   flags: {
     PRESERVE_WEBPACK_CACHE: true,
-    PARALLEL_SOURCING: true
+    PARALLEL_SOURCING: true,
+    DEV_SSR: true,
   },
   plugins: [
     `gatsby-plugin-postcss`,
@@ -22,8 +23,8 @@ module.exports = {
         develop: true, // Enable while using `gatsby develop`
         tailwind: true, // Enable tailwindcss support
         purgeCSSOptions: {
-          safelist: ['ol', 'ul', 'footnotes', 'code', 'prism-code']
-        }
+          safelist: ['ol', 'ul', 'footnotes', 'code', 'prism-code'],
+        },
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -67,9 +68,9 @@ module.exports = {
             },
           },
 
-	  {
-	    resolve: `gatsby-remark-prismjs`,
-	  },
+          {
+            resolve: `gatsby-remark-prismjs`,
+          },
 
           {
             resolve: `gatsby-remark-responsive-iframe`,
@@ -120,7 +121,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
+              return allMdx.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
@@ -162,7 +163,7 @@ module.exports = {
             output: '/feed.xml',
             title: 'Bruno Arueira RSS feed',
             site_url: 'https://www.brunoarueira.com',
-            generator: 'Bruno Arueira'
+            generator: 'Bruno Arueira',
           },
         ],
       },

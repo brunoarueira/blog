@@ -7,24 +7,25 @@ exports.createPages = ({ graphql, actions }) => {
 
   const blogPost = path.resolve(`./src/templates/blog-post.js`)
 
-  return graphql(
-    `
-      {
-        allMdx(sort: { frontmatter: { date: DESC }}, limit: 1000) {
-          edges {
-            node {
-              id
-              frontmatter {
-                title
-                slug
-              }
-              body
+  return graphql(`
+    {
+      allMdx(sort: { frontmatter: { date: DESC } }, limit: 1000) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
             }
+            internal {
+              contentFilePath
+            }
+            body
           }
         }
       }
-    `
-  ).then(result => {
+    }
+  `).then((result) => {
     if (result.errors) {
       throw result.errors
     }
@@ -38,7 +39,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: `blog/${post.node.frontmatter.slug}`,
-        component: blogPost,
+        component: `${blogPost}?__contentFilePath=${post.node.internal.contentFilePath}`,
         context: {
           slug: post.node.frontmatter.slug,
           previous,
@@ -59,7 +60,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     createNodeField({
       node,
       name: `timeToRead`,
-      value: readingTime(node.body)
+      value: readingTime(node.body),
     })
 
     createNodeField({
@@ -71,8 +72,8 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     if (parent.internal.type === `File`) {
       createNodeField({
         name: `sourceName`,
-				node,
-				value: parent.sourceInstanceName
+        node,
+        value: parent.sourceInstanceName,
       })
     }
   }
