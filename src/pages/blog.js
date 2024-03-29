@@ -75,7 +75,7 @@ export default Index
 
 export const pageQuery = graphql`
   query {
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: { frontmatter: { date: DESC }}) {
       edges {
         node {
           excerpt(pruneLength: 300)
