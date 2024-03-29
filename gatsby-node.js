@@ -54,6 +54,7 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
+    const parent = getNode(node.parent)
 
     createNodeField({
       node,
@@ -66,6 +67,14 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       value,
     })
+
+    if (parent.internal.type === `File`) {
+      createNodeField({
+        name: `sourceName`,
+				node,
+				value: parent.sourceInstanceName
+      })
+    }
   }
 }
 

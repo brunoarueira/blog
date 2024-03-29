@@ -42,7 +42,7 @@ export default Index
 
 export const pageQuery = graphql`
   query {
-    allMdx(sort: { frontmatter: { date: DESC }}, limit: 5) {
+    allMdx(filter: { fields: { sourceName: { eq: "blog" } } }, sort: { frontmatter: { date: DESC }}, limit: 5) {
       edges {
         node {
           excerpt
