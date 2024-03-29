@@ -50,9 +50,6 @@ module.exports = {
           default: require.resolve('./src/components/Layout.js'),
         },
 
-        // a workaround to solve mdx-remark plugin compat issue
-        // https://github.com/gatsbyjs/gatsby/issues/15486
-        plugins: [`gatsby-remark-images`, `gatsby-remark-prismjs`],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
@@ -62,6 +59,10 @@ module.exports = {
               showCaptions: true,
             },
           },
+
+	  {
+	    resolve: `gatsby-remark-prismjs`,
+	  },
 
           {
             resolve: `gatsby-remark-responsive-iframe`,
