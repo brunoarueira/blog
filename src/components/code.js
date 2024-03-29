@@ -1,7 +1,6 @@
 import React from 'react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import { Highlight, Prism } from 'prism-react-renderer'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
-import Prism from 'prism-react-renderer/prism'
 import styled from 'styled-components'
 
 (typeof global !== "undefined" ? global : window).Prism = Prism
@@ -80,7 +79,7 @@ export const Code = ({ codeString, language, ...props }) => {
     )
   } else {
     return (
-      <Highlight {...defaultProps} theme={nord} code={codeString.trim()} language={language}>
+      <Highlight theme={nord} code={codeString.trim()} language={language}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={`${className} mb-4 p-2 rounded-lg`} style={style}>
             {tokens.map((line, i) => {
