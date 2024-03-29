@@ -29,7 +29,7 @@
     "gatsby-plugin-sharp": "^5.0.0",
     "gatsby-plugin-sitemap": "^5.0.0",
     "gatsby-plugin-styled-components": "^5.0.0",
-    "gatsby-remark-copy-linked-files": "^5.0.0",
+    "gatsby-remark-copy-linked-files": "^6.0.0",
     "gatsby-remark-external-links": "0.0.4",
     "gatsby-remark-images": "^7.0.0",
     "gatsby-remark-prismjs": "^7.0.0",
