@@ -1771,7 +1771,7 @@
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
   integrity sha512-/c6rf4UJlmHlC9b5BaNvzAcFv7HZ2QHaV0D4/HNlBdvFnvQq8RI4kYdhyPCl7Xj+oWvTWQ8ujhqS53LIgAe6KQ==
 
-"@hapi/joi@^15.0.0", "@hapi/joi@^15.1.1":
+"@hapi/joi@^15.0.0":
   version "15.1.1"
   resolved "https://registry.yarnpkg.com/@hapi/joi/-/joi-15.1.1.tgz#c675b8a71296f02833f8d6d243b34c57b8ce19d7"
   integrity sha512-entf8ZMOK8sc+8YfeOlM8pCfg3b5+WZIKBfUaaJT8UsjAAPjartzxIYm3TIbjvA4u+u++KbcXD38k682nVHDAQ==
@@ -6553,16 +6553,15 @@ gatsby-plugin-disqus@^1.2.0:
   resolved "https://registry.yarnpkg.com/gatsby-plugin-disqus/-/gatsby-plugin-disqus-1.2.6.tgz#cefc7b1cc5921fa36099256f8ca0fe634b72cb6e"
   integrity sha512-lGa6q7oldF3cxbwcS1dvndaxDevEBfYOIweUYOARheU0AhbDzYp4lyIvUkUwBYEWsAzIsuJNiugI6yIcQXy09g==
 
-gatsby-plugin-feed@^4.0.0:
-  version "4.25.0"
-  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-4.25.0.tgz#f45e01a8c37327b2520e4eb9f2b6191a97947a4d"
-  integrity sha512-9gZxvHtq2lu5pUcXXt0d7L7jpFIJpcmjOb2X8ykzbiHXUYRFvZnmcR95ZdQRKiVy1YawMzv3tt2+pPnBuYxvSw==
+gatsby-plugin-feed@^5.0.0:
+  version "5.13.1"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-feed/-/gatsby-plugin-feed-5.13.1.tgz#3fd19f442823ce6100b73b7206d3150ee70f07b4"
+  integrity sha512-Vg6oTqwxqA8suOnGF8wAeFMv1oFlEp1EXemd46hMTR8ubzOTYMKRjR1rv3WTYZPbVSsjLxliNykDUXokWoH/0A==
   dependencies:
-    "@babel/runtime" "^7.15.4"
-    "@hapi/joi" "^15.1.1"
+    "@babel/runtime" "^7.20.13"
     common-tags "^1.8.2"
-    fs-extra "^10.1.0"
-    gatsby-plugin-utils "^3.19.0"
+    fs-extra "^11.1.1"
+    gatsby-plugin-utils "^4.13.1"
     lodash.merge "^4.6.2"
     rss "^1.2.2"
 
