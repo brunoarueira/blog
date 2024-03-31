@@ -1,7 +1,6 @@
 import React from 'react'
 import { MDXProvider } from '@mdx-js/react'
 import { Code } from './src/components/code'
-import { preToCodeBlock } from 'mdx-utils'
 import tw, { styled } from 'twin.macro'
 
 const Paragraph = styled.p`
@@ -30,11 +29,39 @@ const Caption = styled.figcaption`
   ${tw`flex flex-row items-center justify-center text-gray-700 text-sm`}
 `
 
+const preToCodeBlock = (preProps) => {
+  if (
+    // children is MDXTag
+    preProps.children &&
+    // MDXTag props
+    preProps.children.props &&
+    // if MDXTag is going to render a <code>
+    preProps.children.type === 'code'
+  ) {
+    // we have a <pre><code> situation
+    const {
+      children: codeString,
+      className,
+      ...props
+    } = preProps.children.props
+
+    const language = className && className.split('-')[1]
+
+    return {
+      codeString: codeString.trim(),
+      language,
+      className,
+      ...props,
+    }
+  }
+}
+
 // components is its own object outside of render so that the references to
 // components are stable
 const components = {
   pre: preProps => {
     const props = preToCodeBlock(preProps)
+
     // if there's a codeString and some props, we passed the test
     if (props) {
       return <Code {...props} />

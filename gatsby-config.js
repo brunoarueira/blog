@@ -11,7 +11,6 @@ module.exports = {
   flags: {
     PRESERVE_WEBPACK_CACHE: true,
     PARALLEL_SOURCING: true,
-    DEV_SSR: true,
   },
   plugins: [
     `gatsby-plugin-postcss`,
@@ -66,10 +65,6 @@ module.exports = {
               linkImagesToOriginal: false,
               showCaptions: true,
             },
-          },
-
-          {
-            resolve: `gatsby-remark-prismjs`,
           },
 
           {

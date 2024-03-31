@@ -6714,15 +6714,6 @@ gatsby-remark-images@^7.0.0:
     unist-util-select "^3.0.4"
     unist-util-visit-parents "^3.1.1"
 
-gatsby-remark-prismjs@^7.0.0:
-  version "7.13.1"
-  resolved "https://registry.yarnpkg.com/gatsby-remark-prismjs/-/gatsby-remark-prismjs-7.13.1.tgz#70ae5dd8692affe79eca874bd157ec837ba71cec"
-  integrity sha512-xyEri5Xr/ggIhgPaJUpOAp2G2BEAjyCNXP0Qk8olt1t7KvIp1XBdrhF1bvcIQJ3UEfInmt/6ykwY39kFXzkW3g==
-  dependencies:
-    "@babel/runtime" "^7.20.13"
-    parse-numeric-range "^1.3.0"
-    unist-util-visit "^2.0.3"
-
 gatsby-remark-responsive-iframe@^6.0.0:
   version "6.13.1"
   resolved "https://registry.yarnpkg.com/gatsby-remark-responsive-iframe/-/gatsby-remark-responsive-iframe-6.13.1.tgz#e6789088a5475953c833c26cd63fffcc382dc276"
@@ -8882,11 +8873,6 @@ mdurl@^1.0.0:
   resolved "https://registry.yarnpkg.com/mdurl/-/mdurl-1.0.1.tgz#fe85b2ec75a59037f2adfec100fd6c601761152e"
   integrity sha512-/sKlQJCBYVY9Ers9hqzKou4H6V5UWc/M59TH2dvkt+84itfnq7uFOMLpOiOS4ujvHP4etln18fmIxA5R5fll0g==
 
-mdx-utils@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/mdx-utils/-/mdx-utils-0.2.0.tgz#b759c5d06545c4f5c49ac3adba3b93942039ac52"
-  integrity sha512-kRhSIrvJ/++jz+ppDNqG3vjJSqSipjqdh2BqYXxUTJBo1cO+hRtQwuudM0ljAWKf5WmePwT4OBRjoCrhmiK+RA==
-
 meant@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/meant/-/meant-1.0.3.tgz#67769af9de1d158773e928ae82c456114903554c"
@@ -9925,11 +9911,6 @@ parse-latin@^4.0.0:
     nlcst-to-string "^2.0.0"
     unist-util-modify-children "^2.0.0"
     unist-util-visit-children "^1.0.0"
-
-parse-numeric-range@^1.3.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/parse-numeric-range/-/parse-numeric-range-1.3.0.tgz#7c63b61190d61e4d53a1197f0c83c47bb670ffa3"
-  integrity sha512-twN+njEipszzlMJd4ONUYgSfZPDxgHhT9Ahed5uTigpQn90FggW4SA/AIPq/6a149fTbE9qBEcSwE3FAEp6wQQ==
 
 parse-path@^7.0.0:
   version "7.0.0"
