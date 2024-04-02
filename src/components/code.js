@@ -80,9 +80,6 @@ export const Code = ({ codeString, language, className, ...props }) => {
       </LiveProvider>
     )
   } else {
-    console.log('code language', language)
-    console.log('code classname', className)
-
     return (
       <Highlight theme={nord} code={codeString} language={language}>
         {({ style, tokens, getLineProps, getTokenProps }) => (
