@@ -1,7 +1,13 @@
+import remarkGfm from 'remark-gfm';
+import { dirname } from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 const renderCard = ({ title }) =>
   `<head><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /></head><body style="margin:0"><div style="background-color: #FFD700;width:1080px;height:510px;padding:60px;display: flex;flex-direction: row;justify-content: center;"><div style="display: flex;flex-direction: column;justify-content: center; align-content: center;"><p style="font-family:'Source Sans Pro';font-size: 72px;font-weight: 700;">${title}</p></div></div></body>`
 
-module.exports = {
+const config = {
   siteMetadata: {
     title: `Bruno Arueira`,
     description: `Bruno Arueira is a Tech Lead, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.`,
@@ -56,6 +62,9 @@ module.exports = {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
+        mdxOptions: {
+          remarkPlugins: [remarkGfm]
+        },
 
         gatsbyRemarkPlugins: [
           {
@@ -96,6 +105,7 @@ module.exports = {
       resolve: 'gatsby-remark-social-image',
       options: { design: renderCard },
     },
+
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-catch-links`,
@@ -185,3 +195,5 @@ module.exports = {
     `gatsby-plugin-offline`,
   ],
 }
+
+export default config;

@@ -12,7 +12,7 @@
     "@fortawesome/free-brands-svg-icons": "6.5.1",
     "@fortawesome/free-solid-svg-icons": "6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mdx-js/react": "^2.0.0",
+    "@mdx-js/react": "^3.0.0",
     "babel-plugin-styled-components": "^2.1.4",
     "babel-preset-gatsby": "^3.0.0",
     "gatsby": "^5.0.0",
@@ -47,14 +47,17 @@
     "react-icons": "^5.0.0",
     "react-live": "^4.0.0",
     "reading-time": "^1.5.0",
+    "remark-gfm": "^3.0.0",
     "styled-components": "^6.0.0",
     "stylelint": "^16.0.0",
     "twin.macro": "^3.1.0"
   },
   "devDependencies": {
+    "@babel/eslint-parser": "^7.24.1",
     "@babel/plugin-syntax-object-rest-spread": "7.8.3",
     "babel-plugin-twin": "^1.1.0",
     "eslint": "^8.27.0",
+    "eslint-plugin-mdx": "^3.1.5",
     "eslint-plugin-react": "^7.31.10",
     "path-browserify": "^1.0.1",
     "prettier": "^3.0.0",
@@ -66,13 +69,13 @@
   "scripts": {
     "clean": "gatsby clean",
     "dev": "gatsby develop -p 8001",
-    "lint": "eslint --ext .js,.jsx --ignore-pattern public .",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
+    "lint": "eslint --ext .js,.jsx .",
+    "lint:mdx": "eslint --ext .js,.jsx,.md,.mdx .",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write 'src/**/*.js' 'src/**/*.md'",
     "develop": "gatsby develop",
     "start": "npm run develop",
     "build": "gatsby build",
     "serve": "yarn build && gatsby serve",
-    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser babel-eslint --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
+    "fix-semi": "eslint --quiet --ignore-pattern node_modules --ignore-pattern public --parser @babel/eslint-parser --no-eslintrc --rule '{\"semi\": [2, \"never\"], \"no-extra-semi\": [2]}' --fix gatsby-node.js"
   }
 }
