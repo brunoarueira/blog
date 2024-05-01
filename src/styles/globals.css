@@ -65,6 +65,11 @@ a[aria-current].active-link {
   border-color: theme('colors.gray.200');
 }
 
+.footnotes p {
+  display: inline-block;
+  margin-bottom: 0;
+}
+
 .highlight-line {
   background-color: #3b4252;
 }
