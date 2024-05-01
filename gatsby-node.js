@@ -9,7 +9,7 @@ exports.createPages = ({ graphql, actions }) => {
 
   return graphql(`
     {
-      allMdx(sort: { frontmatter: { date: DESC } }, limit: 1000) {
+      allMdx(filter: { fields: { sourceName: { eq: "blog" } } }, sort: { frontmatter: { date: DESC } }, limit: 1000) {
         edges {
           node {
             id
