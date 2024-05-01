@@ -4,7 +4,7 @@ import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import tw, { styled } from 'twin.macro'
 import { Disqus } from 'gatsby-plugin-disqus'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import SEO from '../components/seo'
 import SocialShare from '../components/social_share'
 import ReadTime from '../components/read_time'

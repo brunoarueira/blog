@@ -5,7 +5,7 @@ import tw, { styled } from 'twin.macro'
 
 import tailwindConfig from '../utils/tailwindConfig'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Icon from '../components/icon'
 import iconProps from '../components/icon_props'

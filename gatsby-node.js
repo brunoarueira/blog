@@ -2,10 +2,10 @@ const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
 const readingTime = require(`reading-time`)
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`)
 
   return graphql(`
     {
@@ -27,7 +27,7 @@ exports.createPages = ({ graphql, actions }) => {
     }
   `).then((result) => {
     if (result.errors) {
-      throw result.errors
+      reporter.panicOnBuild('Error loading MDX result', result.errors)
     }
 
     // Create blog posts pages.
@@ -39,7 +39,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: `blog/${post.node.frontmatter.slug}`,
-        component: `${blogPost}?__contentFilePath=${post.node.internal.contentFilePath}`,
+        component: `${blogPostTemplate}?__contentFilePath=${post.node.internal.contentFilePath}`,
         context: {
           slug: post.node.frontmatter.slug,
           previous,
