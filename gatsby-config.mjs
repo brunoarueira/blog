@@ -73,6 +73,7 @@ const config = {
               maxWidth: 590,
               linkImagesToOriginal: false,
               showCaptions: true,
+              markdownCaptions: true,
             },
           },
 

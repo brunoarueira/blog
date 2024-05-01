@@ -79,11 +79,14 @@ const components = {
 
     return <a {...props} />
   },
-  figcaption: ({ children }) => (
+  Caption: ({ children }) => {
+    console.log('cap', children)
+  return (
     <Caption>
-      <div dangerouslySetInnerHTML={{ __html: children }} />
+      {children}
     </Caption>
-  ),
+  )
+  },
   ul: props => <StyledUl {...props} />,
   h1: props => <h1 className="leading-tight mb-8 mt-6" {...props} />
 }
