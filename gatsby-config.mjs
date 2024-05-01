@@ -148,6 +148,7 @@ const config = {
             {
               allMdx(
                 limit: 1000,
+                filter: { fields: { sourceName: { eq: "blog" } } },
                 sort: { frontmatter: { date: DESC }},
               ) {
                 edges {
