@@ -1,12 +1,13 @@
 import React from 'react'
-import Highlight, { defaultProps } from 'prism-react-renderer'
+import { Highlight, Prism } from 'prism-react-renderer'
 import { LiveProvider, LiveEditor, LiveError, LivePreview } from 'react-live'
-import Prism from 'prism-react-renderer/prism'
 import styled from 'styled-components'
 
 (typeof global !== "undefined" ? global : window).Prism = Prism
 
 require("prismjs/components/prism-ruby");
+require("prismjs/components/prism-diff");
+require("prismjs/components/prism-javascript");
 
 import nord from './nord'
 
@@ -60,7 +61,7 @@ const LineContent = styled.span`
   }
 `
 
-export const Code = ({ codeString, language, ...props }) => {
+export const Code = ({ codeString, language, className, ...props }) => {
   const shouldHighlightLine = calculateLinesToHighlight(props.metastring)
 
   if (props['react-live']) {
@@ -80,22 +81,22 @@ export const Code = ({ codeString, language, ...props }) => {
     )
   } else {
     return (
-      <Highlight {...defaultProps} theme={nord} code={codeString.trim()} language={language}>
-        {({ className, style, tokens, getLineProps, getTokenProps }) => (
-          <pre className={`${className} mb-4 p-2 rounded-lg`} style={style}>
+      <Highlight theme={nord} code={codeString} language={language}>
+        {({ style, tokens, getLineProps, getTokenProps }) => (
+          <pre className={`prism-code ${className} mb-4 p-2 rounded-lg`} style={style}>
             {tokens.map((line, i) => {
-              const lineProps = getLineProps({ line, key: i })
+              const lineProps = getLineProps({ line })
 
               if (shouldHighlightLine(i)) {
                 lineProps.className = `${lineProps.className} highlight-line`
               }
 
               return (
-                <Line {...lineProps}>
+                <Line key={i} {...lineProps}>
                   <LineNumber>{i + 1}</LineNumber>
                   <LineContent>
                     {line.map((token, key) => (
-                      <span {...getTokenProps({ token, key })} />
+                      <span key={key} {...getTokenProps({ token })} />
                     ))}
                   </LineContent>
                 </Line>

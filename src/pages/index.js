@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, graphql } from 'gatsby'
 import tw, { styled } from 'twin.macro'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Writings from '../components/writings'
 
@@ -42,7 +42,7 @@ export default Index
 
 export const pageQuery = graphql`
   query {
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: 5) {
+    allMdx(filter: { fields: { sourceName: { eq: "blog" } } }, sort: { frontmatter: { date: DESC }}, limit: 5) {
       edges {
         node {
           excerpt

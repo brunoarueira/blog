@@ -1,7 +1,13 @@
+import remarkGfm from 'remark-gfm';
+import { dirname } from "path"
+import { fileURLToPath } from "url"
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 const renderCard = ({ title }) =>
   `<head><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" /></head><body style="margin:0"><div style="background-color: #FFD700;width:1080px;height:510px;padding:60px;display: flex;flex-direction: row;justify-content: center;"><div style="display: flex;flex-direction: column;justify-content: center; align-content: center;"><p style="font-family:'Source Sans Pro';font-size: 72px;font-weight: 700;">${title}</p></div></div></body>`
 
-module.exports = {
+const config = {
   siteMetadata: {
     title: `Bruno Arueira`,
     description: `Bruno Arueira is a Tech Lead, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.`,
@@ -10,7 +16,7 @@ module.exports = {
   },
   flags: {
     PRESERVE_WEBPACK_CACHE: true,
-    PARALLEL_SOURCING: true
+    PARALLEL_SOURCING: true,
   },
   plugins: [
     `gatsby-plugin-postcss`,
@@ -22,11 +28,12 @@ module.exports = {
         develop: true, // Enable while using `gatsby develop`
         tailwind: true, // Enable tailwindcss support
         purgeCSSOptions: {
-          safelist: ['ol', 'ul', 'footnotes', 'code', 'prism-code']
-        }
+          safelist: ['ol', 'ul', 'footnotes', 'code', 'prism-code'],
+        },
       },
     },
     `gatsby-plugin-react-helmet`,
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -34,6 +41,7 @@ module.exports = {
         path: `${__dirname}/content/assets`,
       },
     },
+
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -41,18 +49,23 @@ module.exports = {
         path: `${__dirname}/content/blog`,
       },
     },
+
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `pages`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
+
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
         extensions: ['.mdx', '.md'],
-
-        defaultLayouts: {
-          default: require.resolve('./src/components/Layout.js'),
+        mdxOptions: {
+          remarkPlugins: [remarkGfm]
         },
 
-        // a workaround to solve mdx-remark plugin compat issue
-        // https://github.com/gatsbyjs/gatsby/issues/15486
-        plugins: [`gatsby-remark-images`, `gatsby-remark-prismjs`],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
@@ -60,6 +73,7 @@ module.exports = {
               maxWidth: 590,
               linkImagesToOriginal: false,
               showCaptions: true,
+              markdownCaptions: true,
             },
           },
 
@@ -92,6 +106,7 @@ module.exports = {
       resolve: 'gatsby-remark-social-image',
       options: { design: renderCard },
     },
+
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     `gatsby-plugin-catch-links`,
@@ -112,7 +127,7 @@ module.exports = {
         feeds: [
           {
             serialize: ({ query: { site, allMdx } }) => {
-              return allMdx.edges.map(edge => {
+              return allMdx.edges.map((edge) => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
                   date: edge.node.frontmatter.date,
@@ -134,7 +149,8 @@ module.exports = {
             {
               allMdx(
                 limit: 1000,
-                sort: { order: DESC, fields: [frontmatter___date] },
+                filter: { fields: { sourceName: { eq: "blog" } } },
+                sort: { frontmatter: { date: DESC }},
               ) {
                 edges {
                   node {
@@ -154,7 +170,7 @@ module.exports = {
             output: '/feed.xml',
             title: 'Bruno Arueira RSS feed',
             site_url: 'https://www.brunoarueira.com',
-            generator: 'Bruno Arueira'
+            generator: 'Bruno Arueira',
           },
         ],
       },
@@ -181,3 +197,5 @@ module.exports = {
     `gatsby-plugin-offline`,
   ],
 }
+
+export default config;

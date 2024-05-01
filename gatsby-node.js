@@ -1,31 +1,33 @@
 const path = require(`path`)
 const { createFilePath } = require(`gatsby-source-filesystem`)
+const readingTime = require(`reading-time`)
 
-exports.createPages = ({ graphql, actions }) => {
+exports.createPages = ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
-  const blogPost = path.resolve(`./src/templates/blog-post.js`)
+  const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`)
 
-  return graphql(
-    `
-      {
-        allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: 1000) {
-          edges {
-            node {
-              id
-              frontmatter {
-                title
-                slug
-              }
-              body
+  return graphql(`
+    {
+      allMdx(filter: { fields: { sourceName: { eq: "blog" } } }, sort: { frontmatter: { date: DESC } }, limit: 1000) {
+        edges {
+          node {
+            id
+            frontmatter {
+              title
+              slug
             }
+            internal {
+              contentFilePath
+            }
+            body
           }
         }
       }
-    `
-  ).then(result => {
+    }
+  `).then((result) => {
     if (result.errors) {
-      throw result.errors
+      reporter.panicOnBuild('Error loading MDX result', result.errors)
     }
 
     // Create blog posts pages.
@@ -37,7 +39,7 @@ exports.createPages = ({ graphql, actions }) => {
 
       createPage({
         path: `blog/${post.node.frontmatter.slug}`,
-        component: blogPost,
+        component: `${blogPostTemplate}?__contentFilePath=${post.node.internal.contentFilePath}`,
         context: {
           slug: post.node.frontmatter.slug,
           previous,
@@ -53,12 +55,38 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
 
   if (node.internal.type === `Mdx`) {
     const value = createFilePath({ node, getNode })
+    const parent = getNode(node.parent)
+
+    createNodeField({
+      node,
+      name: `timeToRead`,
+      value: readingTime(node.body),
+    })
+
     createNodeField({
       name: `slug`,
       node,
       value,
     })
+
+    if (parent.internal.type === `File`) {
+      createNodeField({
+        name: `sourceName`,
+        node,
+        value: parent.sourceInstanceName,
+      })
+    }
   }
+}
+
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+
+  createTypes(`#graphql
+    type Mdx implements Node {
+      timeToRead: Float @proxy(from: "fields.timeToRead.minutes")
+    }
+  `)
 }
 
 exports.onCreateWebpackConfig = ({ getConfig, actions }) => {

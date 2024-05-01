@@ -5,7 +5,7 @@ import tw, { styled } from 'twin.macro'
 
 import tailwindConfig from '../utils/tailwindConfig'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import SEO from '../components/seo'
 import Icon from '../components/icon'
 import iconProps from '../components/icon_props'
@@ -75,7 +75,7 @@ export default Index
 
 export const pageQuery = graphql`
   query {
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(filter: { fields: { sourceName: { eq: "blog" } } }, sort: { frontmatter: { date: DESC }}) {
       edges {
         node {
           excerpt(pruneLength: 300)

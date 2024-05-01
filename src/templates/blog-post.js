@@ -1,11 +1,10 @@
 import React from 'react'
 import { Link, graphql } from 'gatsby'
-import { MDXRenderer } from 'gatsby-plugin-mdx'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import tw, { styled } from 'twin.macro'
 import { Disqus } from 'gatsby-plugin-disqus'
 
-import Layout from '../components/Layout'
+import Layout from '../components/layout'
 import SEO from '../components/seo'
 import SocialShare from '../components/social_share'
 import ReadTime from '../components/read_time'
@@ -33,7 +32,7 @@ const StyledLink = styled(Link)`
   ${MoveChevronStyle}
 `
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
+const BlogPostTemplate = ({ data, pageContext, location, children }) => {
   const {
     mdx: post,
     site: {
@@ -66,7 +65,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         <ReadTime time={post.timeToRead} />
       </Info>
 
-      <MDXRenderer>{post.body}</MDXRenderer>
+      {children}
 
       <SocialShare title={post.frontmatter.title} path={postSlug} />
 
@@ -103,7 +102,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query($slug: String!) {
+  query ($slug: String!) {
     site {
       siteMetadata {
         siteUrl
@@ -131,7 +130,6 @@ export const pageQuery = graphql`
         date(formatString: "YYYY-MM-DD")
         fullDate: date(formatString: "MMMM DD, YYYY")
       }
-      body
     }
   }
 `
