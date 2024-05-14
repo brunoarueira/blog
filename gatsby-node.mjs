@@ -1,8 +1,13 @@
-const path = require(`path`)
-const { createFilePath } = require(`gatsby-source-filesystem`)
-const readingTime = require(`reading-time`)
+import path from 'path'
+import { createFilePath } from 'gatsby-source-filesystem'
+import readingTime from 'reading-time'
+import { renderToString } from 'react-dom/server'
+import remarkGfm from 'remark-gfm'
+import remarkExternalLinks from 'remark-external-links'
+import * as runtime from 'react/jsx-runtime'
+import { compile, runSync } from '@mdx-js/mdx'
 
-exports.createPages = ({ graphql, actions, reporter }) => {
+export const createPages = ({ graphql, actions, reporter }) => {
   const { createPage } = actions
 
   const blogPostTemplate = path.resolve(`./src/templates/blog-post.js`)
@@ -50,7 +55,7 @@ exports.createPages = ({ graphql, actions, reporter }) => {
   })
 }
 
-exports.onCreateNode = ({ node, actions, getNode }) => {
+export const onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions
 
   if (node.internal.type === `Mdx`) {
@@ -69,6 +74,37 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       value,
     })
 
+    if (parent.sourceInstanceName == 'blog') {
+      console.log('META', node.body)
+
+      compile(node.body, {
+        outputFormat: 'function-body',
+        remarkPlugins: [
+          remarkGfm,
+          [
+            remarkExternalLinks,
+            {
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            }
+          ]
+        ],
+        remarkRehypeOptions: {
+          allowDangerousHtml: true,
+          footnoteLabel: ' ',
+        },
+        useDynamicImport: true
+      }).then((result) => {
+          const { default: MDXContent } = runSync(result, { ...runtime, baseUrl: import.meta.url })
+
+          createNodeField({
+            name: `html`,
+            node,
+            value: renderToString(MDXContent())
+          })
+        })
+    }
+
     if (parent.internal.type === `File`) {
       createNodeField({
         name: `sourceName`,
@@ -79,24 +115,25 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
   }
 }
 
-exports.createSchemaCustomization = ({ actions }) => {
+export const createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions
 
   createTypes(`#graphql
     type Mdx implements Node {
       timeToRead: Float @proxy(from: "fields.timeToRead.minutes")
+      html: String @proxy(from: "fields.html")
     }
   `)
 }
 
-exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
+export const onCreateWebpackConfig = ({ getConfig, actions }) => {
   let config = {
-    resolve: {
-      fallback: {
-        path: require.resolve('path-browserify'),
-        util: require.resolve('util/'),
-      },
-    },
+    // resolve: {
+    //   fallback: {
+    //     path: require.resolve('path-browserify'),
+    //     util: require.resolve('util/'),
+    //   },
+    // },
   }
 
   if (getConfig().mode === 'production') {

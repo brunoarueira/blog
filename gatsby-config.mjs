@@ -1,4 +1,5 @@
-import remarkGfm from 'remark-gfm';
+import remarkGfm from 'remark-gfm'
+import remarkExternalLinks from 'remark-external-links'
 import { dirname } from "path"
 import { fileURLToPath } from "url"
 
@@ -63,7 +64,21 @@ const config = {
       options: {
         extensions: ['.mdx', '.md'],
         mdxOptions: {
-          remarkPlugins: [remarkGfm]
+          remarkPlugins: [
+            remarkGfm,
+            [
+              remarkExternalLinks,
+              {
+                target: '_blank',
+                rel: 'noopener noreferrer',
+              }
+            ],
+          ],
+
+          remarkRehypeOptions: {
+            allowDangerousHtml: true,
+            footnoteLabel: ' ',
+          },
         },
 
         gatsbyRemarkPlugins: [
@@ -90,14 +105,6 @@ const config = {
 
           {
             resolve: `gatsby-remark-smartypants`,
-          },
-
-          {
-            resolve: `gatsby-remark-external-links`,
-            options: {
-              target: '_blank',
-              rel: 'noopener noreferrer',
-            },
           },
         ],
       },
