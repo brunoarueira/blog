@@ -79,11 +79,6 @@ const components = {
 
     return <a {...props} />
   },
-  Caption: ({ children }) => (
-    <Caption>
-      {children}
-    </Caption>
-  ),
   ul: props => <StyledUl {...props} />,
   h1: props => <h1 className="leading-tight mb-8 mt-6" {...props} />
 }
