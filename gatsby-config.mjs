@@ -78,6 +78,7 @@ const config = {
           remarkRehypeOptions: {
             allowDangerousHtml: true,
             footnoteLabel: ' ',
+            clobberPrefix: '',
           },
         },
 

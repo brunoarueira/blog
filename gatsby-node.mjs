@@ -92,6 +92,7 @@ export const onCreateNode = ({ node, actions, getNode }) => {
         remarkRehypeOptions: {
           allowDangerousHtml: true,
           footnoteLabel: ' ',
+          clobberPrefix: '',
         },
         useDynamicImport: true
       }).then((result) => {
