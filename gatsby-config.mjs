@@ -11,7 +11,7 @@ const renderCard = ({ title }) =>
 const config = {
   siteMetadata: {
     title: `Bruno Arueira`,
-    description: `Bruno Arueira is a Tech Lead, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.`,
+    description: `Bruno Arueira is a software engineer, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.`,
     author: `@bruno_arueira`,
     siteUrl: `https://brunoarueira.com/`,
   },
