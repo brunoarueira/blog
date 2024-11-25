@@ -1,4 +1,4 @@
-module.exports = () => ({
+module.exports = {
   plugins: [
     require('postcss-import')({
       plugins: [require('stylelint')],
@@ -12,4 +12,4 @@ module.exports = () => ({
       browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'],
     }),
   ],
-})
+}
