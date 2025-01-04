@@ -1,0 +1,18 @@
+---
+import { ChevronRightIcon, ChevronLeftIcon } from "astro-feather";
+
+const { address, text, direction = "right" } = Astro.props;
+
+const pixels_to_move = 5;
+const position = direction == "right" ? `${pixels_to_move}px` : `-${pixels_to_move}px`;
+
+const Icon = direction == "right" ? ChevronRightIcon : ChevronLeftIcon;
+---
+
+<a href={address} class="styled-link uppercase no-underline hover:underline" style=`--translate-x: ${position}`>
+  {text}
+
+  <div class="styled-link-icon-container">
+    <Icon size={14} strokeWidth={1.2} />
+  </div>
+</a>
