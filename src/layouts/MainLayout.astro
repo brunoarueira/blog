@@ -1,0 +1,29 @@
+---
+import '../styles/globals.css'
+import Header from '../components/Header.astro'
+import Footer from '../components/Footer.astro'
+
+const { title, full, frontmatter } = Astro.props;
+
+const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my-8 w-11/12 md:m-auto md:w-2/4";
+---
+<html lang="en">
+	<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>{title || frontmatter.title}</title>
+	</head>
+  <body>
+    <div class="w-full h-1 bg-gold-900" />
+
+    <Header />
+
+    <div class={contentClasses}>
+      <slot />
+    </div>
+
+    <Footer />
+  </body>
+</html>

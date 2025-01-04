@@ -19,6 +19,7 @@
     "@astrojs/mdx": "^4.0.3",
     "@astrojs/tailwind": "5.1.4",
     "astro": "5.1.2",
+    "astro-feather": "^1.0.0",
     "postcss-import": "^16.1.0",
     "postcss-preset-env": "^10.1.1",
     "stylelint": "^16.10.0",
