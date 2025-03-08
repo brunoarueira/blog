@@ -1,16 +1,20 @@
 ---
-
+import MainLayout from '../layouts/MainLayout.astro'
+import Writings from '../components/Writings.astro'
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Software engineer | Bruno Arueira" full={true}>
+  <h1 class="leading-tight m-auto mb-8 mt-6 md:w-2/4 w-full" style="transition: all 1s ease;">
+    Hi, I'm <span>Bruno</span>.
+  </h1>
+
+  <p class="text-lg leading-loose m-auto md:w-2/4 w-full">
+    I'm a <span class="underline" style="font-weight: 600;">software engineer</span> which already worked on different markets.
+  </p>
+
+  <p class="text-lg leading-loose m-auto md:w-2/4 w-full">
+    Experienced with multiple languages, technologies and like about optimize and performance things!
+  </p>
+
+  <Writings />
+</MainLayout>

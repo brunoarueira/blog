@@ -1,5 +1,3 @@
-@tailwind base;
-
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -11,12 +9,27 @@ pre * {
   font-family: 'Source Code Pro', sans-serif;
 }
 
-pre.prism-code,
-pre.prism-code * {
+pre.astro-code,
+pre.astro-code * {
   font-weight: 600;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+}
+
+code {
+  counter-reset: step;
+  counter-increment: step 0;
+}
+
+code .line::before {
+  content: counter(step);
+  counter-increment: step;
+  width: 1rem;
+  margin-right: 1.5rem;
+  display: inline-block;
+  text-align: right;
+  color: rgba(115,138,148,.4)
 }
 
 h1 {
@@ -44,16 +57,13 @@ h6 {
 
 a:hover {
   @apply underline;
+  text-decoration: underline;
+  text-decoration-color: theme('colors.gold.900');
 }
 
 .custom-page p {
   @apply leading-loose;
   @apply mb-6;
-}
-
-a[aria-current].active-link {
-  @apply underline;
-  text-decoration-color: theme('colors.gold.900');
 }
 
 .footnotes ol {
@@ -72,6 +82,53 @@ a[aria-current].active-link {
 
 .highlight-line {
   background-color: #3b4252;
+}
+
+input:checked + #menu {
+  @apply visible;
+  @apply h-12;
+
+  opacity: 1;
+}
+
+a.slide-logo {
+  transform: translateX(calc(50% - 2.6em));
+}
+
+.styled-link {
+  font-weight: 400;
+  text-decoration-color: theme('colors.gold.900') !important;
+}
+
+.styled-link:hover > div {
+  transform: translateX(var(--translate-x));
+}
+
+.styled-link-icon-container {
+  vertical-align: middle;
+  display: inline-block;
+  transition: all 1s linear;
+}
+
+.social-share li {
+  margin: 0 10px;
+}
+
+.social-share li a svg {
+  transition: all 0.8s linear;
+}
+
+.social-share li a:hover {
+  ${tw`hover:text-gray-600`}
+}
+
+.social-share a:hover svg {
+  transform: scale(1.3, 1.3);
+}
+
+p {
+  @apply mb-8;
+  @apply text-xl;
 }
 
 @tailwind components;

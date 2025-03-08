@@ -1,0 +1,42 @@
+---
+import { GithubIcon, LinkedinIcon, RssIcon, TwitterIcon } from "astro-feather"
+---
+<footer class="w-full h-14 mt-8">
+  <div class="m-auto w-11/12 md:w-2/4">
+    <div class="flex flex-row items-center justify-between md:items-right md:float-right py-6">
+      <a href="/feed.xml" title="Subscribe to the RSS feed" target="_blank" class="no-underline mr-1 sm:mr-3 hover:text-gray-600">
+        <RssIcon size={24} strokeWidth={1.2} />
+      </a>
+
+      <a
+        href="https://github.com/brunoarueira"
+        title="See my open source contributions on GitHub"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="no-underline mr-1 sm:mr-3 hover:text-gray-600"
+  >
+        <GithubIcon size={24} strokeWidth={1.2} />
+      </a>
+
+      <a
+        href="https://www.linkedin.com/in/brunoarueira"
+        title="LinkedIn"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="no-underline mr-1 sm:mr-3 hover:text-gray-600"
+      >
+        <LinkedinIcon size={24} strokeWidth={1.2} />
+      </a>
+
+      <a
+        href="https://twitter.com/bruno_arueira"
+        title="Follow me on Twitter"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="no-underline mr-1 sm:mr-3 hover:text-gray-600"
+      >
+        <TwitterIcon size={24} strokeWidth={1.2} />
+      </a>
+    </div>
+  </div>
+</footer>
