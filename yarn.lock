@@ -815,6 +815,21 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.25.2.tgz#839f72c2decd378f86b8f525e1979a97b920c67d"
   integrity sha512-kM3HKb16VIXZyIeVrM1ygYmZBKybX8N4p754bw390wGO3Tf2j4L2/WYL+4suWujpgf6GBYs3jv7TyUivdd05JA==
 
+"@igor.dvlpr/astro-post-excerpt@^3.0.4":
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/@igor.dvlpr/astro-post-excerpt/-/astro-post-excerpt-3.0.4.tgz#922f3cef21bb5445c94efd8b275855fa9897e833"
+  integrity sha512-6SAFf4ntbtmTqFfRNTyaIR+57cYNFNVb0M11b4dE+6zsLgWxzEvla4lCXbGgHl537qHeOHwmBGsPbV9u7pYqhA==
+  dependencies:
+    "@igor.dvlpr/strip-yaml-front-matter" "^1.0.0"
+    mdast-util-from-markdown "^2.0.1"
+    mdast-util-mdx "^3.0.0"
+    micromark-extension-mdxjs "^3.0.0"
+
+"@igor.dvlpr/strip-yaml-front-matter@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@igor.dvlpr/strip-yaml-front-matter/-/strip-yaml-front-matter-1.0.0.tgz#c2bb698a5c802d2fc2322c6829efd2a73fc9817f"
+  integrity sha512-SZjJC9p3X7TPEgwjCLYYfE21JAXptcITvwMZnmcJ14vzPiUsduNPykoPGCQw8Tu04lJ0dgyg0CmSeL78b7OFEQ==
+
 "@img/sharp-darwin-arm64@0.33.5":
   version "0.33.5"
   resolved "https://registry.yarnpkg.com/@img/sharp-darwin-arm64/-/sharp-darwin-arm64-0.33.5.tgz#ef5b5a07862805f1e8145a377c8ba6e98813ca08"
@@ -2993,6 +3008,24 @@ mdast-util-from-markdown@^2.0.0:
     micromark-util-types "^2.0.0"
     unist-util-stringify-position "^4.0.0"
 
+mdast-util-from-markdown@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/mdast-util-from-markdown/-/mdast-util-from-markdown-2.0.2.tgz#4850390ca7cf17413a9b9a0fbefcd1bc0eb4160a"
+  integrity sha512-uZhTV/8NBuw0WHkPTrCqDOl0zVe1BIng5ZtHoDk49ME1qqcjYmmLmOf0gELgcRMxN4w2iuIeVso5/6QymSrgmA==
+  dependencies:
+    "@types/mdast" "^4.0.0"
+    "@types/unist" "^3.0.0"
+    decode-named-character-reference "^1.0.0"
+    devlop "^1.0.0"
+    mdast-util-to-string "^4.0.0"
+    micromark "^4.0.0"
+    micromark-util-decode-numeric-character-reference "^2.0.0"
+    micromark-util-decode-string "^2.0.0"
+    micromark-util-normalize-identifier "^2.0.0"
+    micromark-util-symbol "^2.0.0"
+    micromark-util-types "^2.0.0"
+    unist-util-stringify-position "^4.0.0"
+
 mdast-util-gfm-autolink-literal@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/mdast-util-gfm-autolink-literal/-/mdast-util-gfm-autolink-literal-2.0.1.tgz#abd557630337bd30a6d5a4bd8252e1c2dc0875d5"
@@ -4243,6 +4276,11 @@ readdirp@~3.6.0:
   integrity sha512-hOS089on8RduqdbhvQ5Z37A0ESjsqz6qnRcffsMU3495FuTdqSm+7bhJ29JvIOsBDEEnan5DPu9t3To9VRlMzA==
   dependencies:
     picomatch "^2.2.1"
+
+reading-time@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/reading-time/-/reading-time-1.5.0.tgz#d2a7f1b6057cb2e169beaf87113cc3411b5bc5bb"
+  integrity sha512-onYyVhBNr4CmAxFsKS7bz+uTLRakypIe4R+5A824vBSkQy/hB3fZepoVEf8OVAxzLvK+H/jm9TzpI3ETSm64Kg==
 
 recma-build-jsx@^1.0.0:
   version "1.0.0"
