@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from "astro:content";
+
+import MainLayout from "../../layouts/MainLayout.astro";
+import SocialShare from "../../components/SocialShare.astro";
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => {
+    return {
+      params: { slug: post.data.slug },
+      props: { post }
+    }
+  });
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const dateOptions = {
+  timeZone: 'UTC',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+};
+---
+<MainLayout title={post.data.title}>
+  <h1 class="mb-8 mt-6">{post.data.title}</h1>
+
+  <div class="w-full flex items-center mt-0 mb-8 text-gray-600">
+    <time date={post.data.date} class="mr-1">
+      {new Date(post.data.date).toLocaleDateString('en', dateOptions)}
+    </time>
+    {` `}|
+    <span class="ml-1">
+      {remarkPluginFrontmatter.minutesRead}
+    </span>
+  </div>
+
+  <Content />
+
+  <SocialShare title={post.data.title} path={post.data.slug} />
+
+  <hr class="mt-6 mb-4" />
+</MainLayout>

@@ -1,0 +1,30 @@
+---
+import { TwitterIcon, LinkedinIcon } from "astro-feather";
+
+const { title, path } = Astro.props;
+
+const siteUrl = "https://brunoarueira.com";
+---
+  <section class="mt-8" style="align-items: center; display: flex; justify-content: flex-end;">
+    Share this post
+    <ul style="align-items: center; display: flex; flex-direction: flex-end; list-style: none; margin: 0; padding: 0; line-height: 1;">
+      <li>
+        <a
+          href={`https://twitter.com/intent/tweet/?text=${title}&url=${siteUrl}${path}%2F&via=bruno_arueira`}
+          target="_blank"
+          title="Twitter"
+        >
+          <TwitterIcon size={22} strokeWidth={1.2} />
+        </a>
+      </li>
+      <li>
+        <a
+          href={`https://www.linkedin.com/shareArticle?mini=true&url=${siteUrl}${path}&title=${title}&source=${title}`}
+          target="_blank"
+          title="LinkedIn"
+        >
+          <LinkedinIcon size={22} strokeWidth={1.2} />
+        </a>
+      </li>
+    </ul>
+  </section>

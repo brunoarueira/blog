@@ -1,0 +1,48 @@
+---
+import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
+
+import MainLayout from "../layouts/MainLayout.astro";
+import StyledLink from "../components/StyledLink.astro";
+
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection('blog');
+
+const posts = allPosts.sort((a, b) => b.data.date - a.data.date);
+
+const dateOptions = {
+  timeZone: 'UTC',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+}
+---
+  <MainLayout title="My blog posts where you can check out my writings | Bruno Arueira">
+    <h1 class="leading-tight mb-8 mt-6">Blog</h1>
+
+    {posts.map(post => {
+      const title = post.data.title || post.data.slug
+
+      const postSlug = `/blog/${post.data.slug}`
+
+      return (
+        <div key={postSlug} class="mb-12">
+          <h2 class="mb-3">
+            <a href={postSlug} style="font-weight: 700; box-shadow: none;">{title}</a>
+          </h2>
+
+          <small class="text-gray-600" style="font-weight: 400">{new Date(post.data.date).toLocaleDateString('en', dateOptions)}</small>
+
+          <div class="mt-5">
+            <PostExcerpt
+              post={post}
+              maxLength={800}
+              addEllipsis={true}
+            />
+          </div>
+
+          <StyledLink address={postSlug} text="Read more" />
+        </div>
+      )
+    })}
+  </MainLayout>
