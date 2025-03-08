@@ -1,37 +1,47 @@
 ---
-import MainLayout from "../layouts/MainLayout.astro"
-import { ChevronRightIcon } from "astro-feather"
+import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
 
-const posts = []
+import MainLayout from "../layouts/MainLayout.astro";
+import StyledLink from "../components/StyledLink.astro";
+
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection('blog');
+
+const posts = allPosts.sort((a, b) => b.data.date - a.data.date);
+
+const dateOptions = {
+  timeZone: 'UTC',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+}
 ---
   <MainLayout title="My blog posts where you can check out my writings | Bruno Arueira">
-    <h1 className="leading-tight mb-8 mt-6">Blog</h1>
+    <h1 class="leading-tight mb-8 mt-6">Blog</h1>
 
-    {posts.map(function ({ post }) {
-      const title = post.frontmatter.title || post.frontmatter.slug
+    {posts.map(post => {
+      const title = post.data.title || post.data.slug
 
-      const postSlug = `/blog/${post.frontmatter.slug}`
+      const postSlug = `/blog/${post.data.slug}`
 
       return (
-        <div key={postSlug} className="mb-12">
-          <h2 className="mb-3">
+        <div key={postSlug} class="mb-12">
+          <h2 class="mb-3">
             <a href={postSlug} style="font-weight: 700; box-shadow: none;">{title}</a>
           </h2>
 
-          <small class="text-gray-600" style="font-weight: 400">{post.frontmatter.date}</small>
+          <small class="text-gray-600" style="font-weight: 400">{new Date(post.data.date).toLocaleDateString('en', dateOptions)}</small>
 
-          <p
-            className="mt-5"
-            dangerouslySetInnerHTML={{ __html: post.excerpt }}
-          />
-
-          <div className="flex flex-col md:flex-row items-left md:items-center justify-between mt-5">
-            <a href={postSlug} class="uppercase no-underline hover:underline" style="text-decoration-color: color-gold-900 !important; font-weight: 400;">
-              Read more
-
-              <ChevronRightIcon size={14} strokeWidth={1.2} />
-            </a>
+          <div class="mt-5">
+            <PostExcerpt
+              post={post}
+              maxLength={800}
+              addEllipsis={true}
+            />
           </div>
+
+          <StyledLink address={postSlug} text="Read more" />
         </div>
       )
     })}

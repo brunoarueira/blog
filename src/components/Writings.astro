@@ -1,7 +1,11 @@
 ---
 import StyledLink from "../components/StyledLink.astro"
 
-const posts = []
+import { getCollection } from "astro:content"
+
+const allPosts = await getCollection('blog')
+
+const posts = allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date));
 ---
 
 <div class="w-full py-6 bg-gray-100 mt-8 md:py-12">
@@ -10,9 +14,9 @@ const posts = []
 
     <div class="w-2/6 border-b border-gold-900 my-3" />
 
-    {posts.map(function ({ post }) {
-      const title = post.frontmatter.title || post.frontmatter.slug
-      const postSlug = `blog/${post.frontmatter.slug}`
+    {posts.map(post => {
+      const title = post.data.title || post.data.slug
+      const postSlug = `blog/${post.data.slug}`
 
       return (
         <p class="py-3" key={postSlug}>
