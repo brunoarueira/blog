@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
+import rehypeExternalLinks from 'rehype-external-links';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 
 import mdx from "@astrojs/mdx";
@@ -12,6 +13,17 @@ export default defineConfig({
       theme: 'nord',
       wrap: true
     },
+    rehypePlugins: [
+	[
+	  rehypeExternalLinks,
+	  {
+	    content: { type: 'text' },
+	    properties: { className: ['external-link'] },
+	    target: '_blank',
+	    rel: ['noopener', 'noreferrer'],
+	  }
+	],
+    ],
     remarkPlugins: [remarkReadingTime],
     gfm: true
   },

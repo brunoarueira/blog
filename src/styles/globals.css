@@ -131,6 +131,10 @@ a.slide-logo {
   @apply text-xl;
 }
 
+.external-link {
+  text-decoration-line: underline;
+}
+
 @tailwind components;
 
 @tailwind utilities;
