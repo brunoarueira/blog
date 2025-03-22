@@ -1,6 +1,5 @@
 ---
-import PostExcerpt from "@igor.dvlpr/astro-post-excerpt";
-
+import { createExcerpt } from '../utils/create-excerpt';
 import MainLayout from "../layouts/MainLayout.astro";
 import StyledLink from "../components/StyledLink.astro";
 
@@ -25,6 +24,8 @@ const dateOptions = {
 
       const postSlug = `/blog/${post.data.slug}`
 
+      const excerpt = `${createExcerpt(post.body).substring(0, 300)}...`;
+
       return (
         <div key={postSlug} class="mb-12">
           <h2 class="mb-3">
@@ -33,12 +34,8 @@ const dateOptions = {
 
           <small class="text-gray-600" style="font-weight: 400">{new Date(post.data.date).toLocaleDateString('en', dateOptions)}</small>
 
-          <div class="mt-5">
-            <PostExcerpt
-              post={post}
-              maxLength={800}
-              addEllipsis={true}
-            />
+	  <div class="mt-5 mb-5">
+	    {excerpt}
           </div>
 
           <StyledLink address={postSlug} text="Read more" />
