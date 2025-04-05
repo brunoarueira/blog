@@ -3,19 +3,29 @@ import { getCollection, render } from "astro:content";
 
 import MainLayout from "../../layouts/MainLayout.astro";
 import SocialShare from "../../components/SocialShare.astro";
+import StyledLink from "../../components/StyledLink.astro";
+import { sortByDate } from "../../utils/sortByDate";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog');
+  const allPosts = await getCollection('blog');
+  const numberOfPosts = allPosts.length;
 
-  return posts.map((post) => {
+  return allPosts.sort(sortByDate).map((post, i) => {
+    const previousPost = i + 1 === numberOfPosts ? { data: undefined } : allPosts[i + 1];
+    const nextPost = i === 0 ? { data: undefined } : allPosts[i - 1];
+
     return {
       params: { slug: post.data.slug },
-      props: { post }
+      props: {
+        post,
+	previousPost,
+	nextPost
+      }
     }
   });
 }
 
-const { post } = Astro.props;
+const { post, previousPost, nextPost } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 
 const dateOptions = {
@@ -45,4 +55,14 @@ const dateOptions = {
   <SocialShare title={post.data.title} path={post.data.slug} />
 
   <hr class="mt-6 mb-4" />
+
+  <ul class="flex flex-row justify-between" style="liststyle: 'none';">
+    <li>
+      {previousPost.data && <StyledLink text={previousPost.data.title} address={`/blog/${previousPost.data.slug}/`} direction="left" />}
+    </li>
+
+    <li>
+      {nextPost.data && <StyledLink text={nextPost.data.title} address={`/blog/${nextPost.data.slug}/`} />}
+    </li>
+  </ul>
 </MainLayout>
