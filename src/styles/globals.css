@@ -41,13 +41,17 @@ a:hover {
   list-style-position: inside;
 }
 
+.footnotes h2 {
+  @apply mb-3;
+}
+
 .footnotes hr {
   border-color: theme('colors.gray.200');
 }
 
 .footnotes p {
   display: inline-block;
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
 }
 
 .highlight-line {
