@@ -9,6 +9,7 @@ export const createExcerpt = (body) => {
     .map((str) => {
       return str.replace(/<\/?[^>]+(>|$)/g, '')
                 .replaceAll('&quot;', '"')
+                .replace(/\^\d+/g, '')
                 .split('\n');
     })
     .flat()
