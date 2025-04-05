@@ -1,11 +1,12 @@
 ---
-import StyledLink from "../components/StyledLink.astro"
-
 import { getCollection } from "astro:content"
+
+import StyledLink from "../components/StyledLink.astro"
+import { sortByDate } from "../utils/sortByDate"
 
 const allPosts = await getCollection('blog')
 
-const posts = allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.date)).slice(0,5);
+const posts = allPosts.sort(sortByDate).slice(0,5);
 ---
 
 <div class="w-full py-6 bg-gray-100 mt-8 md:py-12">
@@ -26,7 +27,7 @@ const posts = allPosts.sort((a, b) => new Date(b.data.date) - new Date(a.data.da
     })}
 
     <div class="pt-2">
-      <StyledLink text="See More" address="/blog" />
+      <StyledLink text="See More" address="/blog" uppercase={true} />
     </div>
   </div>
 </div>
