@@ -117,6 +117,14 @@ a.slide-logo {
   @apply text-xl;
 }
 
+.post figure {
+  @apply mb-8;
+}
+
+.post figure p {
+  @apply mb-0;
+}
+
 .external-link {
   text-decoration-line: underline;
 }
