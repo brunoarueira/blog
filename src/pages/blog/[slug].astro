@@ -35,7 +35,7 @@ const dateOptions = {
   day: '2-digit'
 };
 ---
-<MainLayout title={post.data.title}>
+<MainLayout title={post.data.title} frontmatter={post.data}>
   <h1 class="mb-8 mt-6">{post.data.title}</h1>
 
   <div class="w-full flex items-center mt-0 mb-8 text-gray-600">
