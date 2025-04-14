@@ -7,7 +7,7 @@ const blog = defineCollection({
     title: z.string(),
     slug: z.string(),
     date: z.string().transform((str) => Date.parse(str)),
-    keywords: z.array(z.string())
+    tags: z.array(z.string())
   }),
 });
 
