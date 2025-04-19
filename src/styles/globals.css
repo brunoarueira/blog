@@ -106,31 +106,46 @@ a:hover {
   text-decoration-color: theme('colors.gold.900') !important;
 }
 
-.styled-link:hover > div {
+.styled-link:hover > svg {
+  @apply mb-0;
+
   transform: translateX(var(--translate-x));
   vertical-align: middle;
-  display: inline-block;
   transition: all 1s linear;
 }
 
-.social-share li a:hover {
-  @apply hover:text-gray-600 dark:hover:text-gray-400;
+.social-share a:hover svg {
+  transform: scale(1.3, 1.3);
 }
 
 .social-share li {
   margin: 0 10px;
 }
 
+.social-share li a:hover {
+  @apply hover:text-gray-600 dark:hover:text-gray-400;
+}
+
 .social-share li a svg {
   transition: all 0.8s linear;
 }
 
-.social-share li a:hover {
-  ${tw`hover:text-gray-600`}
+.social-network li {
+  @apply mx-2;
 }
 
-.social-share a:hover svg {
+.social-network li a {
+  @apply mr-1 sm:mr-3;
+}
+
+.social-network a svg {
+  transition: all 0.8s linear;
+}
+
+.social-network a:hover svg {
+  vertical-align: middle;
   transform: scale(1.3, 1.3);
+  transition: all 1s linear;
 }
 
 .post ul {
