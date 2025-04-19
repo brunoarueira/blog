@@ -73,7 +73,7 @@ a:hover {
 }
 
 #menu-toggle:checked + #menu {
-  @apply visible;
+  @apply block;
   @apply h-12;
 
   opacity: 1;
