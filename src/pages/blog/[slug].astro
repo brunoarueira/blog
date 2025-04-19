@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from "astro:content";
+
+import MainLayout from "../../layouts/MainLayout.astro";
+import SocialShare from "../../components/SocialShare.astro";
+import StyledLink from "../../components/StyledLink.astro";
+import { sortByDate } from "../../utils/sortByDate";
+
+export async function getStaticPaths() {
+  const allPosts = await getCollection('blog');
+  const numberOfPosts = allPosts.length;
+
+  return allPosts.sort(sortByDate).map((post, i) => {
+    const previousPost = i + 1 === numberOfPosts ? { data: undefined } : allPosts[i + 1];
+    const nextPost = i === 0 ? { data: undefined } : allPosts[i - 1];
+
+    return {
+      params: { slug: post.data.slug },
+      props: {
+        post,
+	previousPost,
+	nextPost
+      }
+    }
+  });
+}
+
+const { post, previousPost, nextPost } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+const dateOptions = {
+  timeZone: 'UTC',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+};
+---
+<MainLayout title={post.data.title} frontmatter={post.data}>
+  <h1 class="mb-8 mt-6">{post.data.title}</h1>
+
+  <div class="w-full flex items-center mt-0 mb-8 text-gray-600">
+    <time date={post.data.date} class="mr-1">
+      {new Date(post.data.date).toLocaleDateString('en', dateOptions)}
+    </time>
+    {` `}|
+    <span class="ml-1">
+      {remarkPluginFrontmatter.minutesRead}
+    </span>
+  </div>
+
+  <div class="post">
+    <Content />
+  </div>
+
+  <SocialShare title={post.data.title} path={post.data.slug} />
+
+  <hr class="mt-6 mb-4" />
+
+  <ul class="flex flex-row justify-between" style="liststyle: 'none';">
+    <li>
+      {previousPost.data && <StyledLink text={previousPost.data.title} address={`/blog/${previousPost.data.slug}/`} direction="left" />}
+    </li>
+
+    <li>
+      {nextPost.data && <StyledLink text={nextPost.data.title} address={`/blog/${nextPost.data.slug}/`} />}
+    </li>
+  </ul>
+</MainLayout>

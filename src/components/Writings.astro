@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content"
+
+import StyledLink from "../components/StyledLink.astro"
+import { sortByDate } from "../utils/sortByDate"
+
+const allPosts = await getCollection('blog')
+
+const posts = allPosts.sort(sortByDate).slice(0,5);
+---
+
+<div class="w-full py-6 bg-gray-100 mt-8 md:py-12 dark:bg-gray-800">
+  <div class="m-auto w-11/12 md:w-2/4">
+    <h5 class="mb-0">Some random thoughts</h5>
+
+    <div class="w-2/6 border-b border-gold-900 my-3" />
+
+    {posts.map(post => {
+      const title = post.data.title || post.data.slug
+      const postSlug = `blog/${post.data.slug}`
+
+      return (
+        <p class="py-3" key={postSlug}>
+          <a href={postSlug} class="no-underline hover:underline text-xl" style="font-weight: 500;">{title}</a>
+        </p>
+      )
+    })}
+
+    <div class="pt-2">
+      <StyledLink text="See More" address="/blog" uppercase={true} />
+    </div>
+  </div>
+</div>

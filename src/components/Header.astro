@@ -1,0 +1,30 @@
+---
+import { MenuIcon, XIcon } from "astro-feather"
+---
+
+<nav class="md:m-auto mx-1 md:w-2/4 py-8 flex flex-col md:flex-row justify-between">
+  <input class="hidden" type="checkbox" id="menu-toggle" />
+
+  <a class="text-xl no-underline hover:no-underline hover:text-gray-700 logo" href="/" style="font-weight: 600; transition: all 2s linear;">
+    Bruno Arueira
+  </a>
+
+  <label for="menu-toggle" class="cursor-pointer md:hidden absolute self-end" style="margin-top: .2rem;">
+    <span class="menu-icon md:hidden"><MenuIcon /></span>
+    <span class="x-icon hidden"><XIcon /></span>
+  </label>
+
+  <ul id="menu" class="hidden h-0 w-full justify-center mt-2 md:invisible md:h-auto md:opacity-100 md:w-auto md:inline-flex md:items-center">
+    <li class="mr-0 md:mr-4 my-2 py-2 border-b border-gold-900 text-center md:my-0 md:py-0 md:border-0">
+      <a href="/blog" class="no-underline">
+        Blog
+      </a>
+    </li>
+
+    <li class="my-2 py-2 border-b border-gold-900 text-center md:my-0 md:py-0 md:border-0">
+      <a href="/about" class="no-underline">
+        About
+      </a>
+    </li>
+  </ul>
+</nav>

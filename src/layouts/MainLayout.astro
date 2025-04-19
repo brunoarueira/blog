@@ -1,0 +1,89 @@
+---
+import 'prism-themes/themes/prism-nord.css';
+import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+
+import { getImage } from 'astro:assets';
+import faviconSrc from '../images/favicon.png';
+
+import '../styles/globals.css';
+import '../styles/code.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+const appleTouchIcon = await getImage({
+  src: faviconSrc,
+  width: 180,
+  height: 180,
+  format: 'png'
+});
+
+const { title: pageTitle, full, frontmatter = {} } = Astro.props;
+
+// SEO Defaults
+const siteName = "Bruno Arueira";
+const defaultTitle = `Software Engineer | {siteName}`;
+const defaultDescription = "Software Engineer | Tech Lead | Blogger | Sharing insights on software development, leadership, and technology trends.";
+const defaultOgImage = new URL('/default-og-image.png', Astro.site);
+
+const title = pageTitle || frontmatter.title || defaultTitle;
+const description = frontmatter.description || defaultDescription;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = frontmatter.image ? new URL(frontmatter.image, Astro.site) : defaultOgImage;
+const isArticle = Astro.url.pathname.startsWith('/blog/');
+
+const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my-8 w-11/12 md:m-auto md:w-2/4";
+---
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={`${Astro.site}feed.xml`}
+
+    {/* <!-- Page Title --> */}
+    <title>{title}</title>
+
+    {/* <!-- Favicons --> */}
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href={appleTouchIcon.src} />
+    <link rel="manifest" href="/manifest.json" />
+
+    {/* <!-- Fonts --> */}
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
+
+    {/* <!-- SEO Meta Tags --> */}
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    {/* <!-- Open Graph --> */}
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+    <meta property="og:site_name" content={siteName} />
+    {isArticle && frontmatter.date && <meta property="article:published_time" content={new Date(frontmatter.date).toISOString()} />}
+    {isArticle && frontmatter.tags && frontmatter.tags.map((tag: string) => <meta property="article:tag" content={tag} />)}
+
+
+    {/* <!-- Twitter Card --> */}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    <meta name="twitter:site" content="@bruno_arueira" />
+
+  </head>
+  <body>
+    <div class="w-full h-1 bg-gold-900" />
+
+    <Header />
+
+    <div class={contentClasses}>
+      <slot />
+    </div>
+
+    <Footer />
+  </body>
+</html>

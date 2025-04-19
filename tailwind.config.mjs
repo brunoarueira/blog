@@ -1,9 +1,9 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 
-module.exports = {
-  content: [
-    './src/**/**/*.js',
-  ],
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  darkMode: 'media', // Enable dark mode based on OS preference
   theme: {
     extend: {
       margin: {

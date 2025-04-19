@@ -5,9 +5,11 @@ about software development and related things.
 
 ## Stack
 
-I like a lot to use gatsby and this project is entirely made with it, alongside
-with tailwindcss, mdx (to write markdown posts/pages with some nice embedded React
-components), styled-components and some custom React components.
+This project is made with:
+
+- Astrojs;
+- TailwindCSS;
+- MDX
 
 ## Development
 
@@ -32,8 +34,8 @@ To see the changes, you'll need to run:
   yarn dev
 ```
 
-The command above will start the `gatsby server` to run on `8001` port, then
-open on your browser `http://localhost:8001` and you'll see your recent changes.
+The command above will start the Astro development server, typically running on port `4321`.
+Open on your browser to `http://localhost:4321` and you'll see your recent changes.
 
 ## LICENSE
 
