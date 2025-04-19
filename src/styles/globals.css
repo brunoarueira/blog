@@ -2,6 +2,14 @@
   font-family: 'Source Sans Pro', sans-serif;
 }
 
+body {
+  @apply dark:bg-black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply text-gray-900 dark:text-gray-100;
+}
+
 h1 {
   @apply text-5xl;
 }
@@ -25,15 +33,21 @@ h6 {
   @apply mb-8;
 }
 
+a {
+  @apply text-black dark:text-white;
+}
+
 a:hover {
   @apply underline;
   text-decoration: underline;
   text-decoration-color: theme('colors.gold.900');
+  @apply dark:text-gold-500;
+  @apply mb-6;
 }
 
-.custom-page p {
-  @apply leading-loose;
-  @apply mb-6;
+.footnotes hr {
+  border-color: theme('colors.gray.200');
+  @apply dark:border-gray-700;
 }
 
 .footnotes ol {
@@ -76,12 +90,13 @@ a.slide-logo {
 
 .styled-link:hover > div {
   transform: translateX(var(--translate-x));
-}
-
-.styled-link-icon-container {
   vertical-align: middle;
   display: inline-block;
   transition: all 1s linear;
+}
+
+.social-share li a:hover {
+  @apply hover:text-gray-600 dark:hover:text-gray-400;
 }
 
 .social-share li {
@@ -106,6 +121,8 @@ a.slide-logo {
   @apply mb-8;
 
   list-style: inside;
+
+  @apply dark:text-white;
 }
 
 .post ul li {
@@ -115,6 +132,7 @@ a.slide-logo {
 .post p {
   @apply mb-8;
   @apply text-xl;
+  @apply dark:text-gray-300;
 }
 
 .post figure {
