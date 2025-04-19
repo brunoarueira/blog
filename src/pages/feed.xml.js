@@ -11,10 +11,11 @@ export async function GET(context) {
   const posts = allPosts.sort((a, b) => b.data.date - a.data.date);
 
   return rss({
-    title: "Bruno Arueira RSS feed",
+    title: 'Bruno Arueira RSS feed',
     description: 'Bruno Arueira is a software engineer, lately working mostly with ruby, rails, nodejs and react. Besides that, he also knows a bit about DevOps.',
     site: context.site,
     trailingSlash: false,
+    stylesheet: '/rss/styles.xsl',
     items: posts.map((post) => ({
       title: post.data.title,
       pubDate: post.data.date,
