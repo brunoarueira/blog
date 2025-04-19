@@ -17,8 +17,8 @@ export default defineConfig({
           rehypePrism,
 	  {
 	    showLineNumbers: true
-	  }
-	],
+	  } as any
+	] as any,
 	[
 	  rehypeExternalLinks,
 	  {
@@ -26,7 +26,7 @@ export default defineConfig({
 	    properties: { className: ['external-link'] },
 	    target: '_blank',
 	    rel: ['noopener', 'noreferrer'],
-	  }
+	  } as any
 	],
     ],
     remarkPlugins: [remarkReadingTime],

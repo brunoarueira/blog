@@ -38,25 +38,20 @@ const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <link rel="alternate" type="application/rss+xml" title={siteName} href={`${Astro.site}feed.xml`}
+    <link rel="alternate" type="application/rss+xml" title={siteName} href={`${Astro.site}feed.xml`} />
 
-    {/* <!-- Page Title --> */}
     <title>{title}</title>
 
-    {/* <!-- Favicons --> */}
     <link rel="icon" href="/favicon.ico" sizes="32x32" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     <link rel="manifest" href="/manifest.json" />
 
-    {/* <!-- Fonts --> */}
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
 
-    {/* <!-- SEO Meta Tags --> */}
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    {/* <!-- Open Graph --> */}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
@@ -66,14 +61,11 @@ const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my
     {isArticle && frontmatter.date && <meta property="article:published_time" content={new Date(frontmatter.date).toISOString()} />}
     {isArticle && frontmatter.tags && frontmatter.tags.map((tag: string) => <meta property="article:tag" content={tag} />)}
 
-
-    {/* <!-- Twitter Card --> */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
     <meta name="twitter:site" content="@bruno_arueira" />
-
   </head>
   <body>
     <div class="w-full h-1 bg-gold-900" />

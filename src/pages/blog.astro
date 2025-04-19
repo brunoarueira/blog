@@ -9,7 +9,7 @@ const allPosts = await getCollection('blog');
 
 const posts = allPosts.sort((a, b) => b.data.date - a.data.date);
 
-const dateOptions = {
+const dateOptions: Intl.DateTimeFormatOptions = {
   timeZone: 'UTC',
   year: 'numeric',
   month: 'long',
@@ -27,7 +27,7 @@ const dateOptions = {
       const excerpt = `${createExcerpt(post.body).substring(0, 300)}...`;
 
       return (
-        <div key={postSlug} class="mb-12">
+        <div id={postSlug} class="mb-12">
           <h2 class="mb-3">
             <a href={postSlug} style="font-weight: 700; box-shadow: none;">{title}</a>
           </h2>

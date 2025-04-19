@@ -28,7 +28,7 @@ export async function getStaticPaths() {
 const { post, previousPost, nextPost } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 
-const dateOptions = {
+const dateOptions: Intl.DateTimeFormatOptions = {
   timeZone: 'UTC',
   year: 'numeric',
   month: 'long',
@@ -39,7 +39,7 @@ const dateOptions = {
   <h1 class="mb-8 mt-6">{post.data.title}</h1>
 
   <div class="w-full flex items-center mt-0 mb-8 text-gray-600">
-    <time date={post.data.date} class="mr-1">
+    <time class="mr-1">
       {new Date(post.data.date).toLocaleDateString('en', dateOptions)}
     </time>
     {` `}|

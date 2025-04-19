@@ -191,3 +191,7 @@ a:hover {
 @tailwind components;
 
 @tailwind utilities;
+
+title {
+  display: none !important;
+}

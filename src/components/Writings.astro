@@ -20,7 +20,7 @@ const posts = allPosts.sort(sortByDate).slice(0,5);
       const postSlug = `blog/${post.data.slug}`
 
       return (
-        <p class="py-3" key={postSlug}>
+        <p class="py-3" id={postSlug}>
           <a href={postSlug} class="no-underline hover:underline text-xl" style="font-weight: 500;">{title}</a>
         </p>
       )
