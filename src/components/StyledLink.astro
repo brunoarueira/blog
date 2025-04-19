@@ -11,16 +11,18 @@ const position = right ? `${pixels_to_move}px` : `-${pixels_to_move}px`;
 
 const Icon = right ? ChevronRightIcon : ChevronLeftIcon;
 
-const linkClasses = uppercase ? "styled-link uppercase no-underline hover:underline" : "styled-link no-underline hover:underline"
+let linkClasses = "styled-link no-underline hover:underline flex items-center"
+
+if (uppercase) {
+  linkClasses = `${linkClasses} uppercase`
+}
 ---
 
-<div class="flex flex-col md:flex-row items-left md:items-center justify-between">
+<div>
   <a href={address} class={linkClasses} style=`--translate-x: ${position}`>
     {left ? '' : text}
 
-    <div class="styled-link-icon-container">
-      <Icon size={14} strokeWidth={1.2} />
-    </div>
+    <Icon size={14} strokeWidth={1.2} style="display: inline" />
 
     {right ? '' : text}
   </a>
