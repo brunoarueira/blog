@@ -17,6 +17,7 @@
   "dependencies": {
     "@astrojs/check": "^0.9.4",
     "@astrojs/mdx": "4.2.3",
+    "@astrojs/rss": "^4.0.11",
     "@astrojs/tailwind": "6.0.2",
     "astro": "5.6.1",
     "astro-feather": "^1.0.0",
@@ -29,6 +30,7 @@
     "reading-time": "^1.5.0",
     "rehype-external-links": "^3.0.0",
     "rehype-prism-plus": "^2.0.0",
+    "sanitize-html": "^2.16.0",
     "sharp-ico": "^0.1.5",
     "stylelint": "^16.10.0",
     "tailwindcss": "^3.4.15",
