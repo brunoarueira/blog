@@ -72,15 +72,33 @@ a:hover {
   background-color: #3b4252;
 }
 
-input:checked + #menu {
+#menu-toggle:checked + #menu {
   @apply visible;
   @apply h-12;
 
   opacity: 1;
 }
 
-a.slide-logo {
+#menu-toggle:checked + a.logo {
   transform: translateX(calc(50% - 2.6em));
+}
+
+/* When the checkbox is checked: */
+/* 1. Hide the hamburger icon */
+#menu-toggle:checked ~ label .menu-icon {
+  @apply hidden;
+}
+
+/* 2. Show the 'X' icon */
+#menu-toggle:checked ~ label .x-icon {
+  @apply block;
+}
+
+/* 3. Show the menu */
+#menu-toggle:checked ~ #menu {
+  @apply table;
+
+  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .styled-link {
