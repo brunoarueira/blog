@@ -49,10 +49,6 @@ a:hover {
   @apply mb-6;
 }
 
-.highlight-line {
-  background-color: #3b4252;
-}
-
 .styled-link {
   font-weight: 400;
   text-decoration-color: theme('colors.gold.900') !important;

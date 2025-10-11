@@ -7,6 +7,8 @@ import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 
 import mdx from "@astrojs/mdx";
 
+import preact from '@astrojs/preact';
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://brunoarueira.com',
@@ -15,25 +17,22 @@ export default defineConfig({
     rehypePlugins: [
         [
           rehypePrism,
-	  {
-	    showLineNumbers: true
-	  } as any
-	] as any,
-	[
-	  rehypeExternalLinks,
-	  {
-	    content: { type: 'text' },
-	    properties: { className: ['external-link'] },
-	    target: '_blank',
-	    rel: ['noopener', 'noreferrer'],
-	  } as any
-	],
+      {
+        showLineNumbers: true
+      } as any
+    ] as any,
+    [
+      rehypeExternalLinks,
+      {
+        content: { type: 'text' },
+        properties: { className: ['external-link'] },
+        target: '_blank',
+        rel: ['noopener', 'noreferrer'],
+      } as any
+    ],
     ],
     remarkPlugins: [remarkReadingTime],
     gfm: true
   },
-  integrations: [
-    mdx(),
-    tailwind()
-  ]
+  integrations: [mdx(), tailwind(), preact()]
 });

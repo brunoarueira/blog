@@ -1,0 +1,9 @@
+---
+import Code from "../components/Code"
+
+const { props } = Astro;
+---
+
+<Code client:load {...props}>
+  <slot />
+</Code>
