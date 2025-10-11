@@ -1,0 +1,26 @@
+.post ul {
+  @apply list-disc;
+  @apply text-xl;
+  @apply mb-8;
+  @apply list-inside;
+
+  @apply dark:text-white;
+}
+
+.post ul li {
+  @apply mb-2;
+}
+
+.post p {
+  @apply mb-8;
+  @apply text-xl;
+  @apply dark:text-gray-300;
+}
+
+.post figure {
+  @apply mb-8;
+}
+
+.post figure p {
+  @apply mb-0;
+}

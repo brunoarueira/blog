@@ -1,0 +1,18 @@
+.footnotes hr {
+  border-color: theme('colors.gray.200');
+  @apply dark:border-gray-700;
+}
+
+.footnotes ol {
+  list-style: decimal;
+  list-style-position: inside;
+}
+
+.footnotes h2 {
+  @apply mb-3;
+}
+
+.footnotes p {
+  display: inline-block;
+  margin-bottom: 0 !important;
+}
