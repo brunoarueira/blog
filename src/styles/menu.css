@@ -1,0 +1,30 @@
+#menu-toggle:checked + #menu {
+  @apply block;
+  @apply h-12;
+
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+#menu-toggle:checked + a.logo {
+  transform: translateX(calc(50% - 2.6em));
+  transition: all 1s linear;
+}
+
+/* When the checkbox is checked: */
+/* 1. Hide the hamburger icon */
+#menu-toggle:checked ~ label .menu-icon {
+  @apply hidden;
+}
+
+/* 2. Show the 'X' icon */
+#menu-toggle:checked ~ label .x-icon {
+  @apply block;
+}
+
+/* 3. Show the menu */
+#menu-toggle:checked ~ #menu {
+  @apply table;
+
+  transition: visibility 0s, opacity 0.5s linear;
+}

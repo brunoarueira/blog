@@ -1,3 +1,8 @@
+@import "social-share";
+@import "post";
+@import "footnotes";
+@import "menu";
+
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -39,66 +44,13 @@ a {
 
 a:hover {
   @apply underline;
-  text-decoration: underline;
   text-decoration-color: theme('colors.gold.900');
   @apply dark:text-gold-500;
   @apply mb-6;
 }
 
-.footnotes hr {
-  border-color: theme('colors.gray.200');
-  @apply dark:border-gray-700;
-}
-
-.footnotes ol {
-  list-style: decimal;
-  list-style-position: inside;
-}
-
-.footnotes h2 {
-  @apply mb-3;
-}
-
-.footnotes hr {
-  border-color: theme('colors.gray.200');
-}
-
-.footnotes p {
-  display: inline-block;
-  margin-bottom: 0 !important;
-}
-
 .highlight-line {
   background-color: #3b4252;
-}
-
-#menu-toggle:checked + #menu {
-  @apply block;
-  @apply h-12;
-
-  opacity: 1;
-}
-
-#menu-toggle:checked + a.logo {
-  transform: translateX(calc(50% - 2.6em));
-}
-
-/* When the checkbox is checked: */
-/* 1. Hide the hamburger icon */
-#menu-toggle:checked ~ label .menu-icon {
-  @apply hidden;
-}
-
-/* 2. Show the 'X' icon */
-#menu-toggle:checked ~ label .x-icon {
-  @apply block;
-}
-
-/* 3. Show the menu */
-#menu-toggle:checked ~ #menu {
-  @apply table;
-
-  transition: visibility 0s, opacity 0.5s linear;
 }
 
 .styled-link {
@@ -112,22 +64,6 @@ a:hover {
   transform: translateX(var(--translate-x));
   vertical-align: middle;
   transition: all 1s linear;
-}
-
-.social-share a:hover svg {
-  transform: scale(1.3, 1.3);
-}
-
-.social-share li {
-  margin: 0 10px;
-}
-
-.social-share li a:hover {
-  @apply hover:text-gray-600 dark:hover:text-gray-400;
-}
-
-.social-share li a svg {
-  transition: all 0.8s linear;
 }
 
 .social-network li {
@@ -148,44 +84,8 @@ a:hover {
   transition: all 1s linear;
 }
 
-.post ul {
-  @apply list-disc;
-  @apply text-xl;
-  @apply mb-8;
-
-  list-style: inside;
-
-  @apply dark:text-white;
-}
-
-.post ul li {
-  @apply mb-2;
-}
-
-.post p {
-  @apply mb-8;
-  @apply text-xl;
-  @apply dark:text-gray-300;
-}
-
-.post figure {
-  @apply mb-8;
-}
-
-.post figure p {
-  @apply mb-0;
-}
-
 .external-link {
-  text-decoration-line: underline;
-}
-
-.social-share a svg {
-  transition: all 0.8s linear;
-}
-
-.social-share a:hover svg {
-  transform: scale(1.3, 1.3);
+  @apply underline;
 }
 
 @tailwind components;
