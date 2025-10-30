@@ -4,6 +4,7 @@ import { getCollection, render } from "astro:content";
 import MainLayout from "../../layouts/MainLayout.astro";
 import SocialShare from "../../components/SocialShare.astro";
 import StyledLink from "../../components/StyledLink.astro";
+import Code from "../../components/Code.astro";
 import { sortByDate } from "../../utils/sortByDate";
 
 export async function getStaticPaths() {
@@ -49,7 +50,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
   </div>
 
   <div class="post">
-    <Content />
+    <Content components={{ pre: Code }}/>
   </div>
 
   <SocialShare title={post.data.title} path={post.data.slug} />
