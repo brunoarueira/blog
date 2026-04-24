@@ -5,31 +5,31 @@ slug: that-day-when-dx-starts-matter-to-me
 tags: ['dx', 'software development', 'developer experience', 'devx']
 ---
 
-The day when developer experience (DX) starts matter to me was when I'd to make a meeting to support a developer from
-another company integrate with my employer.
+The day when developer experience (DX) started to matter to me was when I had to schedule a meeting to support a developer from
+another company integrating with my employer.
 
 ## But, why after that and not before?
 
-Because I never thought DX was thing, probably because I've been always a "hacker" and when in front of issues, I'll dig
-down and persist to resolve.
+Because I never thought DX was a thing, probably because I've always been a "hacker" and, when facing issues, I dig
+deep and persist until I solve them.
 
-I know many developers out there, like to have someone guiding and offer support to deliver something, but I didn't know
-the term exists.
+I know many developers out there like to have someone guiding them and offering support to deliver something, but I didn't know
+the term existed.
 
 ## The process
 
-The meeting initially was to help debug issues using our internal tools or understanding if there is a bug with our codebase,
-which in this case was the last option since the API was exaustly tested, but who knows.
+The meeting was initially meant to help debug issues using our internal tools or to understand whether there was a bug in our codebase,
+which in this case was the least likely option since the API was exhaustively tested, but who knows.
 
-After the meeting started, I'd to ask for the language was used to integrate (they're using python), what is the endpoint and
-open our tools (e.g. logging monitoring and exception tracker).
+After the meeting started, I had to ask which language was being used for the integration (they were using Python), what endpoint they were calling, and
+open our tools (e.g. log monitoring and exception tracker).
 
-Catch some data after some steps with other endpoints and only one endpoint was misbehaving, with that I open the codebase and
-tried to dig through the code to find some issue or insights about the problem.
+After gathering some data from other endpoints, only one endpoint was misbehaving. With that, I opened the codebase and
+tried to dig through the code to find some issue or insight about the problem.
 
-I'd found nothing, look at our unit tests and nothing suggests error from our side, then I'd ask to show a code snippet how the
-developer was calling our API. Since I known a little about python, I'd to start search through the internet, therefore found the
-issue was with the way the developer is creating the JSON payload to send. Example below:
+I found nothing, looked at our unit tests, and nothing suggested an error on our side, so I asked them to show a code snippet of how the
+developer was calling our API. Since I knew a little about Python, I started searching through the internet and found that the
+issue was with the way the developer was creating the JSON payload to send. Example below:
 
 ```diff
 import requests
@@ -47,13 +47,13 @@ print(r.status_code)
 print(r.headers)
 ```
 
-Note the difference? The way the developer was sending the payload is a string and when our API receives it, was ignoring and doesn't
-behaving accordingly. I don't judge the way to write that code, because in the past, I'd write many times something similar, but sometimes
+Note the difference? The way the developer was sending the payload was as a string, and when our API received it, it ignored it and didn't
+behave accordingly. I don't judge the way they wrote that code, because in the past I wrote something similar many times, but sometimes
 many of us struggle to find the problem.
 
-After the call I'd thinking about it, commented with my CTO and he said "Welcome to devx".
+After the call, I was thinking about it, commented on it with my CTO, and he said, "Welcome to DevX."
 
 ## Lesson learned
 
-Most of the time we'd to care about the developer on the other end, probably writing some code snippets or some guides, besides the API
-documentation, which in some isn't enough as this case was.
+Most of the time, we have to care about the developer on the other end, probably by writing some code snippets or guides besides the API
+documentation, which in some cases isn't enough, like this one.
