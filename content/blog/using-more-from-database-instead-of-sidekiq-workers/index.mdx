@@ -6,38 +6,38 @@ tags:
   ['sidekiq', 'sidekiq workers', 'ruby', 'rails', 'ruby on rails', 'database', 'SQL trigger']
 ---
 
-At this post I'll talk about an approach to simplify things a little bit when using sidekiq[^1]
+In this post, I'll talk about an approach to simplify things a little bit when using Sidekiq[^1]
 workers to process small updates on tables inside a database such as counters.
 
-Another day at [atos6](https://atos6.com) when investigate why our service was struggling and
-running under pressure, I've found that one of our sidekiq workers was causing the outage for two
-reasons: eating up the database connection pool and it run hundred times per day. You'll thought
-that this isn't much to take down, but this was in concurrency with another users and this workers
-was doing one thing, update count cache column, updating 3 count cache column, for statistics
-purpose and to measure evolving from customers, on a table which has a high access on our system.
+Another day at [atos6](https://atos6.com), when investigating why our service was struggling and
+running under pressure, I found that one of our Sidekiq workers was causing the outage for two
+reasons: it was eating up the database connection pool and it ran hundreds of times per day. You'd think
+that this isn't much to take down a service, but this was happening concurrently with other users, and this worker
+was doing one thing: updating count cache columns (3 of them), for statistics
+purposes and to measure customer growth, on a table that had high access in our system.
 
-When the outage occurs, I've remove small workers from our queue, which I don't care so much, some
-of them updates a latitude and longitude and this task can be call through a rake task which runs
-periodically. Another take was to increase the database connection pool and waiting the queue to
+When the outage occurred, I removed small workers from our queue, which I didn't care about that much. Some
+of them updated latitude and longitude, and this task could be called through a rake task that runs
+periodically. Another action was to increase the database connection pool and wait for the queue to
 flush.
 
-After the recovery, I've take some notes about why the outage occurs, take some screenshots from the
-Scout Apm[^2] which we've been using for quite some time.
+After the recovery, I took some notes about why the outage occurred and took some screenshots from
+Scout APM[^2], which we've been using for quite some time.
 
 ![Scout Apm dashboard that shows a lot of requests allocation](./scout-apm-dashboard-requests-allocation.png 'Scout Apm shows a lot of requests allocation')
 
-If you take a look at the screenshot, the pattern was repeating over time, but at that day, besides
-the worker called hundred of times, another heavy jobs was running too and our service was busing
-(normally between Wednesday and Sunday) and users accessing to take reports, updating data and etc.
+If you look at the screenshot, the pattern was repeating over time, but on that day, besides
+the worker being called hundreds of times, other heavy jobs were running too and our service was busy
+(normally between Wednesday and Sunday), with users accessing reports, updating data, and so on.
 
-Well, to take a possible approach of refactoring or maybe decrease the priority of such worker and
-not slowing down our service anymore, I've collected logs from at least 2 months and processed to
-analyze a snapshot about how many times that worker was called and not surprisingly they was at our
+To find a possible refactoring approach, or maybe decrease the priority of that worker so it
+wouldn't slow down our service anymore, I collected at least 2 months of logs and processed them to
+analyze how many times that worker was called, and not surprisingly it was in our
 top 5 (called 39522 times).
 
-With my hands full of data, I've started to analyze the feature that at the end fire the workers.
-The service object which handles all the logic to update those counters was causing a lot of N+1 query,
-because they receives one id from the worker and call:
+With my hands full of data, I started to analyze the feature that eventually fired those workers.
+The service object that handled all the logic to update those counters was causing a lot of N+1 queries,
+because it received one ID from the worker and called:
 
 ```ruby
 class CountersUpdateBusiness
@@ -53,23 +53,23 @@ class CountersUpdateBusiness
 end
 ```
 
-And along the code, calling something like `customer.reports_count = customer.reports.count` or
+Along the code, I had calls like `customer.reports_count = customer.reports.count` or
 `customer.active_reports_count = customer.reports.active.count`. For the first example, a simple
-`belongs_to :customer, counter_cache: :reports_count` (since we're using rails and activerecord)
-should be suffice, but the last one can't be accomplished with the same approach and I've thought
-about to make a SQL trigger[^3] to update the counter after a create or update the records scoped by
+`belongs_to :customer, counter_cache: :reports_count` (since we're using Rails and ActiveRecord)
+should suffice, but the last one can't be accomplished with the same approach, and I thought
+about creating a SQL trigger[^3] to update the counter after creating or updating records scoped by
 the active flag.
 
-On the process, I've refactored and simplified a lot of code, to take a peek see the screenshot
+During the process, I refactored and simplified a lot of code. To take a peek, see the screenshot
 below:
 
 ![Refactor after remove worker](./refactor-after-remove-worker.png 'Refactor after remove worker')
 
 ## Conclusion
 
-That was such a good job, because I've simplified the update of the counters, leaves the sidekiq
-queues to handle heavy workers asynchronously (email deliveries, change data in bulk and etc) and
-avoid to compete with each other, collaborating to another outage.
+That was a great result, because I simplified counter updates, left the Sidekiq
+queues to handle heavy workers asynchronously (email deliveries, bulk data changes, etc.), and
+avoided workers competing with each other and contributing to another outage.
 
 [^1]: https://github.com/mperham/sidekiq
 [^2]: http://scoutapm.com/

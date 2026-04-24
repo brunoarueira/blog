@@ -5,27 +5,27 @@ slug: why-code-review-is-so-important
 tags: ['code review', 'software development', 'limitations']
 ---
 
-Code review is a better practice to share knowledge between colleagues, leveling up skills and know
-the limitations of each other, including you.
+Code review is one of the best practices for sharing knowledge between colleagues, leveling up skills, and knowing
+each other's limitations, including your own.
 
 ## Why?
 
-When you're practice code review about a code from a co-worker or to an open source project, you're
-probably on, at least, three positions:
+When you're doing a code review for a co-worker's code or for an open source project, you're
+probably in at least three positions:
 
-- Already know most of the code and can collaborate to a better arrangement or the impacts of the
+- You already know most of the code and can contribute to a better arrangement or point out the impacts of the
   new code;
-- You don't know anything about the project, but know the syntax and can contribute to a better code
+- You don't know anything about the project, but you know the syntax and can contribute to better code
   style (yeah, I know the lint tools can do this automatically);
-- Or you're an apprentice learning new things and others can guide through the code.
+- Or you're an apprentice learning new things, and others can guide you through the code.
 
-But as we're learning something new everyday, we can change the above positions depends on the area
-the code review will be. For example, I'm a full stack software developer and can contribute for
-each layer of an application. However, a more specialist colleague can deliver more useful stuff
+But as we're learning something new every day, we can move between these positions depending on the area
+of the code being reviewed. For example, I'm a full stack software developer and can contribute to
+each layer of an application. However, a more specialized colleague can deliver more useful input
 about, let's say, frontend code.
 
-An example, another day a frontend co-worker requested me to do a code review on a pull request with
-a code piece that looks something to:
+For example, one day a frontend co-worker asked me to review a pull request with
+a code change that looked like this:
 
 ```diff
 this.setState({
@@ -34,18 +34,18 @@ this.setState({
 })
 ```
 
-Since, I don't recognize the reason he made this change, I questioned him and he said this change is
-to convert a variable id which is a string into an integer.
+Since I didn't recognize why he made this change, I asked him, and he said it was
+to convert an `id` variable from a string into an integer.
 
-I've always learn something through code reviews, because it's force you to understand the reasons
-behind changes proposed and sometimes I don't know or can't thought about it.
+I've always learned something through code reviews, because they force you to understand the reasons
+behind proposed changes, and sometimes I didn't know or couldn't think about it before.
 
-Another example occurred with me about 7 years ago, when I've got my second remote position as
-software developer working with Ruby on Rails. I've motivated because I got this position and I
-wanted to deliver the first pull request ever, have made the proposed fix on the code with a good
-test coverage, submit the pull request and I've received the first reject from my team leader,
-questioning about the tests I've applied. The unit tests, I've write with some metaprogramminng
-(common use on Ruby) and the rejection is: "The tests should be the more explicitly as you can and
-avoid such things, because adds complexity and increase readability".
+Another example happened to me about 7 years ago, when I got my second remote position as a
+software developer working with Ruby on Rails. I was highly motivated because I had just gotten that position, and I
+wanted to deliver my first pull request there. I made the proposed fix with good
+test coverage, submitted the pull request, and received my first rejection from my team leader,
+who questioned the tests I had written. The unit tests I wrote used some metaprogramming
+(common in Ruby), and the feedback was: "The tests should be as explicit as possible, and
+you should avoid this kind of approach, because it adds complexity and reduces readability."
 
-After that, I know I need to be better at code reviewing others and want to do the same with me.
+After that, I knew I needed to get better at reviewing others' code and wanted others to do the same for me.
