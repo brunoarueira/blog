@@ -1,3 +1,10 @@
+[build]
+  command = "npx playwright install --with-deps chromium && yarn build"
+  publish = "dist"
+
+[[plugins]]
+  package = "./netlify/plugins/playwright-cache"
+
 [[headers]]
   for = "/*"
 
