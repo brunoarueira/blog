@@ -1,5 +1,5 @@
 [build]
-  command = "npx playwright install --with-deps chromium && yarn build"
+  command = "npx playwright install chromium && yarn build"
   publish = "dist"
 
 [[plugins]]
