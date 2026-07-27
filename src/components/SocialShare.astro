@@ -1,5 +1,5 @@
 ---
-import { TwitterIcon, LinkedinIcon } from "astro-feather";
+import { XIcon, LinkedinIcon } from "astro-feather";
 
 const { title, path } = Astro.props;
 
@@ -12,11 +12,11 @@ const fullUrl = `${siteUrl}/${path}`;
     <ul class="ml-2 social-share" style="align-items: center; display: flex; flex-direction: flex-end; list-style: none; padding: 0; line-height: 1;">
       <li class="hover:text-gray-600">
         <a
-	  href={`https://twitter.com/intent/tweet/?text=${title}&url=${fullUrl}%2F&via=bruno_arueira`}
+	  href={`https://x.com/intent/tweet/?text=${title}&url=${fullUrl}%2F&via=bruno_arueira`}
           target="_blank"
-          title="Twitter"
+          title="X"
         >
-          <TwitterIcon size={22} strokeWidth={1.2} />
+          <XIcon size={22} strokeWidth={1.2} />
         </a>
       </li>
       <li class="ml-2 hover:text-gray-600">
