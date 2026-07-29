@@ -65,6 +65,8 @@ const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImageURL} />
     <meta name="twitter:site" content="@bruno_arueira" />
+
+    <slot name="head" />
   </head>
   <body>
     <div class="w-full h-1 bg-gold-900" />

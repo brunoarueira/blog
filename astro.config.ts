@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypePrism from 'rehype-prism-plus';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
+import { remarkHasCodeBlocks } from './src/plugins/remark-has-code-blocks.mjs';
 import rehypeMermaid from 'rehype-mermaid';
 
 import mdx from "@astrojs/mdx";
@@ -31,7 +32,7 @@ export default defineConfig({
 	  } as any
 	],
     ],
-    remarkPlugins: [remarkReadingTime],
+    remarkPlugins: [remarkReadingTime, remarkHasCodeBlocks],
     gfm: true
   },
   integrations: [
