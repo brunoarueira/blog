@@ -1,6 +1,6 @@
 ---
-import 'prism-themes/themes/prism-nord.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
+import prismThemeUrl from 'prism-themes/themes/prism-nord.css?url';
+import prismLineNumbersUrl from 'prismjs/plugins/line-numbers/prism-line-numbers.css?url';
 
 import { getCollection, render } from "astro:content";
 
@@ -39,6 +39,13 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 };
 ---
 <MainLayout title={post.data.title} frontmatter={post.data}>
+  {remarkPluginFrontmatter.hasCodeBlocks && (
+    <Fragment slot="head">
+      <link rel="stylesheet" href={prismThemeUrl} />
+      <link rel="stylesheet" href={prismLineNumbersUrl} />
+    </Fragment>
+  )}
+
   <h1 class="mb-8 mt-6">{post.data.title}</h1>
 
   <div class="w-full flex items-center mt-0 mb-8 text-gray-600">
