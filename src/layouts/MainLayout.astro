@@ -1,7 +1,4 @@
 ---
-import 'prism-themes/themes/prism-nord.css';
-import 'prismjs/plugins/line-numbers/prism-line-numbers.css';
-
 import { getImage } from 'astro:assets';
 import faviconSrc from '../images/favicon.png';
 
@@ -47,6 +44,8 @@ const contentClasses = full ? "md:mx-3 md:my-8 w-full md:m-auto mx-1" : "mx-3 my
     <link rel="apple-touch-icon" href={appleTouchIcon.src} />
     <link rel="manifest" href="/manifest.json" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap" rel="stylesheet" />
 
     <meta name="description" content={description} />
