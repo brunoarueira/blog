@@ -41,5 +41,10 @@
     "tailwindcss": "^3.4.15",
     "typescript": "^5.7.2"
   },
-  "packageManager": "yarn@4.17.1"
+  "packageManager": "yarn@4.17.1",
+  "dependenciesMeta": {
+    "esbuild": {
+      "built": true
+    }
+  }
 }

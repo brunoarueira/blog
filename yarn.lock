@@ -2765,6 +2765,9 @@ __metadata:
     stylelint: "npm:^16.10.0"
     tailwindcss: "npm:^3.4.15"
     typescript: "npm:^5.7.2"
+  dependenciesMeta:
+    esbuild:
+      built: true
   languageName: unknown
   linkType: soft
 
