@@ -1,0 +1,104 @@
+---
+title: Optimizing a 19 Million Row Pipeline Without Rewriting It
+slug: optimizing-19-million-rows-pipeline-without-rewriting-it
+date: '2026-08-07'
+tags: ['python', 'pandas', 'performance', 'data-engineering', 'software-engineering']
+---
+
+This pipeline ran every hour. The first sign something was wrong wasn't a slow dashboard or a complaint, it was the scheduler throwing errors because the job kept blowing past whatever runtime the tool had been configured to expect. Once I actually timed it, the largest file took around 18 minutes to process on its own, closing in on a third of the hour it had to work with. Nobody had designed it to be slow, but nobody had designed it at all either, at least not in the sense engineers usually mean when they say that word.
+
+## The script that got there first
+
+The person who wrote it wasn't a software engineer. They worked with the data itself, and at some point the manual work became too much, so they wrote a Python script to stop doing it by hand. It read a file, cleaned it up, wrote it back. It worked, and it kept working for a long time.
+
+I want to be careful about how I frame this, because it's tempting to look at a script like that later and list everything wrong with it. That's the wrong lens. Nobody asked this person to build a pipeline. They needed to stop repeating themselves, they knew enough Python to make that happen, and they shipped something that solved a real problem years before an engineer ever looked at it. That's not a lesser version of engineering, it's the thing engineering is supposed to enable in the first place.
+
+The problem only shows up later, when the input grows past whatever size the script was written against.
+
+## Working within existing constraints
+
+Before any of the fixes below, there were limits on what I was willing to change. The pipeline already worked, in the sense that mattered most: it produced correct output that other systems and people depended on. The business logic, the column names, the output format, none of that was actually broken, and changing any of it would have meant re-validating everything downstream that consumed it, for a problem that had nothing to do with correctness.
+
+I also wasn't going to hand back something the next person couldn't read. The original author still understands this data better than I do, and rewriting the pipeline in a different tool or a different style would have traded a performance problem for a maintenance one. The goal was never the fastest possible version of this pipeline. It was a faster version of the same one.
+
+## Where small files lie to you
+
+The same script ran against three real production files: about 93 thousand rows, 2.5 million, and 19 million. At 93 thousand rows, every stage finished in under a second. Nothing about running it would make you suspect a scaling problem.
+
+At 19 million rows, the same code took the better part of 18 minutes, excluding the downstream BigQuery load. Nothing in the script changed between those two runs. Only the input did.
+
+That's the part that makes this kind of code hard to judge from a diff. Row-by-row logic and small files look identical to vectorized logic and small files. The gap only opens up once volume does, and by then the script has usually been running quietly in production for a while, doing its job, not raising any flags.
+
+## Benchmarking before changing anything
+
+I look at the code before I look at the persistence layer. Most of the time that's where the actual bottleneck lives, and it's rarely worth profiling infrastructure you don't control until you've ruled out the logic you do. That instinct was stronger than usual here. This script wasn't written by someone who'd have reasoned about how BigQuery or an SFTP server behaves under load, so a code-level inefficiency was the far more likely explanation. I never went looking at the BigQuery load or the network on their own, everything that mattered turned out to be sitting inside the script itself.
+
+Before touching a line, though, I ran the existing script against all three file sizes and timed each stage separately: the cleaning step, the read from the remote source, and the write back. I wanted numbers for what was actually slow inside the script, not a guess based on reading it.
+
+Two patterns stood out almost immediately. First, two of the transform steps scaled linearly with row count in a way that suggested per-row Python execution rather than anything vectorized. Second, the write-back step was moving the entire file's bytes over the network on every run, even though nothing about the transport actually required that.
+
+The first one didn't require reading a line of the actual logic to confirm, just dividing each stage's time by its row count across the three files. What caught my attention wasn't the runtime itself, it was the cost per row. Across files ranging from 93 thousand to 19 million rows, it barely moved.
+
+That stability was the clue. If the work had already been vectorized, I'd expect the per-row cost to drop as the datasets grew, not stay flat. Instead it stayed almost exactly where it started, which is what pointed me at those two transform stages first.
+
+## Vectorizing the transform steps
+
+Two stages in the cleaning step were implemented as `.apply()` calls with a Python function running once per row. That's the most natural way to write this kind of logic if you're thinking row by row, which is how most people reason about tabular data before they've had to reason about it at scale.
+
+Both were rewritten using vectorized pandas and NumPy operations that do the equivalent work across the whole column at once, instead of one row at a time in a Python loop:
+
+```python
+# before: one Python function call per row
+df['derived'] = df.apply(lambda row: some_rule(row), axis=1)
+
+# after: one vectorized call across the whole column
+df['derived'] = np.select(conditions, choices, default=fallback)
+```
+
+The logic didn't change, only how it was executed. On the 19 million row file, each of these two stages went from roughly 9 and 10 minutes down to about 18 and 20 seconds. Same output, about 30 times faster, because the work moved from a Python-level loop into compiled array operations.
+
+## The bigger bottleneck wasn't in the code at all
+
+The transform speedup was the one I expected going in. The write-back optimization surprised me even more.
+
+The script downloaded the file, wrote the cleaned version locally, then re-uploaded the whole thing to mark it as processed. For 19 million rows that upload alone took close to 3 minutes, and it happened on every single run regardless of how fast the cleaning step was.
+
+The tell was in what actually got written back: the untouched version of the data, not the cleaned one. The cleaned output was already going somewhere else entirely, the BigQuery load mentioned earlier. Once that was clear, the file didn't need to be rewritten at all. It needed to be marked as done, and it was already sitting on the same remote server. Most SFTP implementations support a server-side rename, which moves a file without transferring a single byte back over the network. Swapping the download-modify-reupload cycle for a single rename call turned a 3 minute network operation into something that completes in a few milliseconds, because there's no longer any file content crossing the wire at all.
+
+That one change had a bigger effect on total runtime than either of the vectorization fixes, and it had nothing to do with pandas, NumPy, or how the data was shaped. It came from understanding what the transport layer could already do, instead of working around it with a general-purpose "read then write" pattern that made sense for a local file but not for a remote one.
+
+## The numbers
+
+| Stage | Before | After |
+|---|---|---|
+| Read (SFTP) | 4.6 min | 3.3 min |
+| Cleaning step | 8.7 min | 1.9 min |
+| Write-back | ~3 min | ~4 ms |
+| **Total (excl. BigQuery)** | **~18 min** | **~5 min** |
+
+Roughly 13 minutes recovered on the largest file, and the two changes responsible for most of it, vectorizing two transform stages and replacing a round-trip upload with a rename, took less code than they saved in runtime.
+
+## What surprised me
+
+The part I didn't expect going in was how little of the win came from "better code" in the way that phrase usually gets used. The vectorization fixes are well-known patterns, the kind of thing you'd find in the first page of any pandas performance guide. The bigger fix came from questioning an assumption baked into the original design: that processing a remote file means downloading it, changing it, and sending it back.
+
+That assumption wasn't a mistake. It's how you'd naturally write this if your background was in getting the data right, not in how SFTP servers handle file operations. Nobody sits down to automate a manual task and starts by researching whether their file transfer protocol supports atomic server-side moves. You write what works, and it does work, right up until the point where the amount of data makes the shortcut expensive.
+
+## Where I stopped
+
+Once the run dropped to about 5 minutes, the scheduler stopped timing out. That was the bar that actually mattered, not the lowest number I could theoretically reach, and I didn't keep chasing runtime past that point. Could it have gone lower? Probably. But every further change from there would have needed to justify its own complexity against a problem that no longer existed.
+
+I also didn't add timing metrics or alerting to catch a regression like this earlier next time. Not because it isn't worth having, but because that work was already underway in parallel, as part of a broader push to bring observability to other integrations. Building a one-off version of it here would have solved the same problem twice.
+
+## Final thoughts
+
+None of this was a rewrite. The business logic didn't change, the output format didn't change, and the person who originally wrote this script would still recognize what it does. What changed was how the same logic got executed and how the file moved between systems.
+
+I keep coming back to the same conclusion whenever I work on something like this: the value in that original script was never in question, it was already running in production, already doing its job, already saving someone hours of manual work every week. The engineering work here wasn't replacing that value, it was making sure the script could keep providing it once the input stopped being small enough to hide the cost of every row-by-row loop and every unnecessary round trip.
+
+A few things about it stuck with me longer than the runtime numbers did:
+
+- Measure before touching anything. The gap between what looks slow and what is actually slow is rarely where you'd guess it from reading the code.
+- Preserving behavior isn't the boring part of an optimization, it's the actual constraint you're optimizing under.
+- Whoever built the thing before you was solving a different problem than the one you're solving now. That's worth respecting, not correcting.
+- The biggest win rarely comes from making existing work faster. It comes from noticing which work never needed to happen at all.
