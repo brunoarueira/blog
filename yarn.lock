@@ -2260,15 +2260,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/hast@npm:^2.0.0":
-  version: 2.3.10
-  resolution: "@types/hast@npm:2.3.10"
-  dependencies:
-    "@types/unist": "npm:^2"
-  checksum: 10c0/16daac35d032e656defe1f103f9c09c341a6dc553c7ec17b388274076fa26e904a71ea5ea41fd368a6d5f1e9e53be275c80af7942b9c466d8511d261c9529c7e
-  languageName: node
-  linkType: hard
-
 "@types/hast@npm:^3.0.0, @types/hast@npm:^3.0.4":
   version: 3.0.4
   resolution: "@types/hast@npm:3.0.4"
@@ -2340,7 +2331,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/unist@npm:^2, @types/unist@npm:^2.0.0":
+"@types/unist@npm:^2.0.0":
   version: 2.0.11
   resolution: "@types/unist@npm:2.0.11"
   checksum: 10c0/24dcdf25a168f453bb70298145eb043cfdbb82472db0bc0b56d6d51cd2e484b9ed8271d4ac93000a80da568f2402e9339723db262d0869e2bf13bc58e081768d
@@ -2752,14 +2743,14 @@ __metadata:
     markdown-it: "npm:^14.2.0"
     mdast-util-to-string: "npm:^4.0.0"
     playwright: "npm:^1.61.1"
-    postcss-import: "npm:^16.1.0"
+    postcss-import: "npm:^16.1.1"
     postcss-preset-env: "npm:^10.1.1"
     prism-themes: "npm:^1.9.0"
     prismjs: "npm:^1.30.0"
     reading-time: "npm:^1.5.0"
     rehype-external-links: "npm:^3.0.0"
     rehype-mermaid: "npm:^3.0.0"
-    rehype-prism-plus: "npm:^2.0.0"
+    rehype-prism-plus: "npm:^2.0.2"
     sanitize-html: "npm:^2.17.5"
     sharp-ico: "npm:^0.1.5"
     stylelint: "npm:^16.10.0"
@@ -4512,15 +4503,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-parse-selector@npm:^3.0.0":
-  version: 3.1.1
-  resolution: "hast-util-parse-selector@npm:3.1.1"
-  dependencies:
-    "@types/hast": "npm:^2.0.0"
-  checksum: 10c0/34ac1707a477fd9764e328087163f1f21857bdb0f8d425bf41f6def7baf840e50e4bca2eb03072e3da4e39856de28893c4b688dcba0cc305160d53afcece4df4
-  languageName: node
-  linkType: hard
-
 "hast-util-parse-selector@npm:^4.0.0":
   version: 4.0.0
   resolution: "hast-util-parse-selector@npm:4.0.0"
@@ -4632,7 +4614,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-string@npm:^3.0.0":
+"hast-util-to-string@npm:^3.0.1":
   version: 3.0.1
   resolution: "hast-util-to-string@npm:3.0.1"
   dependencies:
@@ -4659,19 +4641,6 @@ __metadata:
   dependencies:
     "@types/hast": "npm:^3.0.0"
   checksum: 10c0/b898bc9fe27884b272580d15260b6bbdabe239973a147e97fa98c45fa0ffec967a481aaa42291ec34fb56530dc2d484d473d7e2bae79f39c83f3762307edfea8
-  languageName: node
-  linkType: hard
-
-"hastscript@npm:^7.0.0":
-  version: 7.2.0
-  resolution: "hastscript@npm:7.2.0"
-  dependencies:
-    "@types/hast": "npm:^2.0.0"
-    comma-separated-tokens: "npm:^2.0.0"
-    hast-util-parse-selector: "npm:^3.0.0"
-    property-information: "npm:^6.0.0"
-    space-separated-tokens: "npm:^2.0.0"
-  checksum: 10c0/579912b03ff4a5b19eb609df7403c6dba2505ef1a1e2bc47cbf467cbd7cffcd51df40e74d882de1ccdda40aaf18487f82619eb9cb9f2077cba778017e95e868e
   languageName: node
   linkType: hard
 
@@ -6730,16 +6699,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-import@npm:^16.1.0":
-  version: 16.1.0
-  resolution: "postcss-import@npm:16.1.0"
+"postcss-import@npm:^16.1.1":
+  version: 16.1.1
+  resolution: "postcss-import@npm:16.1.1"
   dependencies:
     postcss-value-parser: "npm:^4.0.0"
     read-cache: "npm:^1.0.0"
     resolve: "npm:^1.1.7"
   peerDependencies:
     postcss: ^8.0.0
-  checksum: 10c0/60e6499354079a3f46242b861412a40c54be7ab99f4ad55096a07ffe5e57fcc01c2c626b5d1fbc7a18cd23adc82b320c205059d0c7ab09e91baba8dc45c88e29
+  checksum: 10c0/b91245971564891110cb407c7459bd470893ccbdd3328fdd384ef2be4d0e5f304e5834acbb8b537ad562c001db34bee1c29b55994bead5ab5a53b1edc2a687b9
   languageName: node
   linkType: hard
 
@@ -7090,13 +7059,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"property-information@npm:^6.0.0":
-  version: 6.5.0
-  resolution: "property-information@npm:6.5.0"
-  checksum: 10c0/981e0f9cc2e5acdb414a6fd48a99dd0fd3a4079e7a91ab41cf97a8534cf43e0e0bc1ffada6602a1b3d047a33db8b5fc2ef46d863507eda712d5ceedac443f0ef
-  languageName: node
-  linkType: hard
-
 "property-information@npm:^7.0.0":
   version: 7.1.0
   resolution: "property-information@npm:7.1.0"
@@ -7223,15 +7185,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"refractor@npm:^4.8.0":
-  version: 4.9.0
-  resolution: "refractor@npm:4.9.0"
+"refractor@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "refractor@npm:5.0.0"
   dependencies:
-    "@types/hast": "npm:^2.0.0"
+    "@types/hast": "npm:^3.0.0"
     "@types/prismjs": "npm:^1.0.0"
-    hastscript: "npm:^7.0.0"
+    hastscript: "npm:^9.0.0"
     parse-entities: "npm:^4.0.0"
-  checksum: 10c0/58c9471d17d4e2d19436c0917d94c214366b43de090da679880d01d47a3ca5e9da1790aaa55d23da14222bc82d61bb9fd27ad17ab4bc5218e1fa026893c2b5d7
+  checksum: 10c0/7b69a3b525f88de4adae3467f30ff7e80513fa53e65d85656f169ded16e314f471dfa936ccc545ae604e178ee7a108cbd94e6144a5bd541ed8d20626cc75e7b8
   languageName: node
   linkType: hard
 
@@ -7296,7 +7258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-parse@npm:^9.0.0":
+"rehype-parse@npm:^9.0.1":
   version: 9.0.1
   resolution: "rehype-parse@npm:9.0.1"
   dependencies:
@@ -7307,17 +7269,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-prism-plus@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "rehype-prism-plus@npm:2.0.0"
+"rehype-prism-plus@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "rehype-prism-plus@npm:2.0.2"
   dependencies:
-    hast-util-to-string: "npm:^3.0.0"
+    hast-util-to-string: "npm:^3.0.1"
     parse-numeric-range: "npm:^1.3.0"
-    refractor: "npm:^4.8.0"
-    rehype-parse: "npm:^9.0.0"
-    unist-util-filter: "npm:^5.0.0"
-    unist-util-visit: "npm:^5.0.0"
-  checksum: 10c0/c8b284de7ee884d11dca3aae1119658a333cc10ccda1b33019dc9503411883e6379207df502e7524a81e05ac1db0e846e9e3f73b2a62b22eb581e2094d42070e
+    refractor: "npm:^5.0.0"
+    rehype-parse: "npm:^9.0.1"
+    unist-util-filter: "npm:^5.0.1"
+    unist-util-visit: "npm:^5.1.0"
+  checksum: 10c0/d87e2bb91e4b45a105ce63d4598a23ad809feac48ee80d9d5f533d311ec89442040aadad9edd85e9ae12fc8eb8e0737a8da4c7fcb1dea98be971ae77f7ec7f7e
   languageName: node
   linkType: hard
 
@@ -8371,7 +8333,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-filter@npm:^5.0.0":
+"unist-util-filter@npm:^5.0.1":
   version: 5.0.1
   resolution: "unist-util-filter@npm:5.0.1"
   dependencies:
