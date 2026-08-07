@@ -24,3 +24,31 @@
 .post figure p {
   @apply mb-0;
 }
+
+.post table {
+  @apply block;
+  @apply overflow-x-auto;
+  @apply w-full;
+  @apply mb-8;
+  @apply text-lg;
+  @apply border-collapse;
+  @apply dark:text-gray-300;
+}
+
+.post th,
+.post td {
+  @apply border;
+  @apply border-gray-300;
+  @apply px-4;
+  @apply py-2;
+  @apply text-left;
+
+  @apply dark:border-gray-700;
+}
+
+.post th {
+  @apply bg-gray-100;
+  @apply font-bold;
+
+  @apply dark:bg-gray-800;
+}
