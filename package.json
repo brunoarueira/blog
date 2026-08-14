@@ -10,11 +10,12 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "build": "astro check && astro build && node scripts/alias-sitemap.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "astro": "7.1.1",
     "astro-feather": "^1.0.0",
     "reading-time": "^1.5.0",
