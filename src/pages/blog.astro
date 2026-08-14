@@ -1,6 +1,6 @@
 ---
 import { createExcerpt } from '../utils/create-excerpt';
-import MainLayout from "../layouts/MainLayout.astro";
+import Layout from "../layouts/Layout.astro";
 import StyledLink from "../components/StyledLink.astro";
 
 import { getCollection } from "astro:content";
@@ -16,7 +16,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
   day: '2-digit'
 }
 ---
-  <MainLayout title="My blog posts where you can check out my writings | Bruno Arueira">
+  <Layout title="My blog posts where you can check out my writings | Bruno Arueira">
     <h1 class="leading-tight mb-8 mt-6">Blog</h1>
 
     {posts.map(post => {
@@ -42,4 +42,4 @@ const dateOptions: Intl.DateTimeFormatOptions = {
         </div>
       )
     })}
-  </MainLayout>
+  </Layout>

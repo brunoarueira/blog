@@ -4,7 +4,7 @@ import prismLineNumbersUrl from 'prismjs/plugins/line-numbers/prism-line-numbers
 
 import { getCollection, render } from "astro:content";
 
-import MainLayout from "../../layouts/MainLayout.astro";
+import Layout from "../../layouts/Layout.astro";
 import SocialShare from "../../components/SocialShare.astro";
 import StyledLink from "../../components/StyledLink.astro";
 import { sortByDate } from "../../utils/sortByDate";
@@ -38,7 +38,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
   day: '2-digit'
 };
 ---
-<MainLayout title={post.data.title} frontmatter={post.data}>
+<Layout title={post.data.title} frontmatter={post.data}>
   {remarkPluginFrontmatter.hasCodeBlocks && (
     <Fragment slot="head">
       <link rel="stylesheet" href={prismThemeUrl} />
@@ -75,4 +75,4 @@ const dateOptions: Intl.DateTimeFormatOptions = {
       {nextPost.data && <StyledLink text={nextPost.data.title} address={`/blog/${nextPost.data.slug}/`} />}
     </li>
   </ul>
-</MainLayout>
+</Layout>
