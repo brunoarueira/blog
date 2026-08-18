@@ -30,7 +30,7 @@
     "@astrojs/rss": "4.0.19",
     "@astrojs/tailwind": "6.0.2",
     "@types/node": "^22.14.1",
-    "markdown-it": "^14.2.0",
+    "markdown-it": "^15.0.0",
     "mdast-util-to-string": "^4.0.0",
     "playwright": "^1.61.1",
     "postcss-import": "^16.1.1",
