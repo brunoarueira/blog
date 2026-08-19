@@ -1,0 +1,225 @@
+# Open source contributions to repositories I don't own.
+# Rendered on /contributions. See src/content.config.ts for the schema.
+- id: rails-rails-41517
+  repo: rails/rails
+  title: "Encodes the uploaded file's headers"
+  url: https://github.com/rails/rails/pull/41517
+  number: 41517
+  mergedAt: 2022-09-09
+  description: >-
+    Fixed an encoding bug in Action Dispatch's uploaded file handling, where
+    non-ASCII header values could raise an exception instead of being
+    processed correctly.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+  featured: true
+
+- id: rails-mission_control_jobs-260
+  repo: rails/mission_control-jobs
+  title: "Handle blocked_until nil on the blocked jobs list"
+  url: https://github.com/rails/mission_control-jobs/pull/260
+  number: 260
+  mergedAt: 2025-07-11
+  description: >-
+    Fixed a crash on the Blocked Jobs dashboard view that occurred when a
+    job's blocked_until timestamp was nil.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: mongomapper-mongomapper-726
+  repo: mongomapper/mongomapper
+  title: "Fix the load of default config file with alias based on latest psych"
+  url: https://github.com/mongomapper/mongomapper/pull/726
+  number: 726
+  mergedAt: 2025-04-27
+  description: >-
+    Fixed config file loading, which broke on newer Psych (YAML) releases
+    after a change in how YAML aliases/anchors are resolved.
+  technologies:
+    - Ruby
+    - MongoDB
+
+- id: veeso-suppaftp-53
+  repo: veeso/suppaftp
+  title: "Improve example from async on readme and avoid errors"
+  url: https://github.com/veeso/suppaftp/pull/53
+  number: 53
+  mergedAt: 2023-09-12
+  description: >-
+    Corrected the async usage example in the README, which referenced a type
+    that didn't match the actual API and wouldn't compile as documented.
+  technologies:
+    - Rust
+
+- id: srvaroa-labeler-39
+  repo: srvaroa/labeler
+  title: "Add support to label based on body of the pull request"
+  url: https://github.com/srvaroa/labeler/pull/39
+  number: 39
+  mergedAt: 2022-03-14
+  description: >-
+    Added support for auto-labeling pull requests by matching patterns
+    against the PR body, in addition to the existing title-based matching.
+  technologies:
+    - Go
+
+- id: ruby-racc-161
+  repo: ruby/racc
+  title: "Shrink gem size"
+  url: https://github.com/ruby/racc/pull/161
+  number: 161
+  mergedAt: 2021-07-01
+  description: >-
+    Trimmed the packaged gem to exclude files not needed at runtime,
+    reducing install size.
+  technologies:
+    - Ruby
+  featured: true
+
+- id: podigee-device_detector-84
+  repo: podigee/device_detector
+  title: "Shrink gem size"
+  url: https://github.com/podigee/device_detector/pull/84
+  number: 84
+  mergedAt: 2022-02-18
+  description: >-
+    Excluded spec files from the packaged gem, applying the same size
+    reduction approach used in ruby/racc.
+  technologies:
+    - Ruby
+
+- id: activeadmin-activeadmin-7013
+  repo: activeadmin/activeadmin
+  title: "Removes docs from exported gem"
+  url: https://github.com/activeadmin/activeadmin/pull/7013
+  number: 7013
+  mergedAt: 2023-03-12
+  description: >-
+    Removed documentation files from the packaged gem to reduce its size,
+    since the docs are better consumed online.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: aasm-aasm-742
+  repo: aasm/aasm
+  title: "Shrink gem size and export only needed files to work"
+  url: https://github.com/aasm/aasm/pull/742
+  number: 742
+  mergedAt: 2022-10-07
+  description: >-
+    Restricted the gem's packaged files to only what's needed at runtime,
+    shrinking install size.
+  technologies:
+    - Ruby
+
+- id: activeadmin-activeadmin-6564
+  repo: activeadmin/activeadmin
+  title: "Removes duplicate private declaration"
+  url: https://github.com/activeadmin/activeadmin/pull/6564
+  number: 6564
+  mergedAt: 2020-12-01
+  description: >-
+    Removed a redundant private keyword left over in the codebase.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: scambra-devise_invitable-837
+  repo: scambra/devise_invitable
+  title: "Fixes build"
+  url: https://github.com/scambra/devise_invitable/pull/837
+  number: 837
+  mergedAt: 2020-11-20
+  description: >-
+    Fixed the gem's CI build, which was failing on the default branch.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: fastlane-fastlane-12245
+  repo: fastlane/fastlane
+  title: "Adds an option android_gcm_sender_id to onesignal action as optional"
+  url: https://github.com/fastlane/fastlane/pull/12245
+  number: 12245
+  mergedAt: 2018-04-05
+  description: >-
+    Added an optional android_gcm_sender_id parameter to fastlane's OneSignal
+    action, needed to configure the Firebase Cloud Messaging sender ID when
+    registering a new OneSignal app, and extended the action's platform
+    support from iOS-only to iOS and Android.
+  technologies:
+    - Ruby
+
+- id: tsuru-tsuru-1616
+  repo: tsuru/tsuru
+  title: "Enforce case-insensitive, lowercase team names"
+  url: https://github.com/tsuru/tsuru/pull/1616
+  number: 1616
+  mergedAt: 2017-08-02
+  description: >-
+    Fixed team names being treated as case-sensitive, which let
+    near-duplicate teams (e.g. aaa, aaA, AaA) coexist despite the uniqueness
+    check. Replaced the ad hoc regex validation with a shared name-validation
+    helper enforcing lowercase names, plus a proper ValidationError type with
+    a descriptive message.
+  technologies:
+    - Go
+
+- id: google-fonts-3343
+  repo: google/fonts
+  title: "Fix incorrect file permissions"
+  url: https://github.com/google/fonts/pull/3343
+  number: 3343
+  mergedAt: 2021-05-20
+  description: >-
+    Fixed incorrect executable permissions on 45 OFL.txt license files
+    across the font family directories, left over from the font creators'
+    or an upstream tool's packaging.
+  technologies:
+    - Fonts
+
+- id: bernat-best_in_place-242
+  repo: bernat/best_in_place
+  title: "Added a way to trigger success when data has no content"
+  url: https://github.com/bernat/best_in_place/pull/242
+  number: 242
+  mergedAt: 2013-02-19
+  description: >-
+    Fixed the success events (best_in_place:success, ajax:success) not
+    firing when the server responded with empty content: they only fired
+    on the non-empty branch, so any blank-value save silently skipped
+    listeners waiting on those events.
+  technologies:
+    - JavaScript
+    - Ruby
+
+- id: fnando-factory_bot-preload-21
+  repo: fnando/factory_bot-preload
+  title: "Remove binding pry on after initialize"
+  url: https://github.com/fnando/factory_bot-preload/pull/21
+  number: 21
+  mergedAt: 2016-04-25
+  description: >-
+    Removed a leftover require "pry"; binding.pry in the gem's
+    after_initialize hook, which meant every Rails app using it got
+    dropped into a debugger console on boot.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: railsadminteam-rails_admin-497
+  repo: railsadminteam/rails_admin
+  title: "Add i18n to breadcrumb system"
+  url: https://github.com/railsadminteam/rails_admin/pull/497
+  number: 497
+  mergedAt: 2011-06-28
+  description: >-
+    Replaced hardcoded English breadcrumb labels (Edit, Delete, History,
+    Export, and so on) with I18n.t() calls, adding real localization
+    support to the breadcrumb system.
+  technologies:
+    - Ruby
+    - Ruby on Rails

@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+import { getCollection } from 'astro:content';
+
+const allContributions = await getCollection('contributions');
+
+const contributions = allContributions.sort((a, b) => {
+  const featuredDiff = Number(b.data.featured) - Number(a.data.featured);
+  return featuredDiff !== 0 ? featuredDiff : b.data.mergedAt.getTime() - a.data.mergedAt.getTime();
+});
+
+const dateOptions: Intl.DateTimeFormatOptions = {
+  timeZone: 'UTC',
+  year: 'numeric',
+  month: 'long',
+  day: '2-digit'
+}
+---
+<Layout title="Open source contributions | Bruno Arueira" full={true}>
+  <h1 class="leading-tight m-auto mb-3 mt-6 md:w-2/4 w-full">Open Source Contributions</h1>
+
+  <p class="mb-8 text-xl m-auto md:w-2/4 w-full dark:text-white">
+    A selection of merged pull requests to projects I don't own. See the full history on
+    my <a href="https://github.com/brunoarueira" target="_blank" rel="noopener noreferrer">Github</a>.
+  </p>
+
+  <div class="m-auto md:w-2/4 w-full">
+    {contributions.map(({ id, data }) => (
+      <div id={id} class="mb-10 pb-10 border-b border-gold-900">
+        <h2 class="mb-1">
+          <a href={data.url} target="_blank" rel="noopener noreferrer" style="font-weight: 700; box-shadow: none;">
+            {data.title}
+          </a>
+        </h2>
+
+        <small class="text-gray-600 dark:text-gray-400" style="font-weight: 400">
+          {data.repo}#{data.number} &middot; {data.mergedAt.toLocaleDateString('en', dateOptions)}
+        </small>
+
+        <div class="mt-4 mb-4 dark:text-gray-400">
+          {data.description}
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          {data.technologies.map(tech => (
+            <span class="text-xs uppercase tracking-wide px-2 py-1 rounded-full border border-gold-900 dark:text-white">
+              {tech}
+            </span>
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+</Layout>
