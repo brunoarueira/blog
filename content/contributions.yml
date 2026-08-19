@@ -152,3 +152,18 @@
     support from iOS-only to iOS and Android.
   technologies:
     - Ruby
+
+- id: tsuru-tsuru-1616
+  repo: tsuru/tsuru
+  title: "Enforce case-insensitive, lowercase team names"
+  url: https://github.com/tsuru/tsuru/pull/1616
+  number: 1616
+  mergedAt: 2017-08-02
+  description: >-
+    Fixed team names being treated as case-sensitive, which let
+    near-duplicate teams (e.g. aaa, aaA, AaA) coexist despite the uniqueness
+    check. Replaced the ad hoc regex validation with a shared name-validation
+    helper enforcing lowercase names, plus a proper ValidationError type with
+    a descriptive message.
+  technologies:
+    - Go
