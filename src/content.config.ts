@@ -20,7 +20,8 @@ const contributions = defineCollection({
     number: z.number(),
     mergedAt: z.coerce.date(),
     description: z.string(),
-    technologies: z.array(z.string())
+    technologies: z.array(z.string()),
+    featured: z.boolean().optional().default(false)
   }),
 });
 

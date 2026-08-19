@@ -13,6 +13,7 @@
   technologies:
     - Ruby
     - Ruby on Rails
+  featured: true
 
 - id: rails-mission_control_jobs-260
   repo: rails/mission_control-jobs
@@ -75,6 +76,7 @@
     reducing install size.
   technologies:
     - Ruby
+  featured: true
 
 - id: podigee-device_detector-84
   repo: podigee/device_detector

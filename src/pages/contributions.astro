@@ -5,7 +5,10 @@ import { getCollection } from 'astro:content';
 
 const allContributions = await getCollection('contributions');
 
-const contributions = allContributions.sort((a, b) => b.data.mergedAt.getTime() - a.data.mergedAt.getTime());
+const contributions = allContributions.sort((a, b) => {
+  const featuredDiff = Number(b.data.featured) - Number(a.data.featured);
+  return featuredDiff !== 0 ? featuredDiff : b.data.mergedAt.getTime() - a.data.mergedAt.getTime();
+});
 
 const dateOptions: Intl.DateTimeFormatOptions = {
   timeZone: 'UTC',
