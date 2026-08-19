@@ -168,6 +168,19 @@
   technologies:
     - Go
 
+- id: google-fonts-3343
+  repo: google/fonts
+  title: "Fix incorrect file permissions"
+  url: https://github.com/google/fonts/pull/3343
+  number: 3343
+  mergedAt: 2021-05-20
+  description: >-
+    Fixed incorrect executable permissions on 45 OFL.txt license files
+    across the font family directories, left over from the font creators'
+    or an upstream tool's packaging.
+  technologies:
+    - Fonts
+
 - id: bernat-best_in_place-242
   repo: bernat/best_in_place
   title: "Added a way to trigger success when data has no content"
