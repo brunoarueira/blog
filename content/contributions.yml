@@ -146,6 +146,7 @@
   description: >-
     Added an optional android_gcm_sender_id parameter to fastlane's OneSignal
     action, needed to configure the Firebase Cloud Messaging sender ID when
-    registering a new OneSignal app.
+    registering a new OneSignal app, and extended the action's platform
+    support from iOS-only to iOS and Android.
   technologies:
     - Ruby
