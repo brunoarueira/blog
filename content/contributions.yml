@@ -167,3 +167,46 @@
     a descriptive message.
   technologies:
     - Go
+
+- id: bernat-best_in_place-242
+  repo: bernat/best_in_place
+  title: "Added a way to trigger success when data has no content"
+  url: https://github.com/bernat/best_in_place/pull/242
+  number: 242
+  mergedAt: 2013-02-19
+  description: >-
+    Fixed the success events (best_in_place:success, ajax:success) not
+    firing when the server responded with empty content — they only fired
+    on the non-empty branch, so any blank-value save silently skipped
+    listeners waiting on those events.
+  technologies:
+    - JavaScript
+    - Ruby
+
+- id: fnando-factory_bot-preload-21
+  repo: fnando/factory_bot-preload
+  title: "Remove binding pry on after initialize"
+  url: https://github.com/fnando/factory_bot-preload/pull/21
+  number: 21
+  mergedAt: 2016-04-25
+  description: >-
+    Removed a leftover require "pry"; binding.pry in the gem's
+    after_initialize hook, which meant every Rails app using it got
+    dropped into a debugger console on boot.
+  technologies:
+    - Ruby
+    - Ruby on Rails
+
+- id: railsadminteam-rails_admin-497
+  repo: railsadminteam/rails_admin
+  title: "Add i18n to breadcrumb system"
+  url: https://github.com/railsadminteam/rails_admin/pull/497
+  number: 497
+  mergedAt: 2011-06-28
+  description: >-
+    Replaced hardcoded English breadcrumb labels (Edit, Delete, History,
+    Export, and so on) with I18n.t() calls, adding real localization
+    support to the breadcrumb system.
+  technologies:
+    - Ruby
+    - Ruby on Rails
