@@ -189,7 +189,7 @@
   mergedAt: 2013-02-19
   description: >-
     Fixed the success events (best_in_place:success, ajax:success) not
-    firing when the server responded with empty content — they only fired
+    firing when the server responded with empty content: they only fired
     on the non-empty branch, so any blank-value save silently skipped
     listeners waiting on those events.
   technologies:
