@@ -43,8 +43,24 @@ jobs:
     - name: Install dependencies
       run: yarn install --immutable
 
+    - name: Get installed Playwright version
+      id: playwright-version
+      run: echo "version=$(node -e "console.log(require('./node_modules/playwright/package.json').version)")" >> "$GITHUB_OUTPUT"
+
+    - name: Cache Playwright browsers
+      id: playwright-cache
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
     - name: Install Playwright browser
+      if: steps.playwright-cache.outputs.cache-hit != 'true'
       run: npx playwright install --with-deps chromium
+
+    - name: Install Playwright system dependencies
+      if: steps.playwright-cache.outputs.cache-hit == 'true'
+      run: npx playwright install-deps chromium
 
     - name: Build
       run: yarn build
