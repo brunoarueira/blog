@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
-    "astro": "7.2.2",
+    "astro": "7.2.4",
     "astro-feather": "^1.0.0",
     "reading-time": "^1.5.0",
     "rehype-external-links": "^3.0.0",
@@ -26,7 +26,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
-    "@astrojs/mdx": "7.0.5",
+    "@astrojs/mdx": "7.0.7",
     "@astrojs/rss": "4.0.19",
     "@astrojs/tailwind": "6.0.2",
     "@types/node": "^26.2.0",
@@ -35,7 +35,7 @@
     "playwright": "^1.61.1",
     "postcss": "^8.5.26",
     "postcss-import": "^17.0.0",
-    "postcss-preset-env": "^11.3.2",
+    "postcss-preset-env": "^11.4.0",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.30.0",
     "sharp-ico": "^0.1.5",
