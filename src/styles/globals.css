@@ -87,6 +87,10 @@ a:hover {
   @apply underline;
 }
 
-@tailwind components;
-
-@tailwind utilities;
+/*
+ * @tailwind base/components/utilities intentionally omitted: the
+ * @astrojs/tailwind integration (applyBaseStyles: true, the default) already
+ * injects them into every page. Emitting them again here duplicated the whole
+ * utility layer (~8 KB) in every page's inlined CSS. @apply above still works —
+ * it's resolved by Tailwind's PostCSS plugin regardless of these directives.
+ */
