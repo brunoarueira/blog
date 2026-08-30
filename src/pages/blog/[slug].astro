@@ -1,6 +1,8 @@
 ---
-import prismThemeUrl from 'prism-themes/themes/prism-nord.css?url';
-import prismLineNumbersUrl from 'prismjs/plugins/line-numbers/prism-line-numbers.css?url';
+// ?inline -> processed CSS as a string, so it can be inlined in <head> on
+// code posts only (instead of two render-blocking <link>s).
+import prismTheme from 'prism-themes/themes/prism-nord.css?inline';
+import prismLineNumbers from 'prismjs/plugins/line-numbers/prism-line-numbers.css?inline';
 
 import { getCollection, render } from "astro:content";
 
@@ -40,10 +42,7 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 ---
 <Layout title={post.data.title} frontmatter={post.data}>
   {remarkPluginFrontmatter.hasCodeBlocks && (
-    <Fragment slot="head">
-      <link rel="stylesheet" href={prismThemeUrl} />
-      <link rel="stylesheet" href={prismLineNumbersUrl} />
-    </Fragment>
+    <style slot="head" is:inline set:html={prismTheme + prismLineNumbers} />
   )}
 
   <h1 class="mb-8 mt-6">{post.data.title}</h1>

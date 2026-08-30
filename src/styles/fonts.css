@@ -1,19 +1,24 @@
 /*
- * Source Sans Pro — self-hosted.
+ * Self-hosted fonts.
  *
  * Replaces the render-blocking cross-origin request to fonts.googleapis.com
  * (a separate DNS + TLS + round trip on the LCP path, and browser HTTP-cache
  * partitioning killed the shared-cache benefit years ago). Served from our own
- * origin instead, so it rides the already-open HTTP/2 connection and is
- * edge-cached by Cloudflare.
+ * origin instead, so they ride the already-open HTTP/2 connection and are
+ * edge-cached by Cloudflare with a 1-year immutable header (see netlify.toml).
  *
- * Files are vendored into public/fonts/ from the @fontsource/source-sans-pro
- * devDependency. To refresh:
+ * Files are vendored into public/fonts/ from the @fontsource/* devDependencies.
+ * To refresh:
  *   cp node_modules/@fontsource/source-sans-pro/files/source-sans-pro-latin-{400,700}-normal.{woff2,woff} public/fonts/
+ *   cp node_modules/@fontsource/source-code-pro/files/source-code-pro-latin-{400,600}-normal.{woff2,woff} public/fonts/
  *
- * 700 is loaded on purpose: the old Google URL only requested weight 400, so
- * every bold heading was faux-bold. This gives them the real weight.
+ * Source Sans Pro 700 is loaded on purpose: the old Google URL only requested
+ * weight 400, so every bold heading was faux-bold. This gives them the real
+ * weight. Source Code Pro (used by code.css) was never actually loaded before —
+ * code blocks were rendering in the sans-serif fallback.
  */
+
+/* --- Source Sans Pro (body + headings) ------------------------------- */
 
 @font-face {
   font-family: 'Source Sans Pro';
@@ -33,4 +38,28 @@
   src:
     url('/fonts/source-sans-pro-latin-700-normal.woff2') format('woff2'),
     url('/fonts/source-sans-pro-latin-700-normal.woff') format('woff');
+}
+
+/* --- Source Code Pro (code blocks) ---------------------------------- */
+/* No preload: code is typically below the fold, and it must not compete
+   with the body font for bandwidth during the initial render. */
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('/fonts/source-code-pro-latin-400-normal.woff2') format('woff2'),
+    url('/fonts/source-code-pro-latin-400-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src:
+    url('/fonts/source-code-pro-latin-600-normal.woff2') format('woff2'),
+    url('/fonts/source-code-pro-latin-600-normal.woff') format('woff');
 }

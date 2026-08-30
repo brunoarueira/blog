@@ -14,6 +14,13 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://brunoarueira.com',
+  build: {
+    // Fold every page stylesheet into a <style> tag in <head>. Total CSS is
+    // ~19 KB uncompressed (Layout + page-ssr + the two Prism themes), so
+    // inlining removes 3-4 render-blocking requests from the critical path
+    // for a few KB of brotli'd HTML per page. Worth it for a static blog.
+    inlineStylesheets: 'always',
+  },
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [

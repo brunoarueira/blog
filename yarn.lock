@@ -1017,6 +1017,11 @@
   resolved "https://registry.yarnpkg.com/@esbuild/win32-x64/-/win32-x64-0.28.2.tgz#b21affb804cc167c133d95f45b3a1dc1323b9a87"
   integrity sha512-5ebpxr3nWMzrL/rnUI755Jkuee0bHL/Gq0WTF9lvcpv73wAp5eu8MfBUgWK9bhWvZjj7yX8etf/8tI8Ney695g==
 
+"@fontsource/source-code-pro@^5.3.0":
+  version "5.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/source-code-pro/-/source-code-pro-5.3.0.tgz#62730689b21657c2309b7bf9a992b1fbc62b4b12"
+  integrity sha512-JxaCODU69HDS3mVra9u96nyBF911La6IvtGLgpQD+PZLxJ1i9IxooNfLR6Y37kx06IFjVGkvoUmg3WPwh/8gBg==
+
 "@fontsource/source-sans-pro@^5.3.0":
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/@fontsource/source-sans-pro/-/source-sans-pro-5.3.0.tgz#8309fa823ac8c43f34cbb811363644d8c1a0ded5"

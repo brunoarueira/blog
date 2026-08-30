@@ -18,3 +18,12 @@
 
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+# Astro build assets are content-hashed in the filename, so a given URL is
+# immutable. Netlify's default (max-age=43200, must-revalidate) makes the
+# browser and the Cloudflare edge re-check them on every visit for nothing.
+[[headers]]
+  for = "/_astro/*"
+
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
