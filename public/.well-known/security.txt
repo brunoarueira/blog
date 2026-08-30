@@ -1,0 +1,7 @@
+# Security contact for brunoarueira.com — RFC 9116
+# Renew before the Expires date below (roughly a year out).
+
+Contact: mailto:contato+security@brunoarueira.com
+Expires: 2027-08-01T00:00:00.000Z
+Preferred-Languages: en, pt-BR
+Canonical: https://brunoarueira.com/.well-known/security.txt
