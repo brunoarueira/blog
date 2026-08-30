@@ -1,0 +1,36 @@
+/*
+ * Source Sans Pro — self-hosted.
+ *
+ * Replaces the render-blocking cross-origin request to fonts.googleapis.com
+ * (a separate DNS + TLS + round trip on the LCP path, and browser HTTP-cache
+ * partitioning killed the shared-cache benefit years ago). Served from our own
+ * origin instead, so it rides the already-open HTTP/2 connection and is
+ * edge-cached by Cloudflare.
+ *
+ * Files are vendored into public/fonts/ from the @fontsource/source-sans-pro
+ * devDependency. To refresh:
+ *   cp node_modules/@fontsource/source-sans-pro/files/source-sans-pro-latin-{400,700}-normal.{woff2,woff} public/fonts/
+ *
+ * 700 is loaded on purpose: the old Google URL only requested weight 400, so
+ * every bold heading was faux-bold. This gives them the real weight.
+ */
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url('/fonts/source-sans-pro-latin-400-normal.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-latin-400-normal.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src:
+    url('/fonts/source-sans-pro-latin-700-normal.woff2') format('woff2'),
+    url('/fonts/source-sans-pro-latin-700-normal.woff') format('woff');
+}

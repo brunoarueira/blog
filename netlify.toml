@@ -10,3 +10,11 @@
 
   [headers.values]
     Permissions-Policy="interest-cohort=()"
+
+# Self-hosted fonts: filename encodes family + weight, so the bytes never change
+# under a given path — safe to cache hard at the browser and the Cloudflare edge.
+[[headers]]
+  for = "/fonts/*"
+
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
