@@ -5,6 +5,12 @@
 [[plugins]]
   package = "./netlify/plugins/playwright-cache"
 
+# After a successful production deploy, purge the Cloudflare edge cache so new
+# posts appear right away. Needs CLOUDFLARE_ZONE_ID and CLOUDFLARE_PURGE_API_TOKEN
+# set on the Netlify site; it skips quietly when they are absent.
+[[plugins]]
+  package = "./netlify/plugins/cloudflare-purge"
+
 [[headers]]
   for = "/*"
 
