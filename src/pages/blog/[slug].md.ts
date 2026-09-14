@@ -1,5 +1,6 @@
 import type { APIRoute, GetStaticPaths } from 'astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { resolveContentImages } from '../../utils/resolve-content-images';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const posts = await getCollection('blog');
@@ -20,6 +21,7 @@ type Props = { post: CollectionEntry<'blog'> };
 export const GET: APIRoute<Props> = async ({ props, site }) => {
   const { post } = props;
   const canonicalUrl = new URL(`/blog/${post.data.slug}/`, site);
+  const body = await resolveContentImages(post.body ?? '', post, site);
 
   const frontmatter = [
     '---',
@@ -32,7 +34,7 @@ export const GET: APIRoute<Props> = async ({ props, site }) => {
     '',
   ].join('\n');
 
-  return new Response(`${frontmatter}${post.body ?? ''}`, {
+  return new Response(`${frontmatter}${body}`, {
     headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
   });
 };
