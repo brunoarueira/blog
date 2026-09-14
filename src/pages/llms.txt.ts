@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { sortByDate } from '../utils/sortByDate';
 import { createExcerpt } from '../utils/create-excerpt';
+import { siteName, siteDescription } from '../utils/site';
 
 // Site index for AI agents, following the https://llmstxt.org convention.
 // Each post links to its Markdown mirror (see blog/[slug].md.ts) instead of
@@ -16,9 +17,9 @@ export const GET: APIRoute = async ({ site }) => {
   });
 
   const body = [
-    '# Bruno Arueira',
+    `# ${siteName}`,
     '',
-    '> Software engineer writing about software development, leadership, architecture, and AI-assisted engineering.',
+    `> ${siteDescription}`,
     '',
     'This site publishes a clean Markdown version of every page. Append `.md` to',
     'any blog post URL (e.g. `/blog/<slug>.md`) for the raw content, or fetch',

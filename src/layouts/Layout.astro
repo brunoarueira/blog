@@ -6,6 +6,7 @@ import '../styles/globals.css';
 import '../styles/code.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import { siteName, siteDescription } from '../utils/site';
 
 const appleTouchIcon = await getImage({
   src: faviconSrc,
@@ -17,9 +18,8 @@ const appleTouchIcon = await getImage({
 const { title: pageTitle, full, frontmatter = {} } = Astro.props;
 
 // SEO Defaults
-const siteName = "Bruno Arueira";
 const defaultTitle = `Software Engineer | {siteName}`;
-const defaultDescription = "Software Engineer | Tech Lead | Blogger | Sharing insights on software development, leadership, and technology trends.";
+const defaultDescription = siteDescription;
 const defaultOgImage = new URL('/default-og-image.png', Astro.site);
 
 const title = pageTitle || frontmatter.title || defaultTitle;
