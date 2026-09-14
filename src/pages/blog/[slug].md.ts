@@ -32,7 +32,7 @@ export const GET: APIRoute<Props> = async ({ props, site }) => {
     '',
   ].join('\n');
 
-  return new Response(`${frontmatter}${post.body}`, {
+  return new Response(`${frontmatter}${post.body ?? ''}`, {
     headers: { 'Content-Type': 'text/markdown; charset=utf-8' },
   });
 };
