@@ -10,6 +10,8 @@ import Layout from "../../layouts/Layout.astro";
 import SocialShare from "../../components/SocialShare.astro";
 import StyledLink from "../../components/StyledLink.astro";
 import { sortByDate } from "../../utils/sortByDate";
+import { createExcerpt } from "../../utils/create-excerpt";
+import { siteName } from "../../utils/site";
 
 export async function getStaticPaths() {
   const allPosts = await getCollection('blog');
@@ -42,9 +44,40 @@ const dateOptions: Intl.DateTimeFormatOptions = {
 
 // Raw Markdown mirror of this post, served by blog/[slug].md.ts.
 const markdownHref = `/blog/${post.data.slug}.md`;
+
+// Structured data for search engines and AI answer engines, so they get
+// unambiguous title/date/author instead of having to parse the rendered
+// page. Reuses the same excerpt logic as feed.xml.js/llms.txt.ts.
+const canonicalUrl = new URL(`/blog/${post.data.slug}/`, Astro.site);
+const ogImageUrl = new URL('/default-og-image.png', Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: post.data.title,
+  description: createExcerpt(post.body ?? '').substring(0, 200),
+  datePublished: new Date(post.data.date).toISOString(),
+  keywords: post.data.tags.join(', '),
+  image: ogImageUrl.toString(),
+  url: canonicalUrl.toString(),
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': canonicalUrl.toString(),
+  },
+  author: {
+    '@type': 'Person',
+    name: siteName,
+    url: Astro.site?.toString(),
+  },
+  publisher: {
+    '@type': 'Person',
+    name: siteName,
+  },
+};
 ---
 <Layout title={post.data.title} frontmatter={post.data}>
   <link rel="alternate" type="text/markdown" title="Markdown version" href={markdownHref} slot="head" />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(jsonLd)} />
 
   {remarkPluginFrontmatter.hasCodeBlocks && (
     <style slot="head" is:inline set:html={prismTheme + prismLineNumbers} />
