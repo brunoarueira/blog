@@ -47,6 +47,11 @@ export default defineConfig({
   integrations: [
     mdx(),
     tailwind(),
-    sitemap()
+    sitemap({
+      // The Markdown mirrors (/blog/<slug>.md) and the llms.txt/llms-full.txt
+      // AI-agent index are duplicate/utility content, not pages worth search
+      // engines indexing separately from their canonical HTML counterparts.
+      filter: (page) => !page.endsWith('.md') && !page.endsWith('.txt'),
+    })
   ]
 });
