@@ -1,4 +1,35 @@
 User-agent: *
 Allow: /
 
+# AI crawlers used purely for training-data collection, blocked as of
+# 2026-09-13 — no traffic-back or attribution to this site either way.
+# PerplexityBot and Bravebot are left allowed above (under User-agent: *):
+# both power an answer/search engine that cites and links back to sources.
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: Bytespider
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: KimiBot
+Disallow: /
+
+User-agent: YiBot
+Disallow: /
+
+User-agent: PanguBot
+Disallow: /
+
+User-agent: Amazonbot
+Disallow: /
+
 Sitemap: https://brunoarueira.com/sitemap.xml
