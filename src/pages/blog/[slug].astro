@@ -39,8 +39,13 @@ const dateOptions: Intl.DateTimeFormatOptions = {
   month: 'long',
   day: '2-digit'
 };
+
+// Raw Markdown mirror of this post, served by blog/[slug].md.ts.
+const markdownHref = `/blog/${post.data.slug}.md`;
 ---
 <Layout title={post.data.title} frontmatter={post.data}>
+  <link rel="alternate" type="text/markdown" title="Markdown version" href={markdownHref} slot="head" />
+
   {remarkPluginFrontmatter.hasCodeBlocks && (
     <style slot="head" is:inline set:html={prismTheme + prismLineNumbers} />
   )}
@@ -55,6 +60,8 @@ const dateOptions: Intl.DateTimeFormatOptions = {
     <span class="ml-1">
       {remarkPluginFrontmatter.minutesRead}
     </span>
+    {` `}|
+    <a href={markdownHref} class="ml-1 no-underline hover:underline">View as Markdown</a>
   </div>
 
   <div class="post">
