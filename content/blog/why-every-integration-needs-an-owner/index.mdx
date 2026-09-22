@@ -1,0 +1,59 @@
+---
+title: 'Why Every Integration Needs an Owner'
+slug: why-every-integration-needs-an-owner
+date: '2026-09-22'
+tags: ['software-engineering', 'engineering', 'operations', 'ownership']
+---
+
+An alert fired at 3am: a customer's reconciliation feed had gone quiet for six hours. The alert knew which customer and which flow. It did not know who to wake up.
+
+The on-call engineer opened the integration. It was an n8n workflow, last edited eight months earlier by someone who no longer worked at the company. There was a Notion page for it, with the schedule and the input and output shapes, because we had spent a quarter documenting exactly this. What the page did not have was a name. So the next message was the one that always came next: "does anyone know how this customer's reconciliation feed works?" into a channel where most people were asleep.
+
+The integration breaking was not the expensive part. The expensive part was that breaking it started a search.
+
+## A catalog answers a different question
+
+The documentation effort had been real and it had helped. Every customer had a page listing their integrations, the execution schedule for each one, the alerts each could trigger, and a runbook per alert. If a customer churned, we could see the whole surface and turn it off. That work paid for itself.
+
+But a catalog entry answers "what is this". It does not answer "who moves when it changes". Those are different questions, and at 3am only the second one matters. You can have a perfect description of an integration and still have nobody whose job it is to act on it.
+
+## What ownership actually covers
+
+Ownership is not one responsibility. It is a bundle of them, and they come due at different times:
+
+- **The failure.** Who gets paged, who decides whether to roll back or wait it out, who tells the customer something is wrong before they notice themselves.
+- **The credentials.** API keys, OAuth clients, and mTLS certificates expire. Someone has to know the expiry date is coming and rotate it in time. Unowned integrations tend to fail on credential expiry with no warning, because watching a renewal calendar is exactly the kind of task that only happens when it is somebody's.
+- **The upstream contract.** When the customer changes a field, moves an endpoint, or switches file format, someone has to hear about it and update the parser. Usually nobody hears about it and you find out from the alert.
+- **The downstream consumers.** Turning an integration off safely requires knowing what depends on its output. "We can see the whole surface" is a catalog fact. "We know what breaks if this stops" is an owner's knowledge.
+- **The runbook.** The first version is written during the first incident. The third incident changes the procedure. Someone has to fold that back in, or the runbook quietly stops being true.
+- **The retirement.** Deciding an integration is dead, and being accountable for that call, is also ownership.
+
+No tool assigns any of this. Observability tells you something broke, and tells you faster, which is worth a lot. It still does not tell you whose problem it is.
+
+## What an owner is not
+
+**Not "whoever wrote it first."** The author may have left. They may have built it in a language nobody else on the team reads, or moved to a different org, or simply forgotten it. Authorship is history. Ownership is a commitment that has to be true right now.
+
+**Not "the team channel."** A channel is where you go to ask. It is not an owner. Spreading ownership evenly across eight people produces the same "does anyone know" message with a larger audience and the same silence. Somebody has to be the name, even if the name rotates.
+
+**Not permanent.** People change teams and leave companies. If ownership lives only in someone's head, every departure is a small outage waiting for its trigger. Ownership has to be written down somewhere you can query, and it has to be transferable on purpose.
+
+## Making ownership visible and cheap to move
+
+A few things worked, none of them clever:
+
+**Put the owner in the same artifact as the catalog.** One field. A team is an acceptable value only if that team has an on-call rotation that actually gets paged for this integration. "Platform" is not an owner. "Platform, and here is the PagerDuty schedule" is.
+
+**Make "no owner" a state you can see.** An integration with no owner is a latent incident, so treat the list of ownerless integrations as a backlog with a number that should trend down, not as a permanent feature of the estate.
+
+**Put the owner in the alert.** The runbook link solved "where do I start". The owner field solves "who do I escalate to". Both belong in the alert payload, next to each other.
+
+**Make transfer an event, not a field edit.** When ownership moves, the new owner reads the runbook, runs the integration once themselves, and can name the upstream contact and the downstream consumers. Changing the field is the last step, not the only one.
+
+**Fold it into offboarding.** When someone leaves, their owned integrations get reassigned before their last day. Not after the first incident that reveals the gap.
+
+## Final thoughts
+
+The bus factor is about an organization keeping the ability to understand and evolve its own systems. Ownership is the smaller, blunter, more immediate version of the same idea. Understanding is what you need to change a system safely over the next few months. An owner is what you need at 3am tonight.
+
+You need both. Only one of them wakes up.
