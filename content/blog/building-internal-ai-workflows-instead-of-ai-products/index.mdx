@@ -1,0 +1,74 @@
+---
+title: 'Building Internal AI Workflows Instead of AI Products'
+slug: building-internal-ai-workflows-instead-of-ai-products
+date: '2026-10-13'
+tags: ['ai', 'engineering', 'automation', 'software-engineering']
+---
+
+For most of that year, every vendor deck answered the same question: how do you ship AI to your users. Chat in the product, a copilot in the sidebar, a generative something on the pricing page.
+
+The question in front of us was smaller and much less exciting. Documenting one customer's integrations took two engineers about two and a half weeks of tracing code, workflows, and deployment config. We had dozens of customers. Nobody was going to buy that work. It just needed to stop costing what it cost.
+
+Those are two different projects, and confusing them is how you end up with an impressive demo and no time saved.
+
+## Two questions, two different projects
+
+"How do we sell AI" optimizes for the demo. It rewards breadth of input, novelty, and a forgiving user who is impressed that the thing works at all. The success metric is engagement.
+
+"How does AI make our engineers more effective" optimizes for something else entirely. The workflow is narrow and already known. The users sit down the hall and will notice every wrong answer, because they know what the right one looks like. The task is repetitive by definition, because that is why you are automating it. The success metric is not engagement. It is hours moved off a task, and whether the hours that remain are better spent.
+
+Pointed inward, the bar is higher on correctness and lower on almost everything else. That trade is usually worth making.
+
+## What an internal workflow actually is
+
+An internal AI workflow is not a product, and it is not a chatbot bolted onto the side of one. It is a specific, repeatable process with known inputs and outputs, where:
+
+- the deterministic parts stay deterministic. Calling CLIs, parsing YAML, querying APIs, none of that needs a model, and putting one in the middle makes it slower and less reliable;
+- the model is used only where the work genuinely requires interpretation;
+- the output is a reviewable artifact, not an action taken silently;
+- a human stays accountable for that output.
+
+The unit of value is a sentence: "this used to take X, now it takes Y, and Y is review instead of search." If you cannot say that sentence about a workflow, you have not built one yet.
+
+## The model is a design choice, not a default
+
+Which model runs each step is part of the workflow, not something you pick once and forget. The stages have different needs. Discovery, where the job is to reason over messy, inconsistent input, wants a capable model that will also say "I do not know" instead of inventing an answer. The narrower stages, extracting a field, sorting something into a known set of categories, reformatting an artifact, usually run fine on a small, fast model, and its blunter failure mode is easier to catch in review.
+
+Reliability comes from matching the model to the step, and from giving it less room to be wrong: constrained output, schemas, a fixed set of allowed values. A cheaper model on a tight task also frees up budget to run a second pass and check the first. Pin the model you chose, evaluate it on real examples, and change it on purpose rather than by drift.
+
+## Where it paid off
+
+The integration documentation project is the clearest example, and I wrote about how it was built in [Reducing the Bus Factor with AI-Assisted Engineering](/blog/reducing-the-bus-factor-with-ai-assisted-engineering). The short version: discovery required interpreting inconsistent repository structures, naming conventions, and deployment configs, which is real interpretation and a poor fit for rules. But every conclusion was traceable to the artifact that produced it, and the output was a document an engineer could validate quickly. The expensive part of the job moved from searching to checking.
+
+A smaller one: drafting the first version of a runbook from an incident thread and the relevant code. The draft is always wrong somewhere, and the on-call engineer who lived through the incident fixes it in ten minutes. But starting from a structured draft instead of a blank page is the difference between the runbook existing and not existing.
+
+Both have the same shape. Repetitive, interpretation-heavy, and cheap to verify because the output is something a human was going to read anyway.
+
+## Where it did not
+
+The same project also showed us where not to reach for this:
+
+- **When the input was already structured.** If a script can do it, a script should. An agent that parses a well-formed manifest is just a worse, more expensive parser.
+- **When verification cost as much as doing it.** If checking the output takes the same expertise and nearly the same time as producing it, you have not saved work. You have added a step and kept the old one.
+- **One-off tasks.** The workflow has a build cost. Run it three times and it never pays that back. A person with a terminal is faster.
+- **When being wrong was expensive and quiet.** Loud failures are fine, you catch them. The dangerous tasks are the ones where a confident wrong answer looks right enough to survive review.
+
+None of these are AI limitations exactly. They are the same reasons you would not write automation for them either.
+
+## Telling the difference up front
+
+Before building a workflow, the questions worth answering:
+
+- Does the task actually repeat, often enough to amortize building the thing?
+- Do the inputs vary enough in structure that rules would be brittle? If they do not, you want a script.
+- Is the output a reviewable artifact?
+- Can a human verify it faster than they could produce it?
+- If a wrong answer gets through, is it cheap, or is it caught?
+
+A "yes" to all five is a good fit. Any "no" is a reason to stop, and usually a reason to write ordinary automation or just do the task.
+
+## Final thoughts
+
+The reframe generalizes past AI. "How do we sell X" and "how does X make our people more effective" are always different projects, with different economics and different definitions of done. The second one is less glamorous and considerably easier to get right, because the users are down the hall and they will tell you the moment it is wrong.
+
+The bar is real. The feedback loop is short. That is a good place to build.
