@@ -1,51 +1,67 @@
-@import "fonts";
-@import "social-share";
-@import "post";
-@import "footnotes";
-@import "menu";
+@import "./tailwind.css";
+@import "./fonts.css";
+@import "./social-share.css";
+@import "./post.css";
+@import "./footnotes.css";
+@import "./menu.css";
 
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
 
-body {
-  @apply dark:bg-black;
+/*
+ * Element defaults live in the base layer: v4 puts utilities in a cascade
+ * layer, and unlayered rules would beat them (e.g. h2 { mb-8 } vs class="mb-1").
+ */
+@layer base {
+  body {
+    @apply dark:bg-black;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-900 dark:text-gray-100;
+  }
+
+  h1 {
+    @apply text-5xl;
+    @apply font-extrabold;
+  }
+  h2 {
+    @apply text-4xl;
+  }
+  h3 {
+    @apply text-3xl;
+  }
+  h4 {
+    @apply text-2xl;
+  }
+  h5 {
+    @apply text-xl;
+  }
+  h2, h3, h4, h5, h6 {
+    @apply mb-8;
+    @apply font-bold;
+  }
+
+  a {
+    @apply text-black dark:text-white;
+  }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  @apply text-gray-900 dark:text-gray-100;
-}
-
-h1 {
-  @apply text-5xl;
-  @apply font-extrabold;
-}
-h2 {
-  @apply text-4xl;
-}
-h3 {
-  @apply text-3xl;
-}
-h4 {
-  @apply text-2xl;
-}
-h5 {
-  @apply text-xl;
-}
-h2, h3, h4, h5, h6 {
-  @apply mb-8;
-  @apply font-bold;
-}
-
-a {
-  @apply text-black dark:text-white;
-}
-
-a:hover {
-  @apply underline;
-  text-decoration-color: theme('colors.gold.900');
-  @apply dark:text-gold-500;
-  @apply mb-6;
+/*
+ * a:hover stays out of the base layer on purpose. In v3 its specificity
+ * (0,1,1) beat single-class utilities such as `no-underline` (header and
+ * footer links rely on that for the hover underline), while `hover:*`
+ * utilities (0,2,0) still won. Sharing the utilities layer keeps that
+ * specificity contest; in base, every utility would override it.
+ */
+@layer utilities {
+  a:hover {
+    @apply underline;
+    text-decoration-color: var(--color-gold-900);
+    @apply dark:text-gold-500;
+    @apply mb-6;
+  }
 }
 
 .highlight-line {
@@ -54,7 +70,7 @@ a:hover {
 
 .styled-link {
   font-weight: 400;
-  text-decoration-color: theme('colors.gold.900') !important;
+  text-decoration-color: var(--color-gold-900) !important;
 }
 
 .styled-link:hover > svg {
@@ -86,11 +102,3 @@ a:hover {
 .external-link {
   @apply underline;
 }
-
-/*
- * @tailwind base/components/utilities intentionally omitted: the
- * @astrojs/tailwind integration (applyBaseStyles: true, the default) already
- * injects them into every page. Emitting them again here duplicated the whole
- * utility layer (~8 KB) in every page's inlined CSS. @apply above still works —
- * it's resolved by Tailwind's PostCSS plugin regardless of these directives.
- */

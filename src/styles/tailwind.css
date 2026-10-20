@@ -1,0 +1,79 @@
+/*
+ * Tailwind is imported here and nowhere else. Layout.astro imports it on
+ * every page through globals.css, and Astro inlines it
+ * (build.inlineStylesheets), so importing it twice on one page would
+ * duplicate the utility layer in that page's CSS. 404.astro doesn't use
+ * Layout, so it imports this file directly.
+ */
+@import "tailwindcss" source(none);
+
+/*
+ * Only scan the site's own sources (v3's `content` was src/ only; content/ is
+ * added so classes written in MDX posts work too). v4's automatic detection
+ * scans every non-ignored file (README, scripts, netlify/) and generates
+ * utilities for stray words like "blur" or "filter".
+ */
+@source "../../src";
+@source "../../content";
+
+/* Replaces tailwind.config.mjs. Dark mode follows the OS preference, v4's default. */
+@theme {
+  --breakpoint-xs: 22.5rem; /* 360px */
+
+  /*
+   * v3's default sans stack; v4 switched to -apple-system/Roboto/Arial. Only
+   * the 404 sees it, every other page uses Source Sans Pro (globals.css).
+   */
+  --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
+  /* v4's palette is oklch; pin the v3 hex grays we use so colors stay exact. */
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  --color-gold-100: #fff7cc;
+  --color-gold-200: #fff3b3;
+  --color-gold-300: #ffef99;
+  --color-gold-400: #ffeb80;
+  --color-gold-500: #ffe766;
+  --color-gold-600: #ffe34d;
+  --color-gold-700: #ffdf33;
+  --color-gold-800: #ffdb1a;
+  --color-gold-900: #ffd700;
+
+  /*
+   * The v3 config overrode fontSize with plain sizes, which dropped Tailwind's
+   * paired line-heights so text kept inheriting the body's line-height.
+   * Resetting the namespace and redefining only the sizes keeps that behavior
+   * (v4 only emits line-height when a --text-*--line-height token exists).
+   */
+  --text-*: initial;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+  --text-5xl: 3rem;
+  --text-6xl: 4rem;
+}
+
+/*
+ * v4 changed the default border color from gray-200 to currentColor. Keep the
+ * v3 default (snippet from the official upgrade guide).
+ */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
