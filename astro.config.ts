@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
-import tailwind from '@astrojs/tailwind';
+import tailwindcss from '@tailwindcss/vite';
 import rehypeExternalLinks from 'rehype-external-links';
 import rehypePrism from 'rehype-prism-plus';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
@@ -14,6 +14,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://brunoarueira.com',
+  vite: {
+    plugins: [tailwindcss()],
+  },
   build: {
     // Fold every page stylesheet into a <style> tag in <head>. Total CSS is
     // ~19 KB uncompressed (Layout + page-ssr + the two Prism themes), so
@@ -46,7 +49,6 @@ export default defineConfig({
   },
   integrations: [
     mdx(),
-    tailwind(),
     sitemap({
       // The Markdown mirrors (/blog/<slug>.md) and the llms.txt/llms-full.txt
       // AI-agent index are duplicate/utility content, not pages worth search
