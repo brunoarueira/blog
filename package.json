@@ -36,13 +36,9 @@
     "markdown-it": "^15.0.3",
     "mdast-util-to-string": "^4.0.0",
     "playwright": "^1.64.1",
-    "postcss": "^8.5.28",
-    "postcss-import": "^17.0.1",
-    "postcss-preset-env": "^11.6.1",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.30.0",
     "sharp-ico": "^0.1.5",
-    "stylelint": "^17.16.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
     "vite": "^8.3.4"
