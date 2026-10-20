@@ -5,7 +5,7 @@ import rehypeExternalLinks from 'rehype-external-links';
 import rehypePrism from 'rehype-prism-plus';
 import { remarkReadingTime } from './src/plugins/remark-reading-time.mjs';
 import { remarkHasCodeBlocks } from './src/plugins/remark-has-code-blocks.mjs';
-import rehypeMermaid from 'rehype-mermaid';
+import { rehypeMermaid } from './src/plugins/rehype-mermaid.mjs';
 
 import mdx from "@astrojs/mdx";
 
@@ -27,7 +27,7 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
     rehypePlugins: [
-        [rehypeMermaid, { strategy: 'img-svg' } as any] as any,
+        rehypeMermaid,
         [
           rehypePrism,
 	  {
