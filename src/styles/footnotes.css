@@ -1,5 +1,5 @@
 .footnotes hr {
-  border-color: theme('colors.gray.200');
+  border-color: var(--color-gray-200);
   @apply dark:border-gray-700;
 }
 
