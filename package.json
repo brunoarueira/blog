@@ -12,7 +12,8 @@
     "start": "astro dev",
     "build": "astro check && astro build && node scripts/alias-sitemap.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "snapshots": "node scripts/visual-snapshots.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",

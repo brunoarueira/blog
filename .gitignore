@@ -32,3 +32,6 @@ vale/styles
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# visual regression snapshots (scripts/visual-snapshots.mjs)
+.visual-snapshots/
