@@ -46,7 +46,16 @@
   a {
     @apply text-black dark:text-white;
   }
+}
 
+/*
+ * a:hover stays out of the base layer on purpose. In v3 its specificity
+ * (0,1,1) beat single-class utilities such as `no-underline` (header and
+ * footer links rely on that for the hover underline), while `hover:*`
+ * utilities (0,2,0) still won. Sharing the utilities layer keeps that
+ * specificity contest; in base, every utility would override it.
+ */
+@layer utilities {
   a:hover {
     @apply underline;
     text-decoration-color: var(--color-gold-900);

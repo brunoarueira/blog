@@ -113,6 +113,39 @@ async function capture(outDir) {
           }
           return result
         }, styleProps)
+
+        // Hover states don't show up in a static capture, so hover every
+        // visible link (desktop only) and record its styles while hovered.
+        if (viewportName === 'desktop') {
+          await page.addStyleTag({ content: '*, *::before, *::after { transition: none !important; }' })
+          const hovered = {}
+          const links = page.locator('body a')
+          for (let i = 0; i < await links.count(); i++) {
+            const link = links.nth(i)
+            if (!(await link.isVisible())) continue
+            try {
+              await link.hover({ timeout: 1000 })
+            } catch {
+              continue
+            }
+            Object.assign(hovered, await link.evaluate((el, props) => {
+              const parts = []
+              for (let node = el; node && node !== document.documentElement; node = node.parentElement) {
+                const index = [...node.parentElement.children].indexOf(node) + 1
+                parts.unshift(`${node.tagName.toLowerCase()}:nth-child(${index})`)
+              }
+              const computed = getComputedStyle(el)
+              return {
+                [parts.join('>')]: {
+                  label: `a${el.classList.length ? `.${[...el.classList].join('.')}` : ''}:hover`,
+                  styles: Object.fromEntries(props.map((prop) => [prop, computed.getPropertyValue(prop)])),
+                },
+              }
+            }, styleProps))
+          }
+          styles[`${variant} ${pagePath} :hover`] = hovered
+          await page.mouse.move(0, 0)
+        }
       }
 
       await context.close()
@@ -122,7 +155,7 @@ async function capture(outDir) {
   await browser.close()
   server.close()
   await writeFile(path.join(outDir, 'styles.json'), JSON.stringify(styles))
-  console.log(`[snapshots] captured ${pages.length} pages x ${Object.keys(styles).length / pages.length} variants into ${outDir}`)
+  console.log(`[snapshots] captured ${pages.length} pages x ${Object.keys(styles).length / pages.length} variants (incl. hover) into ${outDir}`)
 }
 
 async function compare(beforeDir, afterDir) {
