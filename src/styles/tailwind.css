@@ -20,6 +20,12 @@
 @theme {
   --breakpoint-xs: 22.5rem; /* 360px */
 
+  /*
+   * v3's default sans stack; v4 switched to -apple-system/Roboto/Arial. Only
+   * the 404 sees it, every other page uses Source Sans Pro (globals.css).
+   */
+  --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+
   /* v4's palette is oklch; pin the v3 hex grays we use so colors stay exact. */
   --color-gray-100: #f3f4f6;
   --color-gray-200: #e5e7eb;
