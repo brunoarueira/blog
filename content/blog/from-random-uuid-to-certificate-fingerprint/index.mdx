@@ -1,0 +1,112 @@
+---
+title: 'From Random UUID to Certificate Fingerprint: Giving Mesh Nodes a Real Identity'
+slug: from-random-uuid-to-certificate-fingerprint
+date: '2026-11-03'
+tags: ['rust', 'distributed-systems', 'networking', 'security', 'peer-to-peer']
+---
+
+[The last thoth-mesh post](/blog/when-both-sides-dial-first) ended on an admission. Gossip discovery had a node dial any address a peer claimed belonged to some `PeerId`, and nothing checked that claim. A misconfigured peer, or a malicious one, could hand every other node in the mesh a list of addresses to connect to, and they would. I called it an accepted limitation with a trust boundary coming later. This post is that boundary.
+
+[thoth-mesh](https://github.com/brunoarueira/thoth-mesh) is a federated publish/subscribe system I am building to go deep on Rust: async networking, concurrency, protocol design, distributed systems. It is a Cargo workspace of several crates, all pre-1.0, with the wire protocol and public APIs explicitly marked unstable. It is a real, working system with real decisions behind it, but it is a learning project, not something you should run in production.
+
+The decision here is about identity: where a node's `PeerId` comes from, and what the rest of the system is allowed to believe about it.
+
+## What the mesh would believe
+
+Before this change, a `PeerId` was a random UUID a node generated for itself at startup and announced during the handshake. It was an opaque, totally ordered value, which was all the discovery tie-break needed from it, and nothing more.
+
+Nothing tied that value to anything. A node said "I am `PeerId` X" and the mesh wrote it down. Two consequences followed:
+
+- **Identity was a claim.** Any node could present any id. Impersonating another node was a matter of copying its UUID out of a log.
+- **Discovery was unverified.** A `PeerAnnounce` carried `PeerAdvert { peer_id, listen_addr }` entries for peers you were not connected to. You acted on them by dialing. No step in that path made the thing you reached prove it was the peer you were told about.
+
+Neither mattered while every link came from a hand-written `--peer` flag. Gossip auto-dial turned "you have to go out of your way to point nodes at bad addresses" into "any peer can do it to you."
+
+## Identity you derive instead of declare
+
+There is now a way to compute a `PeerId` from a TLS certificate (ADR 0038). Every peer and client connection can run over TLS (ADR 0016), with one self-signed CA per mesh and a leaf certificate issued to each node, so a node that dials a peer always presents its certificate and proves possession of the matching key.
+
+`PeerId::from_fingerprint` takes the SHA-256 digest of that certificate's raw bytes and packs the first 16 into a UUID:
+
+```rust
+pub fn from_fingerprint(fingerprint: [u8; 32]) -> Self {
+    let mut bytes = [0u8; 16];
+    bytes.copy_from_slice(&fingerprint[..16]);
+    Self(uuid::Builder::from_custom_bytes(bytes).into_uuid())
+}
+```
+
+It is deterministic: the same certificate always derives the same id. Truncating 256 bits of hash to 128 costs collision resistance in principle and nothing in practice at any realistic peer count. The bytes are packed as an RFC 9562 version-8 UUID, a version reserved for exactly this, and distinct from the version-7 UUID that a self-assigned `PeerId::new()` still uses. A derived identity is visibly different from a declared one by its version nibble alone.
+
+When a node runs with its own certificate, its `node_id` comes from this function instead of a fresh random UUID. A useful side effect: identity is now stable across restarts, as long as the certificate is.
+
+None of this disturbed the discovery tie-break from the last post:
+
+```rust
+fn we_should_dial(node_id: PeerId, peer_id: PeerId) -> bool {
+    node_id < peer_id
+}
+```
+
+`PeerId` is still a `Uuid` newtype with a total order. The comparison never cared whether the value was a UUID or a hash, only that both sides computed the same order over the same two values. The wire format did not change either.
+
+## Two mechanisms on one primitive
+
+Deriving your own identity is separate from deciding whose identity to trust, and the second mechanism landed first.
+
+`--allow-peer` (ADR 0017) is an allowlist keyed on the raw SHA-256 fingerprint of a peer's leaf certificate. It could not be keyed on `PeerId`, because when that ADR was written a `PeerId` was a per-startup random UUID and an allowlist of those would need re-editing on every restart of every node. The fingerprint survives restarts. It is what an operator can pin.
+
+When a `Hello` is processed, on either side of the link, the connection's certificate fingerprint is checked against the configured set. A link whose certificate is not on the allowlist, or that presented no certificate at all, is rejected. Absent `--allow-peer` entirely, the check does not run and behavior is unchanged.
+
+So there are two things standing on the same primitive. ADR 0038 turns a fingerprint into a name. ADR 0017 decides which fingerprints are allowed to be peers at all. Both compute from the certificate the connection already proved.
+
+## The announcement is a hint, the handshake is the proof
+
+There is still no signature on a `PeerAnnounce`, and it does not need one.
+
+A gossiped `PeerAdvert` is never checked against anything. The structure that records it, `PeerDirectory`, answers only "have I heard of this peer before"; it is deliberately not a trust boundary, and `Membership`, the actual source of truth for who is reachable, never reads it. The gossiped `peer_id` is used for one thing: feeding `we_should_dial` to decide whether to attempt a dial. It is unverified at that point, and that is fine, because attempting a dial is all it gates.
+
+What happens after the dial is where trust lives. An auto-dial runs `connect_and_handshake` and then `admit_initial_peer`, the same authenticated path any `--peer` seed dial takes. Whoever answers is registered under the identity their own certificate derives, not the one the advertisement named. If an allowlist is configured and that fingerprint is not on it, the link gets a `MessageKind::Error` and is closed, registering nothing. `MessageKind::Error` has existed in the protocol since the beginning and this is the first thing that ever sends one.
+
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as gossip source
+    participant X as whoever answers
+    B-->>A: PeerAnnounce([PeerAdvert{peer_id, addr}])
+    Note over A: we_should_dial(node_id, peer_id)?<br/>peer_id unverified, only gates the attempt
+    A->>X: dial addr, mutual TLS handshake
+    X-->>A: leaf certificate
+    Note over A: identity := PeerId::from_fingerprint(cert)<br/>any claimed id is overridden
+    alt fingerprint allowed (or no allowlist set)
+        A->>A: register in Membership under the authenticated identity
+    else fingerprint not allowed
+        A-->>X: Error, then close; nothing registered
+    end
+```
+
+A poisoned advertisement, then, costs a wasted connection attempt and nothing else. It cannot get a fake peer into `Membership`, because the only way to be registered under a given authenticated `PeerId` is to hold the key that derives it. An impersonator connects as themselves, next to the real peer's untouched entry, never in place of it.
+
+## When the claim and the certificate disagree
+
+The handshake still carries a `PeerId` field. A connection can present certificate fingerprint X and write id Y into that field.
+
+`authenticated_sender` resolves it: if the connection has a fingerprint, the identity is `PeerId::from_fingerprint` of that fingerprint, and a claim that disagrees is overridden. A `tracing::warn!` logs both values. The connection proceeds under the authenticated one. It runs once per frame in the read loop, so `Hello`, `Publish`, `Subscribe`, `Unsubscribe`, and `StatusRequest` are all covered by the same line, and a corrected `Publish` sender is what gets broadcast downstream. It runs once more in `admit_initial_peer`, the one identity the per-frame path cannot reach.
+
+Rejecting the mismatch was the obvious choice, matching how an unlisted allowlist certificate is handled. It is the wrong default here. After ADR 0038, a node's claimed and derived ids are equal by construction, so in normal operation a mismatch means the other side is on a build from before that change: a real certificate, still self-reporting a random UUID, exactly as every build did until recently. Rejecting cannot tell that apart from an attack, and would turn an ordinary rolling upgrade into a hard outage for every not-yet-upgraded participant. Silent correction closes the security gap either way, since the impersonator's claim is simply never honored, without the collateral damage.
+
+## What is still missing
+
+The allowlist is static configuration, and fingerprint pinning means certificate rotation invalidates every entry naming the old fingerprint, across every node. There is no enrollment flow and no CA rotation story.
+
+It is also opt-in. Without `--allow-peer`, TLS on its own does not gate admission: a CA-signed connection, and in fact a connection with no client certificate at all, is still treated as a peer for having reached the port and sent a `Hello`.
+
+And transitive verification is unsolved on purpose. Proving a claim about a peer you are not directly connected to is a genuinely harder problem than authenticating a direct link, and nothing about mesh correctness depends on it, so gossip stays unverified and `Membership` stays the only thing that decides who is really there.
+
+## What this says about identity in distributed systems
+
+The change is the same move as the tie-break from the last post, one layer down. There, two nodes needed a consistent decision without coordinating, so the decision became a function of values both already held. Here, a node needs an identity the rest of the mesh can trust without an authority to ask, so the identity becomes a function of a value anyone can compute: the hash of the certificate the node just used.
+
+A declared identifier requires you to trust whoever declared it. A derived one requires you to trust a computation you can run yourself. That is why the pattern recurs. SSH host keys, TLS, content-addressed storage, Git commit hashes: in each, the name is a commitment to a value, not a label issued by someone you have to believe. Impersonation stops being a matter of copying a string and becomes a matter of breaking a hash.
+
+The [repo](https://github.com/brunoarueira/thoth-mesh) has ADRs 0016 through 0018 and 0038 through 0040 with the reasoning in its original form, including the alternatives I turned down.
