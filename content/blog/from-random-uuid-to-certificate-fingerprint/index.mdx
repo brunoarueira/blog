@@ -81,7 +81,7 @@ sequenceDiagram
     alt fingerprint allowed (or no allowlist set)
         A->>A: register in Membership under the authenticated identity
     else fingerprint not allowed
-        A-->>X: Error, then close; nothing registered
+        A-->>X: Error, then close#59; nothing registered
     end
 ```
 
