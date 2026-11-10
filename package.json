@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.4",
-    "astro": "7.4.4",
+    "astro": "7.4.7",
     "astro-feather": "^1.0.0",
-    "mermaid": "^12.2.0",
+    "mermaid": "^12.3.0",
     "mini-svg-data-uri": "^1.4.4",
     "reading-time": "^1.5.0",
     "rehype-external-links": "^3.0.0",
@@ -32,17 +32,17 @@
     "@astrojs/rss": "4.0.19",
     "@fontsource/source-code-pro": "^5.3.1",
     "@fontsource/source-sans-pro": "^5.3.0",
-    "@tailwindcss/vite": "^4.3.3",
+    "@tailwindcss/vite": "^4.3.5",
     "@types/node": "^26.6.6",
     "markdown-it": "^15.0.3",
     "mdast-util-to-string": "^4.0.0",
-    "playwright": "^1.64.1",
+    "playwright": "^1.65.0",
     "prism-themes": "^1.9.0",
     "prismjs": "^1.30.0",
     "sharp-ico": "^0.1.5",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "vite": "^8.3.5"
+    "vite": "^8.3.6"
   },
   "packageManager": "yarn@1.22.22",
   "dependenciesMeta": {
