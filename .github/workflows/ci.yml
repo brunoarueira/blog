@@ -19,9 +19,14 @@ jobs:
 
     - name: Vale
       uses: vale-cli/vale-action@518a9136acc6e6668ce7c00d367051e0941e87ff # v3.0.0
+      # This check is advisory (fail_on_error defaults to false, no fail_level
+      # is set), so a transient failure to reach GitHub's diff API shouldn't
+      # block a PR either: reviewdog exits 1 on that error regardless of
+      # fail_on_error, so without continue-on-error this step can fail a PR
+      # on infra flakiness alone, with no actual Vale finding behind it.
+      continue-on-error: true
       with:
         files: content/blog/
-        onlyAnnotateModifiedLines: true
 
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
