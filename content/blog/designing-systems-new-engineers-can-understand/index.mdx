@@ -1,0 +1,54 @@
+---
+title: 'Designing Systems That New Engineers Can Understand'
+slug: designing-systems-new-engineers-can-understand
+date: '2026-11-24'
+tags: ['architecture', 'software-engineering', 'engineering', 'onboarding']
+---
+
+A new hire gets handed a customer and opens the repo cold. Nobody who built the integration is in the room. They have the code, whatever documentation exists, and however long it takes.
+
+I run a version of the same test on myself, except my system usually passes it. [xlq](https://github.com/brunoarueira/xlq), my own CLI, sits untouched for a few weeks while day-job work takes over, and when I come back to a part of it I haven't touched since, I still spend a few minutes reorienting. That part never goes away. But it is minutes, not days, and specifically because the reasoning behind every real decision is written down instead of living only in whatever I happened to remember.
+
+Both are the same test: can someone who was not there reconstruct what a system does and why, without asking the person who built it. One of these systems failed that test for years before anyone measured what it cost. The other was built to pass it starting from its very first decision. The gap between them is a short list of concrete choices, and this post is about what they were.
+
+Failing the test is the expensive version of a problem [Why Every Integration Needs an Owner](/blog/why-every-integration-needs-an-owner) already covered from a different angle. That post was about who answers when something breaks. This one is about how much a new engineer, or a forgetful future you, has to ask at all.
+
+## What "understandable" means, operationally
+
+Not "well-written." Well-written is a matter of taste, and people will always disagree about it. Understandable is testable: hand the system to someone who was not there, and see how far they get before they have to interrupt someone.
+
+That framing matters because it turns legibility into a cost you can compare against the alternative, instead of a virtue you feel good about. [Reducing the Bus Factor with AI-Assisted Engineering](/blog/reducing-the-bus-factor-with-ai-assisted-engineering) covered the integrations platform I built because of that cost: before it existed, documenting one customer's integrations from scratch took two engineers about two and a half weeks. That number is not a documentation problem. It is the price of a system nobody could read without the person who wrote it, paid in full, every time someone new needed to touch it.
+
+## Naming, layering, and the cost of cleverness
+
+A name should answer "what does this do" before anyone opens the file. The integrations platform's agents are named for the one thing each does: discovery, documentation, work-tracking, implement-go-otel, implement-ruby-kestra, verification. None of those names are clever, and that was deliberate. The first design used a single agent for discovery, documentation, and implementation together, and it was rejected specifically because responsibilities blurred, prompts got harder to maintain, and a failure in one stage was harder to retry without repeating the others.
+
+One of the more surprising findings from building that system: repository organization mattered more than prompt changes. Consistent naming conventions and clear project structure gave the agents, and by extension anyone reading what they produced, reliable signals to reason about. That turned out to be a bigger lever than refining what was asked of the model.
+
+I run into the same instinct at a much smaller scale in xlq, my own CLI. Its packages are named for what they read, not how: `internal/xlsx`, `internal/ods`, `internal/csv`, `internal/filter`, `internal/output`. When xlq needed its own worksheet reader (ADR 0048), it didn't invent a new strategy; it reused the direct-XML-streaming approach `internal/ods` already used for ODS files (ADR 0010), because the shape of the problem was already solved and already named.
+
+Cleverness costs someone later, and it is rarely the person who wrote it. They already hold the whole system in their head, so the shortcut looks free to them; whoever has to reconstruct that context from nothing pays for it instead.
+
+## Making the runtime visible
+
+Code shows what a system does right now. It does not show why, and reconstructing the why from the what is most of what makes an unfamiliar system slow to learn.
+
+The integrations platform's answer to that is the evidence pack: a YAML document produced by a discovery agent, where every claim about how an integration works is traceable to the artifact that produced it, a repository, a deployment manifest, a scheduled job. It was deliberately not a trust-the-agent system; a downstream reader gets the evidence instead of a claim to take on faith, and whatever the discovery agent couldn't resolve stays explicitly open rather than getting papered over with a confident guess. The practice only showed up after that cost became impossible to ignore.
+
+I keep a smaller-scale version of the same principle in xlq, with Architecture Decision Records: 50 of them as of this post, one per real decision, in the lightweight Nygard format of context, decision, consequences. Its very first ADR, written before almost any code existed, is the decision to keep ADRs at all, before there was anything yet to regret not documenting.
+
+Both share one property: neither requires trusting a person's memory. A reviewer reading an evidence pack can check the claim against what produced it. One example on the ADR side: [ADR 0019](https://github.com/brunoarueira/xlq/blob/main/docs/adr/0019-correct-adr-0018-streaming-reader-claims.md) exists purely to correct six inaccuracies a review caught in an earlier one.
+
+## Measuring whether it worked
+
+Legibility is easy to claim and easy to fake, so it needs a test that does not rely on how the system's own author feels about it.
+
+For a team, the honest proxy is whether a new engineer can diagnose an incident using only the runbook and the docs, without needing whoever built the integration to explain it from memory. The owner still gets paged. That's a different job: deciding whether to roll back, what to tell the customer. But every time diagnosis itself depends on someone's memory instead of what's written down, legibility failed somewhere specific, and that specific gap is worth writing down rather than shrugging off as normal.
+
+For a solo project, the same test runs at a sample size of one: can I put xlq down for a few weeks and pick it back up without reconstructing a decision from scratch. The ADR log is what makes that answer usually yes. I do not remember, off the top of my head, why xlq's worksheet reader resolves shared strings itself instead of calling into the library it already depends on for everything else. ADR 0048 does: that library's own resolver is unexported, so there was no cheaper path available, and reimplementing it was the only option.
+
+## Final thoughts
+
+Ownership answers who to page. Legibility answers how much they need to explain once paged. Get both right, and the person who built the system becomes optional, not required.
+
+That two and a half weeks was the cost of getting neither right, for years, before anyone measured it. Every choice since, naming things for what they do, splitting responsibilities along lines a person can hold in their head, writing an ADR instead of trusting memory, has been paying it down.
