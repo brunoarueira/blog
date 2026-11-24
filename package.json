@@ -16,8 +16,8 @@
     "snapshots": "node scripts/visual-snapshots.mjs"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.5",
-    "astro": "7.4.12",
+    "@astrojs/sitemap": "^3.7.6",
+    "astro": "7.4.13",
     "astro-feather": "^1.0.0",
     "mermaid": "^12.3.0",
     "mini-svg-data-uri": "^1.4.4",
